@@ -61,7 +61,6 @@ This is a standard social media sharing link designed to:
 1. Promote the `#BitcoinForTheYoung` hashtag  
 2. Encourage user participation  
 3. Drive traffic to `BitcoinForTheYoung.com`  
-4. Use lightning emoji ⚡️ to imply Bitcoin/Lightning Network association  
 
 ### Implementation Example  
 ```html
