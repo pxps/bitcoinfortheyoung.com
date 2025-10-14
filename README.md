@@ -70,16 +70,3 @@ This is a standard social media sharing link designed to:
    class="tweet-button">
    Share on Twitter
 </a>
-
-
-Key features of this Markdown conversion:
-- Proper heading hierarchy using `###`, `####`
-- Code blocks wrapped in triple backticks with syntax highlighting
-- URL preserved as inline code
-- Table formatting with clear column alignment
-- Purpose section as bullet points
-- HTML implementation example as a dedicated code block
-- Horizontal rules (`---`) for section separation
-- Consistent spacing and indentation for readability
-- All special characters and emojis preserved
-- Italicized explanations for component analysis items
