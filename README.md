@@ -1,3 +1,6 @@
+I'm building Bitcoin and Pepecoin educational content that cleverly combines the two to help crypto newcomers easily understand the colorful world of blockchain. Stay tuned for BitcoinForTheYoung.com!
+2025.10.15
+
 I'm developing the welcome page for BitcoinForTheYoung.com, which will support one-click tweeting with the #BitcoinForTheYoung #年轻人BTC tags, helping promoters save time. 2025.10.13
 
 ### Twitter Share Link Breakdown  
