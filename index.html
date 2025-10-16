@@ -370,6 +370,35 @@
             transform: translateY(-3px);
             box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4);
         }
+
+        .vote-btn {
+            /* 保持原有按钮样式 */
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50; /* 改为投票主题的绿色 */
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .vote-btn:hover {
+            background: #3d8b40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* 保持原有脉冲动画 */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+        
     </style>
 </head>
 <body>
@@ -442,6 +471,17 @@
                         <a href="https://BitcoinForTheYoung.com" style="color: #f7931a; text-decoration: none;">BitcoinForTheYoung.com</a>
                     </p>
                 </div>
+
+                <p>Vote on Capitoday every day!</p>
+                <!-- 按钮容器 -->
+                <div class="buttons-container">
+                    <!-- 投票按钮 -->
+                    <a href="https://capitoday.com/meme/pepecoin-network" 
+                    class="action-btn vote-btn pulse" target="_blank">
+                        <i class="fas fa-vote-yea"></i> Vote Now
+                    </a>
+                </div>
+                
             </div>
         </div>
         
@@ -530,5 +570,6 @@
 </body>
 
 </html>
+
 
 
