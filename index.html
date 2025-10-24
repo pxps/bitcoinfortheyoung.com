@@ -313,7 +313,7 @@
             animation: pulse 2s infinite;
         }
         
-        .bitcoin-chart {
+        /* .bitcoin-chart {
             width: 100%;
             height: 200px;
             margin: 20px 0;
@@ -321,7 +321,7 @@
             overflow: hidden;
             border-radius: 10px;
             background: rgba(15, 25, 45, 0.5);
-        }
+        } */
         
         .chart-line {
             position: absolute;
@@ -422,18 +422,12 @@
         </header>
         
         <!-- 比特币图表区域 -->
-        <!-- <div class="bitcoin-chart"> -->
         <div class="bitcoin-chart">
             <!-- SVG绘制的比特币价格趋势图 -->
-            <!-- <svg class="chart-line" viewBox="0 0 500 200" preserveAspectRatio="none"> -->
+            <svg class="chart-line" viewBox="0 0 500 200" preserveAspectRatio="none">
                 <!-- 路径数据模拟价格波动 -->
-                <!-- <path d="M0,170 C50,100 100,140 150,120 C200,100 250,160 300,130 C350,100 400,150 450,120 C500,90 500,90 500,90" />
-            </svg> -->
-            <div class="bitcoin-chart">
-                <img src="surf1.jpg" alt="海滩冲浪" class="surf">
-            </div>
-            </div>
-        </div>
+                <path d="M0,170 C50,100 100,140 150,120 C200,100 250,160 300,130 C350,100 400,150 450,120 C500,90 500,90 500,90" />
+            </svg>
         </div>
         
         <!-- 主要内容区域 -->
