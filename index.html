@@ -399,9 +399,160 @@
             100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
         }
         
+        /* 语言选择器样式 */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-btn {
+            background: rgba(25, 35, 60, 0.9);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .language-btn:hover {
+            background: rgba(247, 147, 30, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(25, 35, 60, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 180px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .language-dropdown.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .language-option {
+            padding: 12px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .language-option:hover {
+            background: rgba(247, 147, 30, 0.3);
+        }
+        
+        .language-flag {
+            font-size: 1.2rem;
+        }
+        
+        .language-name {
+            font-size: 0.9rem;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .rtl {
+            direction: rtl;
+        }
+        
+        @media (max-width: 480px) {
+            .language-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .language-dropdown {
+                width: 160px;
+            }
+            
+            .language-option {
+                padding: 10px 15px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <div class="language-btn" id="langToggle">
+            <i class="fas fa-globe"></i>
+        </div>
+        <div class="language-dropdown" id="languageDropdown">
+            <div class="language-option" data-lang="en">
+                <span class="language-flag">🇺🇸</span>
+                <span class="language-name">English</span>
+            </div>
+            <div class="language-option" data-lang="zh">
+                <span class="language-flag">🇨🇳</span>
+                <span class="language-name">中文 (Chinese)</span>
+            </div>
+            <div class="language-option" data-lang="es">
+                <span class="language-flag">🇪🇸</span>
+                <span class="language-name">Español (Spanish)</span>
+            </div>
+            <div class="language-option" data-lang="hi">
+                <span class="language-flag">🇮🇳</span>
+                <span class="language-name">हिन्दी (Hindi)</span>
+            </div>
+            <div class="language-option" data-lang="ar">
+                <span class="language-flag">🇸🇦</span>
+                <span class="language-name">العربية (Arabic)</span>
+            </div>
+            <div class="language-option" data-lang="pt">
+                <span class="language-flag">🇵🇹</span>
+                <span class="language-name">Português (Portuguese)</span>
+            </div>
+            <div class="language-option" data-lang="ru">
+                <span class="language-flag">🇷🇺</span>
+                <span class="language-name">Русский (Russian)</span>
+            </div>
+            <div class="language-option" data-lang="ja">
+                <span class="language-flag">🇯🇵</span>
+                <span class="language-name">日本語 (Japanese)</span>
+            </div>
+            <div class="language-option" data-lang="fr">
+                <span class="language-flag">🇫🇷</span>
+                <span class="language-name">Français (French)</span>
+            </div>
+            <div class="language-option" data-lang="de">
+                <span class="language-flag">🇩🇪</span>
+                <span class="language-name">Deutsch (German)</span>
+            </div>
+        </div>
+    </div>
+    
     <!-- 加密货币背景图案 -->
     <div class="crypto-bg"></div>
     
@@ -418,7 +569,9 @@
                 </h1>
             </div>
             <!-- 标语 -->
-            <!-- <p class="slogan"><span>Forever Passionate, Forever Young!</span></p> -->
+            <!-- <p class="slogan" id="slogan">
+                <span>Forever Passionate, Forever Young!</span>
+            </p> -->
         </header>
         
         <!-- 比特币图表区域 -->
@@ -434,35 +587,35 @@
         <div class="main-content">
             <!-- 左侧信息卡片：口号 -->
             <div class="info-card">
-                <h2><i class="fas fa-hashtag"></i> Our Slogan</h2>
-                <p>Click Tweet Now below, and it will automatically fill the slogan into the tweet!</p>
+                <h2><i class="fas fa-hashtag"></i> <span id="sloganTitle">Our Slogan</span></h2>
+                <p id="sloganDesc">Click Tweet Now below, and it will automatically fill the slogan into the tweet!</p>
                 <!-- 高亮显示的口号 -->
                 <div class="highlight">
                     <p style="font-size: 1.8rem; text-align: center; font-weight: 700; color: #f7931a;">
                         #BitcoinForTheYoung
                     </p>
                 </div>
-                <P>We honor passionate souls plunging into their loves. Forever Passionate, Forever Young!</P>
+                <p id="sloganText">We honor passionate souls plunging into their loves. Forever Passionate, Forever Young!</p>
                 
                 <!-- 按钮容器 -->
                 <div class="buttons-container">
                     <!-- 推特分享按钮 -->
                     <a href="https://twitter.com/intent/tweet?text=%23BitcoinForTheYoung%20%0AJoin%20the%20movement!%20%E2%9A%A1%EF%B8%8F%0ABitcoinForTheYoung.com%20%0A" 
                        class="action-btn tweet-btn pulse" target="_blank">
-                        <i class="fab fa-twitter"></i> Tweet Now
+                        <i class="fab fa-twitter"></i> <span id="tweetBtn">Tweet Now</span>
                     </a>
                     
                     <!-- 学习按钮 -->
                     <a href="https://bitcointalk.org/index.php?topic=5483505.0" class="action-btn learn-btn">
-                        <i class="fas fa-book"></i> Learn Pepecoin
+                        <i class="fas fa-book"></i> <span id="learnBtn">Learn Pepecoin</span>
                     </a>
                 </div>
             </div>
             
             <!-- 右侧信息卡片：愿景 -->
             <div class="info-card">
-                <h2><i class="fas fa-bullseye"></i> Our Vision</h2>
-                <p>In the near future, our pond will become the center and focus of the entire cryptocurrency market. Bitcoin for the young！</p>
+                <h2><i class="fas fa-bullseye"></i> <span id="visionTitle">Our Vision</span></h2>
+                <p id="visionText">In the near future, our pond will become the center and focus of the entire cryptocurrency market. Bitcoin for the young！</p>
     
                 
                 <!-- 高亮显示的链接 -->
@@ -472,13 +625,13 @@
                     </p>
                 </div>
 
-                <p>Vote on Capitoday every day!</p>
+                <p id="voteText">Vote on Capitoday every day!</p>
                 <!-- 按钮容器 -->
                 <div class="buttons-container">
                     <!-- 投票按钮 -->
                     <a href="https://capitoday.com/meme/pepecoin-network" 
                     class="action-btn vote-btn pulse" target="_blank">
-                        <i class="fas fa-vote-yea"></i> Vote Now
+                        <i class="fas fa-vote-yea"></i> <span id="voteBtn">Vote Now</span>
                     </a>
                 </div>
                 
@@ -487,7 +640,7 @@
         
         <!-- 社区链接区域 -->
         <div class="link-section">
-            <h2><i class="fas fa-link"></i> Community Links</h2>
+            <h2><i class="fas fa-link"></i> <span id="communityTitle">Community Links</span></h2>
             <!-- 链接网格布局 -->
             <div class="links-grid">
 
@@ -495,7 +648,7 @@
                 <a href="http://pepecoin.com" class="community-link" target="_blank">
                     <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                     <div class="link-text">
-                        <h3>Official Website</h3>
+                        <h3 id="officialWebsite">Official Website</h3>
                         <p>Pepecoin.com</p>
                     </div>
                 </a>
@@ -540,7 +693,7 @@
                 <a href="https://t.me/PepecoinChineseGroup" class="community-link chinese-link" target="_blank">
                     <div class="link-icon"><i class="fas fa-users" style="color: #f7931a;"></i></div>
                     <div class="link-text">
-                        <h3>PEP中文社区</h3>
+                        <h3 id="chineseCommunity">PEP中文社区</h3>
                         <p></p>
                     </div>
                 </a>
@@ -558,7 +711,7 @@
                 <a href="https://share.envo.social/?channelCode=Envo&type=1&id=63ov7ws2k&i18n=zh" class="community-link chinese-link" target="_blank">
                     <div class="link-icon"><i class="fas fa-users" style="color: #82c8e1;"></i></div>
                     <div class="link-text">
-                        <h3>PEP中文社区(Envo)</h3>
+                        <h3 id="chineseEnvo">PEP中文社区(Envo)</h3>
                         <p></p>
                     </div>
                 </a>
@@ -567,7 +720,7 @@
 
             <!-- 社区链接区域 -->
             <div class="link-section">
-                <h2><i class="fas fa-link"></i> Blockchain Education</h2>
+                <h2><i class="fas fa-link"></i> <span id="educationTitle">Blockchain Education</span></h2>
                 <!-- 链接网格布局 -->
                 <div class="links-grid">
     
@@ -575,7 +728,7 @@
                     <a href="https://educate.bitcoinfortheyoung.com/" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-graduation-cap" style="color: #9ac0d6;"></i></div>
                         <div class="link-text">
-                            <h3>Bitcoin Education </h3>
+                            <h3 id="bitcoinEdu">Bitcoin Education</h3>
                             <p>Learn Bitcoin</p>
                         </div>
                     </a>
@@ -583,7 +736,7 @@
                     <a href="https://download.bitcoinfortheyoung.com/" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-graduation-cap" style="color: #dba334;"></i></div>
                         <div class="link-text">
-                            <h3>PEP新人手册</h3>
+                            <h3 id="pepGuide">PEP新人手册</h3>
                             <p></p>
                         </div>
                     </a>   
@@ -594,7 +747,7 @@
 
             <!-- 友好链接区域 -->
             <div class="link-section">
-                <h2><i class="fas fa-link"></i> Friendly Links</h2>
+                <h2><i class="fas fa-link"></i> <span id="friendlyTitle">Friendly Links</span></h2>
                 <!-- 链接网格布局 -->
                 <div class="links-grid">
 
@@ -602,7 +755,7 @@
                     <a href="http://bellscoin.com" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
-                            <h3>Bellscoin Community</h3>
+                            <h3 id="bellsCoin">Bellscoin Community</h3>
                             <p>Bellscoin.com</p>
                         </div>
                     </a>
@@ -610,7 +763,7 @@
                     <a href="http://bit.com" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
-                            <h3>BIT Crypto Exchange</h3>
+                            <h3 id="bitExchange">BIT Crypto Exchange</h3>
                             <p>Bit.com</p>
                         </div>
                     </a>
@@ -623,15 +776,309 @@
     
 <!-- 页脚部分 -->
 <footer>
-    <p class="copyright">© 2025 Bitcoin For The Young Community | Follow me on 
+    <p class="copyright">© 2025 Bitcoin For The Young Community | <span id="followText">Follow me on</span> 
         <a href="https://x.com/nlaoshicom" target="_blank">Twitter</a> | 
         <a href="https://github.com/pxps/bitcoinfortheyoung.com" target="_blank">Github</a>
     </p>
-    <!-- <p class="copyright">Empowering youth through blockchain education</p> -->
 </footer>
+</div> <!-- 容器结束 -->
+
+<script>
+    // 语言翻译数据
+    const translations = {
+        'en': {
+            'slogan': 'Forever Passionate, Forever Young!',
+            'sloganTitle': 'Our Slogan',
+            'sloganDesc': 'Click Tweet Now below, and it will automatically fill the slogan into the tweet!',
+            'sloganText': 'We honor passionate souls plunging into their loves. Forever Passionate, Forever Young!',
+            'tweetBtn': 'Tweet Now',
+            'learnBtn': 'Learn Pepecoin',
+            'visionTitle': 'Our Vision',
+            'visionText': 'In the near future, our pond will become the center and focus of the entire cryptocurrency market. Bitcoin for the young！',
+            'voteText': 'Vote on Capitoday every day!',
+            'voteBtn': 'Vote Now',
+            'communityTitle': 'Community Links',
+            'officialWebsite': 'Official Website',
+            'chineseCommunity': 'PEP Chinese Community',
+            'chineseEnvo': 'PEP Chinese Community(Envo)',
+            'educationTitle': 'Blockchain Education',
+            'bitcoinEdu': 'Bitcoin Education',
+            'pepGuide': 'PEP Beginner\'s Guide',
+            'friendlyTitle': 'Friendly Links',
+            'bellsCoin': 'Bellscoin Community',
+            'bitExchange': 'BIT Crypto Exchange',
+            'followText': 'Follow me on'
+        },
+        'zh': {
+            'slogan': '永远热情，永远年轻！',
+            'sloganTitle': '我们的口号',
+            'sloganDesc': '点击下面的"立即推文"，它会自动将口号填入推文！',
+            'sloganText': '我们致敬那些投身所爱的热情灵魂。永远热情，永远年轻！',
+            'tweetBtn': '立即推文',
+            'learnBtn': '学习PEP',
+            'visionTitle': '我们的愿景',
+            'visionText': '在不久的将来，我们的池塘将成为整个加密货币市场的中心和焦点。比特币属于年轻一代！',
+            'voteText': '每天在Capitoday上投票！',
+            'voteBtn': '立即投票',
+            'communityTitle': '社区链接',
+            'officialWebsite': '官方网站',
+            'chineseCommunity': 'PEP中文社区',
+            'chineseEnvo': 'PEP中文社区(Envo)',
+            'educationTitle': '区块链教育',
+            'bitcoinEdu': '比特币教育',
+            'pepGuide': 'PEP新人手册',
+            'friendlyTitle': '友情链接',
+            'bellsCoin': 'Bellscoin社区',
+            'bitExchange': 'BIT加密货币交易所',
+            'followText': '关注我的'
+        },
+        'es': {
+            'slogan': '¡Siempre Apasionados, Siempre Jóvenes!',
+            'sloganTitle': 'Nuestro Lema',
+            'sloganDesc': '¡Haz clic en "Twittear Ahora" y se completará automáticamente el lema en el tweet!',
+            'sloganText': 'Honramos a las almas apasionadas que se sumergen en sus amores. ¡Siempre Apasionados, Siempre Jóvenes!',
+            'tweetBtn': 'Twittear Ahora',
+            'learnBtn': 'Aprender Pepecoin',
+            'visionTitle': 'Nuestra Visión',
+            'visionText': 'En un futuro próximo, nuestro estanque se convertirá en el centro y foco de todo el mercado de criptomonedas. ¡Bitcoin para los jóvenes!',
+            'voteText': '¡Vota en Capitoday todos los días!',
+            'voteBtn': 'Votar Ahora',
+            'communityTitle': 'Enlaces Comunitarios',
+            'officialWebsite': 'Sitio Web Oficial',
+            'chineseCommunity': 'Comunidad China PEP',
+            'chineseEnvo': 'Comunidad China PEP (Envo)',
+            'educationTitle': 'Educación Blockchain',
+            'bitcoinEdu': 'Educación Bitcoin',
+            'pepGuide': 'Guía para Principiantes PEP',
+            'friendlyTitle': 'Enlaces Amigables',
+            'bellsCoin': 'Comunidad Bellscoin',
+            'bitExchange': 'Exchange Cripto BIT',
+            'followText': 'Sígueme en'
+        },
+        'hi': {
+            'slogan': 'हमेशा जुनूनी, हमेशा जवान!',
+            'sloganTitle': 'हमारा नारा',
+            'sloganDesc': 'नीचे "ट्वीट करें" पर क्लिक करें, और यह स्वचालित रूप से ट्वीट में नारा भर देगा!',
+            'sloganText': 'हम उन जुनूनी आत्माओं को सम्मानित करते हैं जो अपने प्रेम में डूब जाते हैं। हमेशा जुनूनी, हमेशा जवान!',
+            'tweetBtn': 'अभी ट्वीट करें',
+            'learnBtn': 'पेपकोइन सीखें',
+            'visionTitle': 'हमारी दृष्टि',
+            'visionText': 'निकट भविष्य में, हमारा तालाब पूरे क्रिप्टोकरेंसी बाजार का केंद्र और फोकस बन जाएगा। युवाओं के लिए बिटकॉइन!',
+            'voteText': 'रोज कैपिटोडे पर वोट करें!',
+            'voteBtn': 'अभी वोट करें',
+            'communityTitle': 'समुदाय लिंक',
+            'officialWebsite': 'आधिकारिक वेबसाइट',
+            'chineseCommunity': 'पीईपी चीनी समुदाय',
+            'chineseEnvo': 'पीईपी चीनी समुदाय (एनवो)',
+            'educationTitle': 'ब्लॉकचेन शिक्षा',
+            'bitcoinEdu': 'बिटकॉइन शिक्षा',
+            'pepGuide': 'पीईपी शुरुआती गाइड',
+            'friendlyTitle': 'मित्रवत लिंक',
+            'bellsCoin': 'बेल्सकॉइन समुदाय',
+            'bitExchange': 'बीआईटी क्रिप्टो एक्सचेंज',
+            'followText': 'मुझे फॉलो करें'
+        },
+        'ar': {
+            'slogan': 'شغوف للأبد، شاب للأبد!',
+            'sloganTitle': 'شعارنا',
+            'sloganDesc': 'انقر على "تغريد الآن" وسيتم ملء الشعار تلقائيًا في التغريدة!',
+            'sloganText': 'نقدر النفوس الشغوفة التي تغوص في حبها. شغوف للأبد، شاب للأبد!',
+            'tweetBtn': 'تغريد الآن',
+            'learnBtn': 'تعلم Pepecoin',
+            'visionTitle': 'رؤيتنا',
+            'visionText': 'في المستقبل القريب، ستصبح بركتنا مركز وتركيز سوق العملات المشفرة بأكمله. بيتكوين للشباب!',
+            'voteText': 'صوت على Capitoday كل يوم!',
+            'voteBtn': 'صوت الآن',
+            'communityTitle': 'روابط المجتمع',
+            'officialWebsite': 'الموقع الرسمي',
+            'chineseCommunity': 'مجتمع بيب الصيني',
+            'chineseEnvo': 'مجتمع بيب الصيني (إنفو)',
+            'educationTitle': 'تعليم البلوكتشين',
+            'bitcoinEdu': 'تعليم البيتكوين',
+            'pepGuide': 'دليل المبتدئين لبيب',
+            'friendlyTitle': 'روابط صديقة',
+            'bellsCoin': 'مجتمع بيلسكوين',
+            'bitExchange': 'بورصة بت للعملات المشفرة',
+            'followText': 'تابعني على'
+        },
+        'pt': {
+            'slogan': 'Sempre Apaixonado, Sempre Jovem!',
+            'sloganTitle': 'Nosso Lema',
+            'sloganDesc': 'Clique em "Tweetar Agora" abaixo e ele preencherá automaticamente o lema no tweet!',
+            'sloganText': 'Honramos almas apaixonadas que mergulham em seus amores. Sempre Apaixonado, Sempre Jovem!',
+            'tweetBtn': 'Tweetar Agora',
+            'learnBtn': 'Aprender Pepecoin',
+            'visionTitle': 'Nossa Visão',
+            'visionText': 'Em um futuro próximo, nossa lagoa se tornará o centro e foco de todo o mercado de criptomoedas. Bitcoin para os jovens!',
+            'voteText': 'Vote no Capitoday todos os dias!',
+            'voteBtn': 'Votar Agora',
+            'communityTitle': 'Links da Comunidade',
+            'officialWebsite': 'Site Oficial',
+            'chineseCommunity': 'Comunidade Chinesa PEP',
+            'chineseEnvo': 'Comunidade Chinesa PEP (Envo)',
+            'educationTitle': 'Educação Blockchain',
+            'bitcoinEdu': 'Educação Bitcoin',
+            'pepGuide': 'Guia para Iniciantes PEP',
+            'friendlyTitle': 'Links Amigáveis',
+            'bellsCoin': 'Comunidade Bellscoin',
+            'bitExchange': 'Exchange de Cripto BIT',
+            'followText': 'Siga-me no'
+        },
+        'ru': {
+            'slogan': 'Всегда страстные, всегда молодые!',
+            'sloganTitle': 'Наш девиз',
+            'sloganDesc': 'Нажмите "Твитнуть сейчас", и он автоматически заполнит девиз в твите!',
+            'sloganText': 'Мы чтим страстные души, погружающиеся в свои увлечения. Всегда страстные, всегда молодые!',
+            'tweetBtn': 'Твитнуть сейчас',
+            'learnBtn': 'Изучить Pepecoin',
+            'visionTitle': 'Наше видение',
+            'visionText': 'В ближайшем будущем наш пруд станет центром и фокусом всего рынка криптовалют. Биткоин для молодых!',
+            'voteText': 'Голосуйте на Capitoday каждый день!',
+            'voteBtn': 'Голосовать сейчас',
+            'communityTitle': 'Ссылки сообщества',
+            'officialWebsite': 'Официальный сайт',
+            'chineseCommunity': 'Китайское сообщество PEP',
+            'chineseEnvo': 'Китайское сообщество PEP (Envo)',
+            'educationTitle': 'Образование в блокчейне',
+            'bitcoinEdu': 'Образование в биткоине',
+            'pepGuide': 'Руководство для начинающих PEP',
+            'friendlyTitle': 'Дружественные ссылки',
+            'bellsCoin': 'Сообщество Bellscoin',
+            'bitExchange': 'Криптобиржа BIT',
+            'followText': 'Подпишитесь на меня в'
+        },
+        'ja': {
+            'slogan': '永遠に情熱的、永遠に若々しく！',
+            'sloganTitle': '私たちのスローガン',
+            'sloganDesc': '「今すぐツイート」をクリックすると、スローガンが自動的にツイートに追加されます！',
+            'sloganText': '愛に没頭する情熱的な魂を称えます。永遠に情熱的、永遠に若々しく！',
+            'tweetBtn': '今すぐツイート',
+            'learnBtn': 'Pepecoinを学ぶ',
+            'visionTitle': '私たちのビジョン',
+            'visionText': '近い将来、私たちの池は暗号通貨市場全体の中心と焦点となるでしょう。若者のためのビットコイン！',
+            'voteText': '毎日Capitodayで投票しよう！',
+            'voteBtn': '今すぐ投票',
+            'communityTitle': 'コミュニティリンク',
+            'officialWebsite': '公式ウェブサイト',
+            'chineseCommunity': 'PEP中国コミュニティ',
+            'chineseEnvo': 'PEP中国コミュニティ(Envo)',
+            'educationTitle': 'ブロックチェーン教育',
+            'bitcoinEdu': 'ビットコイン教育',
+            'pepGuide': 'PEP初心者ガイド',
+            'friendlyTitle': 'フレンドリーリンク',
+            'bellsCoin': 'Bellscoinコミュニティ',
+            'bitExchange': 'BIT暗号通貨取引所',
+            'followText': 'フォローする'
+        },
+        'fr': {
+            'slogan': 'Toujours Passionné, Toujours Jeune !',
+            'sloganTitle': 'Notre Slogan',
+            'sloganDesc': 'Cliquez sur "Tweeter Maintenant" et il remplira automatiquement le slogan dans le tweet !',
+            'sloganText': 'Nous honorons les âmes passionnées qui se plongent dans leurs passions. Toujours Passionné, Toujours Jeune !',
+            'tweetBtn': 'Tweeter Maintenant',
+            'learnBtn': 'Apprendre Pepecoin',
+            'visionTitle': 'Notre Vision',
+            'visionText': 'Dans un avenir proche, notre étang deviendra le centre et le point focal de tout le marché des cryptomonnaies. Bitcoin pour les jeunes !',
+            'voteText': 'Votez sur Capitoday tous les jours !',
+            'voteBtn': 'Voter Maintenant',
+            'communityTitle': 'Liens Communautaires',
+            'officialWebsite': 'Site Officiel',
+            'chineseCommunity': 'Communauté Chinoise PEP',
+            'chineseEnvo': 'Communauté Chinoise PEP (Envo)',
+            'educationTitle': 'Éducation Blockchain',
+            'bitcoinEdu': 'Éducation Bitcoin',
+            'pepGuide': 'Guide du Débutant PEP',
+            'friendlyTitle': 'Liens Amicaux',
+            'bellsCoin': 'Communauté Bellscoin',
+            'bitExchange': 'Exchange Crypto BIT',
+            'followText': 'Suivez-moi sur'
+        },
+        'de': {
+            'slogan': 'Für immer leidenschaftlich, für immer jung!',
+            'sloganTitle': 'Unser Slogan',
+            'sloganDesc': 'Klicken Sie auf "Jetzt Tweeten" und der Slogan wird automatisch in den Tweet eingefügt!',
+            'sloganText': 'Wir ehren leidenschaftliche Seelen, die sich in ihre Leidenschaften stürzen. Für immer leidenschaftlich, für immer jung!',
+            'tweetBtn': 'Jetzt Tweeten',
+            'learnBtn': 'Pepecoin lernen',
+            'visionTitle': 'Unsere Vision',
+            'visionText': 'In naher Zukunft wird unser Teich zum Zentrum und Fokus des gesamten Kryptowährungsmarktes werden. Bitcoin für die Jugend!',
+            'voteText': 'Täglich auf Capitoday abstimmen!',
+            'voteBtn': 'Jetzt abstimmen',
+            'communityTitle': 'Community-Links',
+            'officialWebsite': 'Offizielle Website',
+            'chineseCommunity': 'PEP Chinesische Community',
+            'chineseEnvo': 'PEP Chinesische Community (Envo)',
+            'educationTitle': 'Blockchain-Bildung',
+            'bitcoinEdu': 'Bitcoin-Bildung',
+            'pepGuide': 'PEP-Anfängerleitfaden',
+            'friendlyTitle': 'Befreundete Links',
+            'bellsCoin': 'Bellscoin-Community',
+            'bitExchange': 'BIT-Kryptobörse',
+            'followText': 'Folge mir auf'
+        }
+    };
+
+    // 初始化语言 - 使用浏览器语言或默认英语
+    let currentLang = localStorage.getItem('preferredLanguage') || navigator.language.split('-')[0];
+    if (!translations[currentLang]) currentLang = 'en';
+
+    // 语言切换功能
+    document.addEventListener('DOMContentLoaded', () => {
+        // 设置初始语言
+        setLanguage(currentLang);
+        
+        // 语言选择器切换
+        document.getElementById('langToggle').addEventListener('click', () => {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        });
+        
+        // 语言选项点击事件
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const lang = e.currentTarget.getAttribute('data-lang');
+                setLanguage(lang);
+                localStorage.setItem('preferredLanguage', lang);
+                document.getElementById('languageDropdown').classList.remove('show');
+            });
+        });
+        
+        // 点击页面其他位置关闭下拉菜单
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-selector')) {
+                document.getElementById('languageDropdown').classList.remove('show');
+            }
+        });
+    });
+
+    // 设置页面语言
+    function setLanguage(lang) {
+        if (!translations[lang]) return;
+        
+        // 更新页面文本
+        Object.keys(translations[lang]).forEach(key => {
+            const elements = document.querySelectorAll(`[id="${key}"]`);
+            elements.forEach(el => {
+                el.textContent = translations[lang][key];
+            });
+        });
+        
+        // 设置文本方向（RTL语言）
+        if (lang === 'ar' || lang === 'he') {
+            document.body.classList.add('rtl');
+        } else {
+            document.body.classList.remove('rtl');
+        }
+        
+        // 更新语言切换按钮的显示
+        const langBtn = document.getElementById('langToggle');
+        const flagMap = {
+            'en': '🇺🇸', 'zh': '🇨🇳', 'es': '🇪🇸', 'hi': '🇮🇳', 
+            'ar': '🇸🇦', 'pt': '🇵🇹', 'ru': '🇷🇺', 'ja': '🇯🇵', 
+            'fr': '🇫🇷', 'de': '🇩🇪'
+        };
+        langBtn.textContent = flagMap[lang] || '🌐';
+    }
+</script>
 </body>
-
 </html>
-
-
-
