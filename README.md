@@ -3,8 +3,19 @@
 2025.12.15  
 
 I might be the first person to bring traditional top-tier marketing techniques from brands like **Apple** and **Nike** into the **cryptocurrency** world.  
-<img width="698" height="400" alt="image" src="https://github.com/user-attachments/assets/d8ee19fe-cf16-4cc2-878b-a2b05cd0ea53" />
-
+<img 
+  src="https://github.com/user-attachments/assets/d8ee19fe-cf16-4cc2-878b-a2b05cd0ea53" 
+  alt="Marketing Innovation in Crypto"
+  style="
+    width: 349px;
+    height: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  "
+>
 Hoping everything goes smoothly in the future. 💚  
 
 🔗 [BitcoinForTheYoung.com](http://BitcoinForTheYoung.com)  
