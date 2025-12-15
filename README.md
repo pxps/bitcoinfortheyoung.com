@@ -14,6 +14,7 @@ Hoping everything goes smoothly in the future. 💚
 🔗 [BitcoinForTheYoung.com](http://BitcoinForTheYoung.com)  
 🔗 [x.com/BTCForTheYoung](http://x.com/BTCForTheYoung)  
 🔗 [x.com/PepecoinLFG](http://x.com/PepecoinLFG)  
+🔗 [x.com/Nlaoshicom](http://x.com/Nlaoshicom)  
 
 > The website's main page doesn't even include a direct introduction to **Pepecoin**, precisely out of consideration for **reasonable marketing rules**.  
 >  
