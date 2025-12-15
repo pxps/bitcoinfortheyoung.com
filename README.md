@@ -1,4 +1,4 @@
-#bitcoinfortheyoung.com 
+# bitcoinfortheyoung.com 
 
 2025.12.15  
 
