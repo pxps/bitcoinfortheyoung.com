@@ -3,6 +3,7 @@
 2025.12.15  
 
 I might be the first person to bring traditional top-tier marketing techniques from brands like **Apple** and **Nike** into the **cryptocurrency** world.  
+<img width="698" height="400" alt="image" src="https://github.com/user-attachments/assets/d8ee19fe-cf16-4cc2-878b-a2b05cd0ea53" />
 
 Hoping everything goes smoothly in the future. 💚  
 
