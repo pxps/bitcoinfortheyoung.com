@@ -23,6 +23,11 @@ I'm not entirely sure what the future holds, but those who join now have the pri
 
 
 
+
+
+
+
+
 I'm building Bitcoin and Pepecoin educational content that cleverly combines the two to help crypto newcomers easily understand the colorful world of blockchain. Stay tuned for BitcoinForTheYoung.com!
 2025.10.15
 
