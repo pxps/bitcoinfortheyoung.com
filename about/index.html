@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEP - 年轻人的BTC | Pepecoin.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(0, 255, 157, 0.3);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.8rem;
+            color: #00ff9d;
+            text-shadow: 0 0 15px #00ff9d;
+            animation: pulse 2s infinite;
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00ff9d, #00b8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            font-size: 1.5rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-icon:hover {
+            background: #00ff9d;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.5);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+        
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff00cc, #00ff9d, #00b8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s infinite;
+            line-height: 1.1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: #ccc;
+            max-width: 800px;
+        }
+        
+        .highlight {
+            color: #00ff9d;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00ff9d, #00b8ff);
+            color: #000;
+            border: none;
+            box-shadow: 0 5px 25px rgba(0, 255, 157, 0.5);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.8);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #00ff9d;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+        
+        /* 特性区域 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 80px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.5);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            color: #00ff9d;
+            margin-bottom: 25px;
+        }
+        
+        .feature-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .feature-desc {
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        /* 动画元素 */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 255, 157, 0.1);
+            z-index: -1;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite linear;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 10%;
+            animation: float 15s infinite linear reverse;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 15%;
+            animation: float 25s infinite linear;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(0, 255, 157, 0.2);
+            margin-top: 60px;
+        }
+        
+        .founder {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-top: 20px;
+        }
+        
+        .founder a {
+            color: #00ff9d;
+            text-decoration: none;
+        }
+        
+        /* 动画定义 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d; }
+            50% { text-shadow: 0 0 20px #00ff9d, 0 0 30px #00ff9d, 0 0 40px #00ff9d; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .logo-text {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮动背景元素 -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <div class="container">
+        <!-- 头部 -->
+        <!-- <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-frog"></i></div>
+                <div class="logo-text">Pepecoin</div>
+            </div>
+            <div class="social-links">
+                <div class="social-icon"><i class="fab fa-twitter"></i></div>
+                <div class="social-icon"><i class="fab fa-telegram"></i></div>
+                <div class="social-icon"><i class="fab fa-discord"></i></div>
+                <div class="social-icon"><i class="fab fa-reddit"></i></div>
+            </div>
+        </header> -->
+        
+        <!-- 主要内容区域 -->
+        <main>
+            <section class="hero">
+                <h1 class="hero-title">PEP，年轻人的BTC!</h1>
+                <p class="hero-subtitle">
+                    <span class="highlight">Meta</span> 致力于打造最具影响力的 <span class="highlight">Pepecoin.com</span> 营销活动。<br>
+                    新一代加密货币，为年轻人而生，为未来而设计。
+                </p>
+                
+                <!-- <div class="cta-buttons">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> 加入革命
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-chart-line"></i> 查看数据
+                    </button>
+                </div> -->
+            </section>
+            
+            <!-- 特性展示
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3 class="feature-title">闪电速度</h3>
+                    <p class="feature-desc">PEP交易速度远超传统加密货币，实现秒级确认，为年轻人提供极速交易体验。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3 class="feature-title">社区驱动</h3>
+                    <p class="feature-desc">由全球年轻加密爱好者共同建设，真正去中心化的社区治理模式。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                    <h3 class="feature-title">通缩机制</h3>
+                    <p class="feature-desc">创新的通缩经济模型，每次交易自动销毁部分代币，创造稀缺价值。</p>
+                </div>
+            </section> -->
+        </main>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p class="founder">
+                Founded by <a href="https://twitter.com/Nlaoshicom" target="_blank">X @Nlaoshicom</a> | 
+                Meta is committed to building the most influential Pepecoin.com marketing campaign. Bitcoin For The Young.
+            </p>
+            <p style="margin-top: 15px; color: #777; font-size: 0.9rem;">
+                © 2025 BitcoinfortheYoung.com
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // 添加交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为按钮添加点击效果
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 创建点击效果
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.backgroundColor = 'rgba(0, 255, 157, 0.6)';
+                    ripple.style.width = '0px';
+                    ripple.style.height = '0px';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.transform = 'translate(-50%, -50%)';
+                    ripple.style.transition = 'all 0.5s ease-out';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.style.width = '300px';
+                        ripple.style.height = '300px';
+                        ripple.style.opacity = '0';
+                    }, 10);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                    
+                    // 根据按钮类型执行不同操作
+                    if (this.classList.contains('btn-primary')) {
+                        // 模拟加入革命的操作
+                        alert('欢迎加入PEP革命！准备改变加密货币的未来！');
+                    } else {
+                        // 模拟查看数据的操作
+                        alert('PEP数据面板即将上线！敬请期待！');
+                    }
+                });
+            });
+            
+            // 为特性卡片添加鼠标悬停增强效果
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.feature-icon');
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                    icon.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.feature-icon');
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+            
+            // 为标题添加动态颜色效果
+            const heroTitle = document.querySelector('.hero-title');
+            let hue = 0;
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                heroTitle.style.background = `linear-gradient(90deg, hsl(${hue}, 100%, 60%), hsl(${(hue + 60) % 360}, 100%, 60%), hsl(${(hue + 120) % 360}, 100%, 60%))`;
+                heroTitle.style.webkitBackgroundClip = 'text';
+                heroTitle.style.backgroundClip = 'text';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
