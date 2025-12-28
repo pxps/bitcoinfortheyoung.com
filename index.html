@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--移动友好-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="专为年轻人设计的比特币教育资源，学习比特币基础和社区分享。加入Bitcoin for the young,一起探索加密未来">
-    <meta name="keywords" content="年轻人比特币，Bitcoin for Beginner, 比特币教育，Pepecoin, 佩佩币，bitcoin for kids, bitcoin for teens, bitcoin education for youth">
-    <title>Bitcoin For The Young - 年轻人比特币口号与入门指南</title>
+    <title>Bitcoin For The Young</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -61,6 +58,7 @@
         }
         
         header {
+            margin-top: 80px; /* 添加这个属性 */
             text-align: center;
             padding: 30px 0;
             animation: fadeInDown 1s ease;
@@ -405,7 +403,7 @@
         /* 语言选择器样式 */
         .language-selector {
             position: fixed;
-            top: 20px;
+            top: 90px; 
             right: 20px;
             z-index: 1000;
             display: flex;
@@ -504,9 +502,178 @@
                 padding: 10px 15px;
             }
         }
+
+
+                /* 主导航栏样式 */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Logo样式 */
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #f7931a;
+            object-fit: cover;
+        }
+        
+        .nav-logo span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f7931a 0%, #1C6E4D 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* 导航链接样式 */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: rgba(247, 147, 30, 0.1);
+            color: #f7931a;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link:active {
+            transform: translateY(0);
+        }
+        
+        /* 在链接后添加小图标（可选） */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f7931a, #1C6E4D);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        /* 移动端响应式 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            /* 调整语言选择器位置以适应移动端 */
+            .language-selector {
+                top: 120px;
+                right: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-logo span {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                padding: 5px 10px;
+                font-size: 0.85rem;
+            }
+            
+            .language-selector {
+                top: 140px;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <!-- Logo链接到首页 -->
+            <a href="https://bitcoinfortheyoung.com/" class="nav-logo">
+                <img src="pepchrist.jpg" alt="Bitcoin for the Young Logo">
+                <span>BitcoinForTheYoung</span>
+            </a>
+            
+            <!-- 主要页面导航链接 -->
+            <div class="nav-links">
+                <a href="https://bitcoinfortheyoung.com/educate" class="nav-link">Education</a>
+                <a href="https://bitcoinfortheyoung.com/book/" class="nav-link">Book</a>
+                <a href="https://bitcoinfortheyoung.com/download/" class="nav-link">Download</a>
+                <!-- 信任和合规相关链接 -->
+                <a href="https://bitcoinfortheyoung.com/about/" class="nav-link">About Us</a>
+                <!-- <a href="/disclaimer/" class="nav-link">Disclaimer</a> -->
+            </div>
+        </div>
+    </nav>
+    
+
+
+
     <!-- 语言选择器 -->
     <div class="language-selector">
         <div class="language-btn" id="langToggle">
