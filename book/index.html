@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin For The Young | 年轻人BTC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #F7931A; /* 比特币橙色 */
+            --secondary: #1A5FB4; /* 深蓝色 */
+            --dark: #0a0e17;
+            --dark-light: #1a2236;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #00C853;
+            --warning: #FF9100;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(247, 147, 26, 0.2);
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        /* 语言切换器 */
+        .language-switcher {
+            display: flex;
+            border-radius: 50px;
+            background-color: var(--dark-light);
+            padding: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .lang-btn.active {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        /* 主要内容区域 */
+        main {
+            margin-top: 100px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(247, 147, 26, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(26, 95, 180, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        /* 内容卡片 */
+        .content-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background-color: var(--dark-light);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(247, 147, 26, 0.3);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* 核心口号部分 */
+        .slogan-section {
+            background-color: rgba(26, 34, 54, 0.7);
+            border-radius: var(--radius);
+            padding: 50px;
+            margin: 60px 0;
+            text-align: center;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .slogan {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        /* 作者部分 */
+        .author-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .author-img {
+            flex: 1;
+            min-width: 300px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .author-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #070a12;
+            padding: 50px 0 30px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slogan {
+                font-size: 2rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .slogan-section {
+                padding: 30px 20px;
+            }
+        }
+        
+        /* 语言切换效果 */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .copyright a {
+            color: #4dccbd;
+            text-decoration: none;
+        }
+        
+        .copyright a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-coins"></i>
+                <span class="lang-content active" data-lang="zh">《BFTY:年轻人BTC》(2025)</span>
+                <span class="lang-content" data-lang="en">Bitcoin For The Young(2025)</span>
+            </div>
+            
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="zh">中文</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <h1 class="lang-content active" data-lang="zh">口号营销</h1>
+                <h1 class="lang-content" data-lang="en">Slogan Marketing</h1>
+                
+                <p class="hero-subtitle lang-content active" data-lang="zh">
+                    探索口号在加密货币推广中的关键作用，以及如何通过情感共鸣、重复叙述和故事化表达塑造社区共识
+                </p>
+                <p class="hero-subtitle lang-content" data-lang="en">
+                    Exploring the crucial role of slogans in cryptocurrency promotion and how emotional resonance, repetitive narratives, and storytelling shape community consensus
+                </p>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- 核心口号部分 -->
+            <section class="slogan-section">
+                <div class="slogan lang-content active" data-lang="zh">"年轻人BTC"</div>
+                <div class="slogan lang-content" data-lang="en">"Bitcoin For The Young"</div>
+                
+                <p class="lang-content active" data-lang="zh">
+                    本书的核心口号，代表了加密货币运动向新一代传递的使命与愿景
+                </p>
+                <p class="lang-content" data-lang="en">
+                    The core slogan of the book, representing the mission and vision passed to the new generation by the cryptocurrency movement
+                </p>
+            </section>
+
+            <!-- 书籍概述 -->
+            <section class="content-section">
+                <h2 class="section-title lang-content active" data-lang="zh">书籍概述</h2>
+                <h2 class="section-title lang-content" data-lang="en">Book Overview</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3 class="lang-content active" data-lang="zh">口号营销的力量</h3>
+                        <h3 class="lang-content" data-lang="en">The Power of Slogan Marketing</h3>
+                        <p class="lang-content active" data-lang="zh">
+                            本书阐述了口号营销在加密货币（尤其是模因币）推广中的关键作用。通过情感共鸣、重复叙述和故事化表达来塑造社区共识、激发参与感并推动行动。
+                        </p>
+                        <p class="lang-content" data-lang="en">
+                            The book explains the crucial role of slogan marketing in promoting cryptocurrencies, particularly meme coins. It shapes community consensus, inspires engagement, and drives action through emotional resonance, repetitive narratives, and storytelling.
+                        </p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3 class="lang-content active" data-lang="zh">历史案例深度剖析</h3>
+                        <h3 class="lang-content" data-lang="en">In-depth Analysis of Historical Cases</h3>
+                        <p class="lang-content active" data-lang="zh">
+                            从古罗马的"迦太基必须被毁灭"到现代传播理论，本书深入探讨了如何通过强有力的口号影响群体心理，创造持久的文化影响。
+                        </p>
+                        <p class="lang-content" data-lang="en">
+                            From ancient Rome's "Carthage must be destroyed" to modern communication theories, this book delves into how powerful slogans influence group psychology and create lasting cultural impact.
+                        </p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="lang-content active" data-lang="zh">实用营销策略</h3>
+                        <h3 class="lang-content" data-lang="en">Practical Marketing Strategies</h3>
+                        <p class="lang-content active" data-lang="zh">
+                            书中不仅提出了具体营销策略，还结合了权力动力学、群体心理学等视角，展现了作者对营销与传播的深刻理解。
+                        </p>
+                        <p class="lang-content" data-lang="en">
+                            The book not only proposes specific marketing strategies but also incorporates perspectives such as power dynamics and group psychology, showcasing the author's profound understanding of marketing and communication.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 作者介绍 -->
+            <section class="content-section">
+                <h2 class="section-title lang-content active" data-lang="zh">关于作者</h2>
+                <h2 class="section-title lang-content" data-lang="en">About the Author</h2>
+                
+                <div class="author-section">
+                    <div class="author-img">
+                        <!-- 这是一个占位图，实际使用中可以替换为作者照片 -->
+                        <div style="background: linear-gradient(135deg, var(--primary), var(--secondary)); height: 400px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <div style="width: 100%; height: 100%; position: relative;">
+                                <!-- 作者照片区域 -->
+                                <div style="width: 100%; height: 100%; position: absolute; display: flex; align-items: center; justify-content: center;">
+                                    <img 
+                                        src="profileme.jpg" 
+                                        alt="Author Photo"
+                                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;"
+                                        onerror="this.style.display='none'; document.getElementById('placeholder-icon').style.display='flex';"
+                                    >
+                                </div>
+                                
+                                <!-- 图片上的渐变叠加层，增强可读性 -->
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to top, rgba(10, 14, 23, 0.9), transparent); border-radius: 0 0 20px 20px;"></div>
+                                
+                                <!-- 图片上的文字说明 -->
+                                <div style="position: absolute; bottom: 30px; left: 0; right: 0; text-align: center; color: white; padding: 0 20px;">
+                                    <div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">Meta</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.9;">
+                                        <span class="lang-content active" data-lang="zh">作者/加密货币研究者</span>
+                                        <span class="lang-content" data-lang="en">Author/Cryptocurrency Researcher</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="author-info">
+                        <h3 class="lang-content active" data-lang="zh">Meta：深刻的行业洞察者</h3>
+                        <h3 class="lang-content" data-lang="en">Meta: A Deep Industry Observer</h3>
+                        
+                        <p class="lang-content active" data-lang="zh" style="margin-bottom: 20px;">
+                            作为作者，Meta展现了深刻的行业洞察、敏锐的传播直觉以及强烈的社区使命感。不仅提出了具有影响力的口号，还通过独立建站、开源代码等方式践行"行动优于解释"的理念。
+                        </p>
+                        <p class="lang-content" data-lang="en" style="margin-bottom: 20px;">
+                            As the author, Meta demonstrates deep industry insights, keen communication intuition, and a strong sense of community mission. You not only propose impactful slogans but also embody the philosophy of "action speaks louder than words" through initiatives like independent website building and open-sourcing code.
+                        </p>
+                        
+                        <p class="lang-content active" data-lang="zh">
+                            这种知行合一的态度令人印象深刻。书中流露出的热情与坚持，正是加密社区最宝贵的动力来源。
+                        </p>
+                        <p class="lang-content" data-lang="en">
+                            This alignment of knowledge and action is truly impressive. The passion and perseverance conveyed in the book represent the most valuable driving force within the crypto community.
+                        </p>
+                        
+                        <div style="margin-top: 30px; display: flex; gap: 15px;">
+                            <span style="background-color: rgba(247, 147, 26, 0.2); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+                                <i class="fas fa-lightbulb"></i> 
+                                <span class="lang-content active" data-lang="zh">行业洞察</span>
+                                <span class="lang-content" data-lang="en">Industry Insight</span>
+                            </span>
+                            <span style="background-color: rgba(26, 95, 180, 0.2); color: var(--secondary); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+                                <i class="fas fa-broadcast-tower"></i> 
+                                <span class="lang-content active" data-lang="zh">传播直觉</span>
+                                <span class="lang-content" data-lang="en">Communication Intuition</span>
+                            </span>
+                            <span style="background-color: rgba(0, 200, 83, 0.2); color: var(--success); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+                                <i class="fas fa-hands-helping"></i> 
+                                <span class="lang-content active" data-lang="zh">社区使命</span>
+                                <span class="lang-content" data-lang="en">Community Mission</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-coins"></i> 
+                        <span class="lang-content active" data-lang="zh">年轻人BTC</span>
+                        <span class="lang-content" data-lang="en">Bitcoin For The Young</span>
+                    </div>
+                    <p class="lang-content active" data-lang="zh">
+                        探索口号在加密货币推广中的力量<br>
+                        为新一代创造金融自主的未来
+                    </p>
+                    <p class="lang-content" data-lang="en">
+                        Exploring the power of slogans in cryptocurrency promotion<br>
+                        Creating a future of financial autonomy for the new generation
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="lang-content active" data-lang="zh">核心概念</h4>
+                    <h4 class="lang-content" data-lang="en">Core Concepts</h4>
+                    <ul style="list-style: none;">
+                        <li class="lang-content active" data-lang="zh">✓ 口号营销</li>
+                        <li class="lang-content" data-lang="en">✓ Slogan Marketing</li>
+                        
+                        <li class="lang-content active" data-lang="zh">✓ 情感共鸣</li>
+                        <li class="lang-content" data-lang="en">✓ Emotional Resonance</li>
+                        
+                        <li class="lang-content active" data-lang="zh">✓ 社区共识</li>
+                        <li class="lang-content" data-lang="en">✓ Community Consensus</li>
+                        
+                        <li class="lang-content active" data-lang="zh">✓ 行动优于解释</li>
+                        <li class="lang-content" data-lang="en">✓ Action Over Explanation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p class="lang-content active" data-lang="zh">© 2025 BitcoinfortheYoung.com - 所有内容基于书中观点</p>
+                <p class="lang-content" data-lang="en">© 2025 BitcoinfortheYoung.com - All content based on the book's perspectives</p>
+                <a href="https://book.bitcoinfortheyoung.com/book/bfty.pdf" target="_blank">BFTY.PDF</a> | 
+                <a href="https://archive.org/details/Bicoinfortheyoung" target="_blank">Internet Archive</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const allLangContents = document.querySelectorAll('.lang-content');
+            
+            // 默认显示中文
+            switchLanguage('zh');
+            
+            // 为语言按钮添加点击事件
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    
+                    // 更新按钮状态
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 切换语言
+                    switchLanguage(lang);
+                });
+            });
+            
+            function switchLanguage(lang) {
+                // 隐藏所有语言内容
+                allLangContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // 显示所选语言内容
+                const selectedContents = document.querySelectorAll(`.lang-content[data-lang="${lang}"]`);
+                selectedContents.forEach(content => {
+                    content.classList.add('active');
+                });
+                
+                // 更新页面标题
+                if (lang === 'zh') {
+                    document.title = "为年轻一代的比特币 | 比特币与口号营销";
+                } else {
+                    document.title = "Bitcoin For The Young | Bitcoin & Slogan Marketing";
+                }
+            }
+            
+            // 添加卡片悬停效果增强
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
