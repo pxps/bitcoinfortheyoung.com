@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta｜币圈乔布斯</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #6c757d;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to right, var(--primary), #3a5688);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="60" font-family="Arial" font-size="20" fill="rgba(255,255,255,0.05)">N老师</text></svg>');
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 优化后的头像样式 */
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #6a93cb, #a4bfef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .avatar:hover img {
+            transform: scale(1.05);
+        }
+        
+        .avatar-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            color: white;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.7;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            padding: 50px 0;
+        }
+        
+        .story-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .story-section::before {
+            content: """;
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            font-size: 120px;
+            color: var(--primary);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .story-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .story-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* 社交媒体部分 */
+        .social-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .social-icon:hover::after {
+            transform: translateY(0);
+        }
+        
+        .social-icon i {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .social-icon span {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: var(--transition);
+            color: var(--dark);
+        }
+        
+        .social-icon:hover span {
+            opacity: 1;
+            bottom: -20px;
+        }
+
+        .social-icon.telegram {
+            background-color: #26A5E4;
+        }
+        
+        /* 悬停效果 */
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        .social-icon i {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        
+        .youtube { background: linear-gradient(45deg, #FF0000, #E52D27); }
+        .douyin { background: linear-gradient(45deg, #010101, #69C9D0); }
+        .bilibili { background: linear-gradient(45deg, #fb7299, #ffafcc); }
+        .kuaishou { background: linear-gradient(45deg, #FFA500, #FF4500); }
+        .twitter { background: linear-gradient(45deg, #1DA1F2, #0077B5); }
+        .email { background: linear-gradient(45deg, #4a6fa5, #6a93cb); }
+        .github { background: linear-gradient(45deg, #000000, #000000); }
+        .telegram { background: linear-gradient(45deg, #1DA1F2, #0077B5); }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 20px 20px 0 0;
+            margin-top: 20px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .social-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <!-- 优化后的头像部分 -->
+            <div class="avatar">
+                <!-- 头像图片 - 已优化比例 -->
+                <img src="profile.jpg" alt="头像">
+                <!-- 备用头像文字 -->
+                <div class="avatar-fallback">N</div>
+            </div>
+            <h1>Meta｜币圈乔布斯</h1>
+            <p class="tagline"></p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main class="main-content">
+
+            <section class="story-section">
+                <h2 class="section-title">Biography</h2>
+                <div class="story-content">
+                    <p>Throughout 2024, operating under the identity "Meta," he has driven narrative and slogan marketing and provided community development recommendations for the Pepecoin Chinese community. He is renowned for proposing the slogan "Bitcoin For The Young." In 2025, he independently developed the website BitcoinForTheYoung.com to help promote Pepecoin – a brand destined to shine globally in the future.</p>
+                    <p>2024年，他一直以Meta的身份推动Pepecoin中文社区叙事和口号营销，并提供社区发展建议。他以提出“Bitcoin For The Young(年轻人的BTC!)”口号而闻名。2025年，他独立开发了 BitcoinForTheYoung.com 网站，帮助推广Pepecoin这个会在未来全球大放异彩的品牌。</p>
+                </div>
+            </section>
+            
+            <section class="social-section">
+                <h2 class="section-title">社交媒体平台</h2>
+                <p>想更全面地了解我？欢迎在这些地方找到我：</p>
+                <div class="social-icons">               
+                    
+                    <a href="https://twitter.com/Nlaoshicom" class="social-icon twitter" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                        <span>推特</span>
+                    </a>
+
+                    <a href="https://t.me/Nlaoshicom" class="social-icon telegram" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
+                    </a>
+                    
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p></p>
+            <p class="copyright">© 2025 BitcoinForTheYoung.com</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 图片加载失败时显示备用文字
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarImg = document.querySelector('.avatar img');
+            const avatarFallback = document.querySelector('.avatar-fallback');
+            
+            avatarImg.onerror = function() {
+                avatarImg.style.display = 'none';
+                avatarFallback.style.display = 'flex';
+            };
+            
+            // 添加鼠标悬停效果
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    icon.querySelector('span').style.opacity = '1';
+                    icon.querySelector('span').style.bottom = '-20px';
+                });
+                
+                icon.addEventListener('mouseleave', () => {
+                    icon.querySelector('span').style.opacity = '0';
+                    icon.querySelector('span').style.bottom = '-25px';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
