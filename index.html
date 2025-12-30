@@ -705,6 +705,300 @@
                 top: 140px;
             }
         }
+
+
+                    /* 侧滑栏容器 - 确保在最顶层 */
+            .crypto-slidebar-container {
+            position: relative;
+            z-index: 9999; /* 高z-index确保不被遮挡 */
+            }
+
+            /* 左侧侧滑栏按钮 */
+            .slidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* 改为左侧 */
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f7931a 0%, #4d4d4d 100%);
+            border: 2px solid #f7931a;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.5);
+            z-index: 10001; /* 确保按钮在最上层 */
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+
+            .slidebar-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(247, 147, 26, 0.8);
+            }
+
+            .pulse-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            background-color: #00d4ff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+            }
+            }
+
+            /* 侧滑栏覆盖层 */
+            .slidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            }
+
+            .slidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            }
+
+            /* 侧滑栏主体 - 从左侧滑出 */
+            .crypto-slidebar {
+            position: fixed;
+            top: 0;
+            left: -400px; /* 初始在左侧外部 */
+            width: 380px;
+            height: 100%;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5); /* 阴影在右侧 */
+            z-index: 9999; /* 确保侧滑栏在最上层 */
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow-y: auto;
+            }
+
+            .crypto-slidebar.active {
+            left: 0; /* 激活时滑入 */
+            }
+
+            /* 侧滑栏头部 */
+            .slidebar-header {
+            padding: 30px;
+            background: linear-gradient(to right, #1a1a2e, #f7931a); /* 调整渐变方向 */
+            color: white;
+            position: relative;
+            }
+
+            .slidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            }
+
+            .slidebar-close:hover {
+            transform: rotate(90deg);
+            }
+
+            .slidebar-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #f7931a, #00d4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            }
+
+            .ad-slogan {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #f7931a;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            border-left: 3px solid #f7931a;
+            }
+
+            /* 图片展示区 */
+            .image-gallery {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            gap: 15px;
+            }
+
+            .image-container {
+            flex: 1;
+            perspective: 1000px;
+            }
+
+            .crypto-image-placeholder {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #f7931a;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            }
+
+            .crypto-image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, transparent 30%, rgba(247, 147, 26, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: shine 3s infinite linear;
+            }
+
+            @keyframes shine {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+            }
+
+            .crypto-image-placeholder:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 15px 30px rgba(247, 147, 26, 0.4);
+            }
+
+            .image-icon {
+            font-size: 48px;
+            color: #f7931a;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.7);
+            }
+
+            .image-label {
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            }
+
+            /* 链接区域 */
+            .slidebar-links {
+            padding: 20px;
+            }
+
+            .slidebar-links a {
+            display: block;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            }
+
+            .slidebar-links a:hover {
+            background-color: rgba(247, 147, 26, 0.2);
+            border-left: 4px solid #f7931a;
+            transform: translateX(5px);
+            }
+
+            .slidebar-links a i {
+            margin-right: 10px;
+            color: #00d4ff;
+            width: 20px;
+            }
+
+            /* 侧滑栏页脚 */
+            .slidebar-footer {
+            padding: 20px;
+            text-align: center;
+            color: #00d4ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            }
+
+            /* 主内容包装器 - 防止被侧滑栏遮挡 */
+            .main-content-wrapper {
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            position: relative;
+            z-index: 1;
+            }
+
+            /* 当侧滑栏打开时，主内容向右移动，避免遮挡 */
+            .crypto-slidebar.active ~ .main-content-wrapper {
+            transform: translateX(380px);
+            }
+
+            /* 响应式设计 */
+            @media (max-width: 768px) {
+            .crypto-slidebar {
+                width: 100%;
+                left: -100%;
+            }
+            
+            .image-gallery {
+                flex-direction: column;
+            }
+            
+            .crypto-slidebar.active ~ .main-content-wrapper {
+                transform: translateX(100%);
+            }
+            }
+
+            /* 在小屏幕上，侧滑栏按钮位置调整 */
+            @media (max-width: 480px) {
+            .slidebar-toggle {
+                top: 15px;
+                left: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            }
     </style>
 </head>
 <body>
@@ -817,6 +1111,72 @@
                 <span>Forever Passionate, Forever Young!</span>
             </p> -->
         </header>
+
+
+<!-- 放在<body>标签开头，紧接在<header>之后 -->
+    <div class="crypto-slidebar-container">
+        <!-- 左侧侧滑栏按钮 -->
+        <button class="slidebar-toggle" id="slidebarToggle">
+          <i class="fas fa-bars"></i>
+          <span class="pulse-dot"></span>
+        </button>
+        
+        <!-- 侧滑栏覆盖层 -->
+        <div class="slidebar-overlay" id="slidebarOverlay"></div>
+        
+        <!-- 侧滑栏内容 - 现在从左侧滑出 -->
+        <div class="crypto-slidebar" id="cryptoSlidebar">
+          <div class="slidebar-header">
+            <button class="slidebar-close" id="slidebarClose">
+              <i class="fas fa-times"></i>
+            </button>
+
+            <h3>Bitcoin for the Young</h3>
+
+            <p class="ad-slogan">If you've already got Lener and Pepecoin, what more could you possibly need?</p>
+          </div>
+          
+          <div class="slidebar-content">
+            <div class="image-gallery">
+              <div class="image-container">
+                <div class="crypto-image-placeholder" id="image1">
+                  <!-- <div class="image-icon">
+                    <i class="fas fa-bitcoin"></i>
+                  </div>
+                  <p class="image-label">Bitcoin</p> -->
+                </div>
+              </div>
+              
+              <div class="image-container">
+                <div class="crypto-image-placeholder" id="image2">
+                  <!-- <div class="image-icon">
+                    <i class="fas fa-coins"></i>
+                  </div>
+                  <p class="image-label">Pepecoin</p> -->
+                </div>
+              </div>
+            </div>
+            
+            <div class="slidebar-links">
+              <a href="#"><i class="fas fa-graduation-cap"></i> Education</a>
+              <a href="#"><i class="fas fa-users"></i> Community</a>
+              <a href="#"><i class="fas fa-newspaper"></i> News</a>
+              <a href="#"><i class="fas fa-chart-line"></i> Market</a>
+            </div>
+          </div>
+          
+          <div class="slidebar-footer">
+            <p>Forever passionate, forever young!</p>
+          </div>
+        </div>
+    </div>
+      
+      <!-- 在您现有的主要内容容器上添加这个类，防止侧滑栏遮挡 -->
+    <div class="main-content-wrapper" id="mainContent">
+        <!-- 您现有的网页内容放在这里 -->
+      
+
+
         
         <!-- 比特币图表区域 -->
         <div class="bitcoin-chart">
@@ -1168,6 +1528,7 @@
             </div>
     
         </div>
+    </div>    
     
 <!-- 页脚部分 -->
 <footer>
@@ -1690,7 +2051,87 @@
         };
         langBtn.textContent = flagMap[lang] || '🌐';
     }
+
+
+    <!-- //放在<body>结束标签之前 -->
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取DOM元素
+      const slidebarToggle = document.getElementById('slidebarToggle');
+      const slidebarClose = document.getElementById('slidebarClose');
+      const cryptoSlidebar = document.getElementById('cryptoSlidebar');
+      const slidebarOverlay = document.getElementById('slidebarOverlay');
+      const mainContent = document.getElementById('mainContent');
+      
+      // 图片占位符
+      const imagePlaceholders = document.querySelectorAll('.crypto-image-placeholder');
+      
+      // 打开侧滑栏
+      slidebarToggle.addEventListener('click', function() {
+        cryptoSlidebar.classList.add('active');
+        slidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      // 关闭侧滑栏
+      slidebarClose.addEventListener('click', closeSlidebar);
+      slidebarOverlay.addEventListener('click', closeSlidebar);
+      
+      // 关闭侧滑栏函数
+      function closeSlidebar() {
+        cryptoSlidebar.classList.remove('active');
+        slidebarOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+      
+      // 为图片占位符添加点击事件
+      imagePlaceholders.forEach(placeholder => {
+        placeholder.addEventListener('click', function() {
+          const label = this.querySelector('.image-label').textContent;
+          alert(`即将加载 ${label} 的详细内容...`);
+          // 这里可以添加跳转到图片详情页的代码
+        });
+      });
+      
+      // 键盘ESC键关闭侧滑栏
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeSlidebar();
+        }
+      });
+      
+      // 图片加载函数示例
+      function loadImages() {
+        // 示例：假设您有图片URL
+        const image1Url = 'lenerfigure.jpg';
+        const image2Url = 'pepecoinfigure.jpg';
+        
+        // 创建图片元素并预加载
+        const img1 = new Image();
+        const img2 = new Image();
+        
+        img1.onload = function() {
+          document.getElementById('image1').style.backgroundImage = `url(${image1Url})`;
+          document.getElementById('image1').style.backgroundSize = 'cover';
+          document.getElementById('image1').style.backgroundPosition = 'center';
+        };
+        
+        img2.onload = function() {
+          document.getElementById('image2').style.backgroundImage = `url(${image2Url})`;
+          document.getElementById('image2').style.backgroundSize = 'cover';
+          document.getElementById('image2').style.backgroundPosition = 'center';
+        };
+        
+        // 设置图片源image1Url
+        img1.src = image1Url;
+        img2.src = image2Url;
+      }
+      
+      // 调用图片加载函数
+      loadImages();
+    });
 </script>
+
+
 </body>
 
 </html>
