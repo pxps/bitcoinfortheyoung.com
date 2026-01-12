@@ -71,7 +71,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-       /* Base styles - Apple & Nike -inspired design */
         * {
             margin: 0;
             padding: 0;
@@ -79,9 +78,9 @@
         }
         
         body {
-            background: #f5f5f7;
-            color: #1d1d1f;
-            font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #f0f0f0;
+            font-family: 'Exo 2', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -90,24 +89,43 @@
         }
         
         body::before {
-            content: none;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(67, 217, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(247, 147, 30, 0.1) 0%, transparent 20%);
+            z-index: -1;
         }
         
         .crypto-bg {
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff"/></svg>');
+            background-size: 15px 15px;
+            z-index: -1;
         }
         
         .container {
-            max-width: 1440px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             flex: 1;
         }
         
         header {
-            margin-top: 80px;
+            margin-top: 80px; /* 添加这个属性 */
             text-align: center;
-            padding: 60px 0;
+            padding: 30px 0;
+            animation: fadeInDown 1s ease;
         }
         
         .logo {
@@ -124,32 +142,35 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: none;
-            box-shadow: none;
+            border: 3px solid #f7931a;
+            box-shadow: 0 0 25px rgba(247, 147, 30, 0.7);
         }
         
         h1 {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: 3.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             margin-bottom: 10px;
-            color: #1d1d1f;
+            background: linear-gradient(90deg, #f7931a 0%, #1C6E4D 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .slogan {
             font-size: 1.8rem;
-            color: #6e6e73;
+            color: #4dccbd;
             margin-bottom: 30px;
-            font-weight: 400;
+            font-weight: 600;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
         
         .slogan span {
-            color: #1d1d1f;
-            font-weight: 600;
+            color: linear-gradient(90deg, #f7931a 0%, #1C6E4D 100%);
+            font-weight: 700;
         }
         
         .main-content {
@@ -162,25 +183,25 @@
         .info-card {
             flex: 1;
             min-width: 300px;
-            background: #ffffff;
-            border-radius: 18px;
+            background: rgba(25, 35, 60, 0.7);
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: none;
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .info-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(247, 147, 30, 0.2);
         }
         
         .info-card h2 {
-            font-family: 'SF Pro Display', sans-serif;
-            color: #1d1d1f;
+            font-family: 'Orbitron', sans-serif;
+            color: #f7931a;
             margin-bottom: 20px;
             font-size: 1.8rem;
-            font-weight: 600;
             display: flex;
             align-items: center;
         }
@@ -190,17 +211,16 @@
         }
         
         .info-card p {
-            line-height: 1.6;
+            line-height: 1.8;
             margin-bottom: 20px;
             font-size: 1.1rem;
-            color: #6e6e73;
         }
         
         .highlight {
-            background: #f5f5f7;
+            background: rgba(247, 147, 30, 0.15);
             padding: 15px;
             border-radius: 8px;
-            border-left: none;
+            border-left: 4px solid #f7931a;
             margin: 20px 0;
         }
         
@@ -216,7 +236,7 @@
             min-width: 150px;
             text-align: center;
             padding: 15px 20px;
-            border-radius: 12px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
@@ -228,21 +248,20 @@
         }
         
         .tweet-btn {
-            background: #0071e3;
+            background: #1da1f2;
             color: white;
-            box-shadow: none;
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
         }
         
         .learn-btn {
-            background: #0071e3;
+            background: linear-gradient(90deg, #f7931a, #1C6E4D);
             color: white;
-            box-shadow: none;
+            box-shadow: 0 5px 15px rgba(28, 110, 77, 0.4);
         }
         
         .action-btn:hover {
-            background: #0060c0;
-            transform: none;
-            box-shadow: none;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(29, 161, 242, 0.6);
         }
         
         .link-section {
@@ -257,20 +276,21 @@
         }
         
         .community-link {
-            background: #ffffff;
-            border-radius: 18px;
+            background: rgba(25, 35, 60, 0.7);
+            border-radius: 10px;
             padding: 20px;
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: #1d1d1f;
+            color: #fff;
             transition: all 0.3s ease;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .community-link:hover {
             transform: translateY(-5px);
-            background: #f5f5f7;
+            background: rgba(247, 147, 30, 0.2);
+            border-color: rgba(247, 147, 30, 0.3);
         }
         
         .link-icon {
@@ -278,47 +298,50 @@
             margin-right: 15px;
             width: 50px;
             text-align: center;
-            color: #0071e3;
         }
         
         .link-text h3 {
             font-size: 1.2rem;
             margin-bottom: 5px;
-            color: #1d1d1f;
-            font-weight: 600;
+            color: #4dccbd;
         }
         
         .link-text p {
             font-size: 0.9rem;
-            color: #6e6e73;
+            color: #aaa;
         }
         
+        /*.chinese-link {
+            background: rgba(247, 147, 30, 0.2);
+            border: 1px solid rgba(247, 147, 30, 0.3);
+        }*/
+
         .ribbit-link {
-            background: #ffffff;
-            border-radius: 18px;
+            background: linear-gradient(135deg, #388E3C, #4CAFE3, #4CAF50);
+            border-radius: 12px;
             transition: transform 0.3s ease;
         }
         .ribbit-link:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
         
         footer {
             text-align: center;
             padding: 30px 0;
-            border-top: 1px solid #d2d2d7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: auto;
-            background: #f5f5f7;
+            background: rgba(15, 23, 42, 0.7);
         }
         
         .copyright {
             font-size: 0.9rem;
-            color: #6e6e73;
+            color: #aaa;
         }
         
         .copyright a {
-            color: #0071e3;
-            text-decoration: underline;
+            color: #4dccbd;
+            text-decoration: none;
         }
         
         .copyright a:hover {
@@ -337,11 +360,22 @@
         }
         
         @keyframes pulse {
-            none;
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(247, 147, 30, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(247, 147, 30, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(247, 147, 30, 0);
+            }
         }
         
         .pulse {
-            animation: none;
+            animation: pulse 2s infinite;
         }
         
         .bitcoin-chart {
@@ -350,8 +384,8 @@
             margin: 20px 0;
             position: relative;
             overflow: hidden;
-            border-radius: 18px;
-            background: #f5f5f7;
+            border-radius: 10px;
+            background: rgba(15, 25, 45, 0.5);
         }
         
         .chart-line {
@@ -360,16 +394,18 @@
             left: 0;
             width: 100%;
             height: 80%;
-            stroke: #1d1d1f;
+            stroke: #f7931a;
             stroke-width: 3;
             fill: none;
-            stroke-dasharray: none;
-            stroke-dashoffset: none;
-            animation: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s ease-out forwards;
         }
         
         @keyframes draw {
-            none;
+            to {
+                stroke-dashoffset: 0;
+            }
         }
         
         @media (max-width: 768px) {
@@ -397,33 +433,38 @@
         }
         .twitter-link:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4);
         }
-    
+
         .vote-btn {
+            /* 保持原有按钮样式 */
             display: inline-block;
             padding: 12px 24px;
-            background: #0071e3;
+            background: #4CAF50; /* 改为投票主题的绿色 */
             color: white;
-            border-radius: 12px;
-            font-weight: 600;
+            border-radius: 50px;
+            font-weight: bold;
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .vote-btn:hover {
-            background: #0060c0;
-            transform: none;
-            box-shadow: none;
+            background: #3d8b40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
+        /* 保持原有脉冲动画 */
         .pulse {
-            animation: none;
+            animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            none;
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
         }
         
+        /* 语言选择器样式 */
         .language-selector {
             position: fixed;
             top: 90px; 
@@ -434,9 +475,9 @@
         }
         
         .language-btn {
-            background: #ffffff;
-            color: #1d1d1f;
-            border: none;
+            background: rgba(25, 35, 60, 0.9);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -445,25 +486,27 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1.2rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
         
         .language-btn:hover {
-            background: #f5f5f7;
-            transform: none;
+            background: rgba(247, 147, 30, 0.8);
+            transform: scale(1.1);
         }
         
         .language-dropdown {
             position: absolute;
             top: 60px;
             right: 0;
-            background: #ffffff;
-            border-radius: 18px;
+            background: rgba(25, 35, 60, 0.95);
+            border-radius: 10px;
             overflow: hidden;
             width: 180px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .language-dropdown.show {
@@ -473,7 +516,7 @@
         
         .language-option {
             padding: 12px 20px;
-            color: #1d1d1f;
+            color: white;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -482,7 +525,7 @@
         }
         
         .language-option:hover {
-            background: #f5f5f7;
+            background: rgba(247, 147, 30, 0.3);
         }
         
         .language-flag {
@@ -523,20 +566,23 @@
                 padding: 10px 15px;
             }
         }
-                .main-nav {
+
+
+                /* 主导航栏样式 */
+        .main-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #d2d2d7;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1001;
             padding: 15px 0;
         }
         
         .nav-container {
-            max-width: 1440px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -544,34 +590,39 @@
             align-items: center;
         }
         
+        /* Logo样式 */
         .nav-logo {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: #1d1d1f;
+            color: white;
             gap: 15px;
-            transition: none;
+            transition: transform 0.3s ease;
         }
         
         .nav-logo:hover {
-            transform: none;
+            transform: translateY(-2px);
         }
         
         .nav-logo img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border: none;
+            border: 2px solid #f7931a;
             object-fit: cover;
         }
         
         .nav-logo span {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.2rem;
-            font-weight: 600;
-            color: #1d1d1f;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f7931a 0%, #1C6E4D 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
+        /* 导航链接样式 */
         .nav-links {
             display: flex;
             gap: 30px;
@@ -579,10 +630,10 @@
         }
         
         .nav-link {
-            color: #1d1d1f;
+            color: #f0f0f0;
             text-decoration: none;
             font-size: 1rem;
-            font-weight: 400;
+            font-weight: 500;
             padding: 8px 16px;
             border-radius: 6px;
             transition: all 0.3s ease;
@@ -590,23 +641,33 @@
         }
         
         .nav-link:hover {
-            background: #f5f5f7;
-            color: #1d1d1f;
-            transform: none;
+            background: rgba(247, 147, 30, 0.1);
+            color: #f7931a;
+            transform: translateY(-2px);
         }
         
         .nav-link:active {
-            transform: none;
+            transform: translateY(0);
         }
         
+        /* 在链接后添加小图标（可选） */
         .nav-link::after {
-            content: none;
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f7931a, #1C6E4D);
+            transition: width 0.3s ease;
         }
         
         .nav-link:hover::after {
-            width: 0;
+            width: 80%;
         }
         
+        /* 移动端响应式 */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -625,6 +686,7 @@
                 font-size: 0.9rem;
             }
             
+            /* 调整语言选择器位置以适应移动端 */
             .language-selector {
                 top: 120px;
                 right: 10px;
@@ -649,229 +711,275 @@
                 top: 140px;
             }
         }
-                    .crypto-slidebar-container {
+
+
+                    /* 侧滑栏容器 - 确保在最顶层 */
+            .crypto-slidebar-container {
             position: relative;
-            z-index: 9999;
+            z-index: 9999; /* 高z-index确保不被遮挡 */
             }
-    
+
+            /* 左侧侧滑栏按钮 */
             .slidebar-toggle {
             position: fixed;
             top: 20px;
-            left: 20px;
+            left: 20px; /* 改为左侧 */
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: #ffffff;
-            border: none;
-            color: #1d1d1f;
+            background: linear-gradient(135deg, #f7931a 0%, #4d4d4d 100%);
+            border: 2px solid #f7931a;
+            color: white;
             font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            z-index: 10001;
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.5);
+            z-index: 10001; /* 确保按钮在最上层 */
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             }
-    
+
             .slidebar-toggle:hover {
-            transform: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(247, 147, 26, 0.8);
             }
-    
+
             .pulse-dot {
-            display: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            background-color: #00d4ff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
             }
-    
+
             @keyframes pulse {
-            none;
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
             }
-    
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+            }
+            }
+
+            /* 侧滑栏覆盖层 */
             .slidebar-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             z-index: 9998;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
             }
-    
+
             .slidebar-overlay.active {
             opacity: 1;
             visibility: visible;
             }
-    
+
+            /* 侧滑栏主体 - 从左侧滑出 */
             .crypto-slidebar {
             position: fixed;
             top: 0;
-            left: -400px;
+            left: -400px; /* 初始在左侧外部 */
             width: 380px;
             height: 100%;
-            background: #ffffff;
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-            transition: all 0.4s ease;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5); /* 阴影在右侧 */
+            z-index: 9999; /* 确保侧滑栏在最上层 */
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
             overflow-y: auto;
             }
-    
+
             .crypto-slidebar.active {
-            left: 0;
+            left: 0; /* 激活时滑入 */
             }
-    
+
+            /* 侧滑栏头部 */
             .slidebar-header {
             padding: 30px;
-            background: #ffffff;
-            color: #1d1d1f;
+            background: linear-gradient(to right, #1a1a2e, #f7931a); /* 调整渐变方向 */
+            color: white;
             position: relative;
             }
-    
+
             .slidebar-close {
             position: absolute;
             top: 20px;
             right: 20px;
             background: transparent;
             border: none;
-            color: #1d1d1f;
+            color: white;
             font-size: 24px;
             cursor: pointer;
             transition: transform 0.3s ease;
             }
-    
+
             .slidebar-close:hover {
-            transform: none;
+            transform: rotate(90deg);
             }
-    
+
             .slidebar-header h3 {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: 28px;
             margin-bottom: 10px;
-            color: #1d1d1f;
-            font-weight: 600;
+            background: linear-gradient(90deg, #f7931a 0%, #1C6E4D 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             }
-    
+
             .ad-slogan {
-            font-family: 'SF Pro Text', sans-serif;
+            font-family: 'Exo 2', sans-serif;
             font-size: 16px;
-            font-weight: 400;
-            color: #6e6e73;
-            font-style: normal;
+            font-weight: 300;
+            color: #f7931a;
+            font-style: italic;
             margin-top: 10px;
             padding: 10px;
-            background-color: #f5f5f7;
+            background-color: rgba(0, 0, 0, 0.3);
             border-radius: 5px;
-            border-left: none;
+            border-left: 3px solid #f7931a;
             }
-    
+
+            /* 图片展示区 */
             .image-gallery {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             gap: 15px;
             }
-    
+
             .image-container {
             flex: 1;
-            perspective: none;
+            perspective: 1000px;
             }
-    
+
             .crypto-image-placeholder {
             width: 100%;
             aspect-ratio: 1/1;
-            background: #f5f5f7;
-            border-radius: 18px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: none;
-            box-shadow: none;
+            border: 2px solid #f7931a;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             }
-    
+
             .crypto-image-placeholder::before {
-            content: none;
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, transparent 30%, rgba(247, 147, 26, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: shine 3s infinite linear;
             }
-    
+
             @keyframes shine {
-            none;
+            0% {
+                transform: rotate(45deg) translateX(-100%);
             }
-    
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+            }
+
             .crypto-image-placeholder:hover {
-            transform: none;
-            box-shadow: none;
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 15px 30px rgba(247, 147, 26, 0.4);
             }
-    
+
             .image-icon {
             font-size: 48px;
-            color: #1d1d1f;
+            color: #f7931a;
             margin-bottom: 15px;
-            text-shadow: none;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.7);
             }
-    
+
             .image-label {
-            font-family: 'SF Pro Display', sans-serif;
-            color: #1d1d1f;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
             font-size: 18px;
             font-weight: 600;
             }
-    
+
+            /* 链接区域 */
             .slidebar-links {
             padding: 20px;
             }
-    
+
             .slidebar-links a {
             display: block;
             padding: 15px 20px;
             margin-bottom: 10px;
-            background-color: #f5f5f7;
-            color: #1d1d1f;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
             text-decoration: none;
-            border-radius: 12px;
-            font-family: 'SF Pro Text', sans-serif;
+            border-radius: 8px;
+            font-family: 'Exo 2', sans-serif;
             font-weight: 400;
             transition: all 0.3s ease;
-            border-left: none;
+            border-left: 4px solid transparent;
             }
-    
+
             .slidebar-links a:hover {
-            background-color: #ebebf0;
-            border-left: none;
-            transform: none;
+            background-color: rgba(247, 147, 26, 0.2);
+            border-left: 4px solid #f7931a;
+            transform: translateX(5px);
             }
-    
+
             .slidebar-links a i {
             margin-right: 10px;
-            color: #0071e3;
+            color: #00d4ff;
             width: 20px;
             }
-    
+
+            /* 侧滑栏页脚 */
             .slidebar-footer {
             padding: 20px;
             text-align: center;
-            color: #6e6e73;
-            font-family: 'SF Pro Text', sans-serif;
+            color: #00d4ff;
+            font-family: 'Orbitron', sans-serif;
             font-size: 14px;
-            border-top: 1px solid #d2d2d7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 20px;
             }
-    
+
+            /* 主内容包装器 - 防止被侧滑栏遮挡 */
             .main-content-wrapper {
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
             position: relative;
             z-index: 1;
             }
-    
+
+            /* 当侧滑栏打开时，主内容向右移动，避免遮挡 */
             .crypto-slidebar.active ~ .main-content-wrapper {
             transform: translateX(380px);
             }
-    
+
+            /* 响应式设计 */
             @media (max-width: 768px) {
             .crypto-slidebar {
                 width: 100%;
@@ -886,7 +994,8 @@
                 transform: translateX(100%);
             }
             }
-    
+
+            /* 在小屏幕上，侧滑栏按钮位置调整 */
             @media (max-width: 480px) {
             .slidebar-toggle {
                 top: 15px;
@@ -897,8 +1006,6 @@
             }
             }
     </style>
-    
-    
 </head>
 <body>
 
@@ -916,7 +1023,7 @@
                 <a href="https://Bitcoinfortheyoung.com/Bible.pdf" class="nav-link" id="Book">Book</a>
                 <a href="https://bitcoinfortheyoung.com/download/" class="nav-link" id="Download">Download</a>
                 <!-- 信任和合规相关链接 -->
-                <a href="https://bitcoinfortheyoung.com/about/" class="nav-link" id="About">About Us</a>
+                <a href="https://x.com/BTCfortheYoung" class="nav-link" id="About">About Us</a>
                 <!-- <a href="/disclaimer/" class="nav-link">Disclaimer</a> -->
             </div>
         </div>
@@ -1434,16 +1541,15 @@
     <div class="container">
         <p class="copyright">
             © 2025-2026 Bitcoin For The Young. All rights reserved. | 
-            <a href="https://x.com/BTCfortheYoung">About Us</a> | 
+            <a href="https://bitcoinfortheyoung.com/about/">About Us</a> | 
             <a href="https://bitcoinfortheyoung.com/privacy/">Privacy Policy</a> | 
-            <a href="mailto:px6200@gmail.com">Contact</a>
+            <a href="mailto:contact@bitcoinfortheyoung.com">Contact</a>
         </p>
         <p class="copyright" style="margin-top: 10px; font-size: 0.8rem;">
             This website is for educational purposes only. Cryptocurrency investments carry risk.
         </p>
     </div>
 </footer>
-
 </div> <!-- 容器结束 -->
 
 <script>
