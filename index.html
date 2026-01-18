@@ -71,6 +71,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+
+        打字效果
+
+
+        /* 核心：使用系统字体栈，苹果设备会自动显示最接近 SF Pro 的字体 */
+        .hero-title {
+        font-family: -apple-system, BlinkMacC, "Segoe UI", Roboto, 
+                    "Helvetica Neue", Arial, sans-serif;
+        font-size: 4.8rem;           /* Apple 常用超大标题尺寸 */
+        font-weight: 600;            /* SF Pro 的 Medium-Semibold 区间 */
+        letter-spacing: -0.02em;     /* 轻微负间距，更现代紧凑 */
+        line-height: 1.05;
+        color: #000000;              /* 纯黑（深色模式可用 #ffffff） */
+        margin: 0;
+        text-align: center;
+        }
+
+        /* 强调色 - 只用于 Young */
+        .highlight {
+        color: #f7931a;              /* 经典比特币橙，Apple 也会用单一强调色 */
+        font-weight: 700;
+        }
+
+        /* 极简打字效果 - 更像渐现而非老式打字机 */
+        .typing {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        vertical-align: bottom;
+        animation: reveal-text 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        /* 去掉闪烁光标，或使用极细极淡的版本 */
+        border-right: 2px solid rgba(247, 147, 26, 0.6);
+        animation: 
+            reveal-text 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+            subtle-blink 1.4s step-end infinite;
+        }
+
+        @keyframes reveal-text {
+        from { width: 0 }
+        to   { width: 5ch }          /* 只针对 "Young" 5个字符 */
+        }
+
+        @keyframes subtle-blink {
+        0%, 100%   { border-color: transparent }
+        50%        { border-color: rgba(247, 147, 26, 0.6); }
+        }
+
+
         /* Apple.com黑白风格重置 */
         * {
             margin: 0;
@@ -1122,9 +1170,11 @@
                 <!-- 本地图片pep.jpg -->
                 <img src="pep.jpg" alt="Bitcoin for the Young" class="logo-image">
                 <!-- 主标题 -->
-                <h1>
-                    Bitcoin For The <span class="title-young">Young</span>
-                </h1>
+                <div class="logo">
+                    <h1 class="hero-title">
+                      Bitcoin For The <span class="highlight">Young</span>
+                    </h1>
+                </div>
             </div>
             <!-- 标语 -->
             <!-- <p class="slogan" id="slogan">
