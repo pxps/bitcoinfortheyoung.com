@@ -242,8 +242,35 @@
             }
         }
 
-                /* Logo样式 */
-                .nav-logo {
+        /* 主导航栏样式 - Apple风格 */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e5e7;
+            z-index: 1001;
+            padding: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Logo样式 */
+        .nav-logo {
             display: flex;
             align-items: center;
             text-decoration: none;
@@ -273,9 +300,9 @@
             -webkit-background-clip: unset;
             background-clip: unset;
         }
-
-                /* 导航链接样式 */
-                .nav-links {
+        
+        /* 导航链接样式 */
+        .nav-links {
             display: flex;
             gap: 28px;
             align-items: center;
@@ -315,32 +342,24 @@
             width: 100%;
         }
         
-                /* 主导航栏样式 - Apple风格 */
-                .main-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid #e5e5e7;
-            z-index: 1001;
-            padding: 0;
-            height: 60px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
+        /* 移动端响应式 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: row;
+                gap: 0;
+            }
+            
+            .nav-links {
+                width: auto;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .nav-link {
+                padding: 6px 0;
+                font-size: 0.85rem;
+            }
     </style>
 </head>
 <body>
