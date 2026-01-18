@@ -1,447 +1,471 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Bitcoin for the Young! | 资料库</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --sf: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --primary: #0071e3;
+            --text: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --border: rgba(0,0,0,0.08);
+            --transition: 0.28s cubic-bezier(0.26, 0.86, 0.44, 0.985);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #1a2a3a, #0d1721);
-            color: #e0e0e0;
-            min-height: 100vh;
-            padding: 20px;
+            font-family: var(--sf);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        
+
+        /* 返回主页栏 - 苹果风格顶部导航条 */
+        .back-bar {
+            position: sticky;
+            top: 0;
+            background: rgba(245, 245, 247, 0.92);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 100;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .back-link::before {
+            content: "←";
+            font-size: 20px;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 40px;
         }
-        
-        header {
+
+        /* Hero 区域 */
+        .hero {
             text-align: center;
-            padding: 40px 0;
-            margin-bottom: 40px;
+            padding: 120px 0 80px;
         }
-        
-        .gradient-title {
-            font-size: 4.5rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #FFA500, #32CD32);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
             letter-spacing: -1.5px;
+            line-height: 1;
+            margin-bottom: 16px;
         }
-        
-        .subtitle {
-            font-size: 1.4rem;
-            color: #a0b3c6;
-            max-width: 700px;
+
+        .hero .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            max-width: 720px;
             margin: 0 auto;
-            line-height: 1.6;
         }
-        
+
+        /* 内容布局 */
         .content {
-            display: flex;
-            gap: 40px;
-            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 120px;
         }
-        
+
+        /* 资料卡片 */
         .info-card {
-            flex: 1;
-            background: rgba(30, 40, 55, 0.7);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(100, 150, 200, 0.15);
+            background: var(--card);
+            border-radius: 18px;
+            padding: 48px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.04);
         }
-        
+
         .section-title {
-            font-size: 1.8rem;
-            color: #4dabf7;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(77, 171, 247, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.6px;
+            margin-bottom: 32px;
         }
-        
-        .section-title i {
-            color: #ffa94d;
-        }
-        
+
         .directory {
-            list-style-type: none;
+            list-style: none;
         }
-        
+
         .directory li {
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            background: rgba(40, 50, 70, 0.6);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            cursor: pointer;
+            margin-bottom: 24px;
         }
-        
-        .directory li:hover {
-            background: rgba(50, 65, 95, 0.8);
-            transform: translateX(5px);
-            border-left: 4px solid #4dabf7;
-        }
-        
-        .directory li i {
-            color: #ffa94d;
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-        
-        .file-name {
-            font-weight: 500;
-            font-size: 1.1rem;
-            color: #e9ecef;
-        }
-        
-        .file-desc {
-            font-size: 0.9rem;
-            color: #a0b3c6;
-            margin-top: 5px;
-        }
-        
-        .pdf-link {
-            text-decoration: none;
-            color: inherit;
+
+        .file-link {
             display: block;
-            flex: 1;
-        }
-        
-        .about-section {
-            margin-top: 25px;
+            text-decoration: none;
+            color: var(--text);
             padding: 20px;
-            background: rgba(40, 50, 70, 0.4);
-            border-radius: 10px;
-            line-height: 1.7;
+            border-radius: 12px;
+            background: var(--bg);
+            transition: var(--transition);
+            border: 1px solid var(--border);
         }
-        
+
+        .file-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .file-name {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .file-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+        }
+
+        .about-section {
+            margin-top: 48px;
+            padding: 32px;
+            background: var(--bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
         .about-section p {
-            margin-bottom: 15px;
+            font-size: 17px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
         }
-        
+
+        .about-section a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* 图形区域 */
         .bitcoin-graphic {
-            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .bitcoin-symbol {
             width: 280px;
             height: 280px;
-            background: linear-gradient(135deg, #FFA500, #32CD32);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 50px rgba(50, 205, 50, 0.4);
-            position: relative;
-            animation: float 6s ease-in-out infinite;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
         }
-        
-        /* .bitcoin-symbol::before {
-            content: "₿";
-            font-size: 12rem;
-            color: #0d1721;
-            font-weight: 900;
-        } */
 
+        .bitcoin-symbol img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        .bitcoin-symbol::before {
-            content: ""; /* 清空字符内容 */
-            display: inline-block;
-            width: 12rem; /* 图片宽度 */
-            height: 12rem; /* 图片高度 */
-            background-image: url('https://bitcoinfortheyoung.com/pep.jpg'); /* 替换为本地图片路径 */
-            background-size: contain; /* 保持图片完整比例 */
-            background-repeat: no-repeat;
-            background-position: center;
-            border-radius: 50%; /* 添加此属性使图片变为圆形 */
-            /* 移除无效的字体样式 */
-            font-size: 0 !important;
-            color: transparent !important;
-            font-weight: normal;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
+        /* 页脚 */
         footer {
             text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            color: #6c757d;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(100, 150, 200, 0.1);
+            padding: 80px 0;
+            color: var(--text-secondary);
+            font-size: 15px;
+            border-top: 1px solid var(--border);
         }
-        
-        .add-file-btn {
-            display: inline-block;
-            background: linear-gradient(90deg, #FFA500, #32CD32);
-            color: #0d1721;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(50, 205, 50, 0.3);
+
+        footer p {
+            margin-bottom: 8px;
         }
-        
-        .add-file-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(50, 205, 50, 0.4);
-        }
-        
-        @media (max-width: 900px) {
+
+        /* 响应式 */
+        @media (max-width: 1024px) {
             .content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
-            
-            .gradient-title {
-                font-size: 3.5rem;
-            }
-            
+
             .bitcoin-symbol {
                 width: 220px;
                 height: 220px;
-                margin: 30px auto;
+                margin: 0 auto;
             }
-            
-            .bitcoin-symbol::before {
-                font-size: 9rem;
+
+            .hero {
+                padding: 80px 0 60px;
             }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .info-card {
+                padding: 32px;
+            }
+
+            .back-bar {
+                padding: 12px 0;
+            }
+
+            .back-link {
+                font-size: 15px;
+            }
+        }
+
+                /* Logo样式 */
+                .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1d1d1f;
+            gap: 12px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+        
+        .nav-logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #d2d2d7;
+            object-fit: cover;
+        }
+        
+        .nav-logo span {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+                /* 导航链接样式 */
+                .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #515154;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #1d1d1f;
+        }
+        
+        .nav-link:active {
+            color: #1d1d1f;
+        }
+        
+        /* 在链接后添加小图标（可选） */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #1d1d1f;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+                /* 主导航栏样式 - Apple风格 */
+                .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e5e7;
+            z-index: 1001;
+            padding: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
+
+    <!-- 返回主页栏 -->
+    <div class="back-bar">
+        <a href="https://bitcoinfortheyoung.com" class="back-link">返回主页</a>
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <!-- Logo链接到首页 -->
+            <a href="https://bitcoinfortheyoung.com/" class="nav-logo">
+                <img src="https://bitcoinfortheyoung.com/pep.jpg" alt="Bitcoin for the Young Logo">
+                <span>BitcoinForTheYoung</span>
+            </a>
+            
+            <!-- 主要页面导航链接 -->
+            <div class="nav-links">
+                <a href="https://bitcoinfortheyoung.com/educate" class="nav-link" id="Education">Edu</a>
+                <a href="https://Bitcoinfortheyoung.com/Bible.pdf" class="nav-link" id="Book">Book</a>
+                <a href="https://archive.org/details/@xin_polo" class="nav-link" id="Download">Guide</a>
+                <!-- 信任和合规相关链接 -->
+                <a href="https://x.com/BTCfortheYoung" class="nav-link" id="About">About</a>
+                <!-- <a href="/disclaimer/" class="nav-link">Disclaimer</a> -->
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <header>
-            <h1 class="gradient-title">Bitcoin for the Young!</h1>
-            <p class="subtitle">专为年轻一代设计的学习资料库 - 从基础概念到未来的金融系统</p>
-        </header>
-        
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Bitcoin for the Young</h1>
+            <p class="subtitle">高老师新人手册《蛙蛙系列教程》</p>
+        </section>
+
+        <!-- 内容 -->
         <div class="content">
+            <!-- 资料卡片 -->
             <div class="info-card">
-                <h2 class="section-title"><i class="fas fa-folder-open"></i> 学习资料目录</h2>
+                <h2 class="section-title">目录</h2>
                 
                 <ul class="directory">
-
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20251213.pdf" class="pdf-link" id="test-pdf">
+                        <a href="http://bitcoinfortheyoung.com/download/20260114.pdf" class="file-link" target="_blank">
+                            <div class="file-name">20260114.pdf</div>
+                            <div class="file-desc">Pepecoin(PEP)佩佩币《蛙蛙系列教程》之Coinomi</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20251213.pdf" class="file-link" target="_blank">
                             <div class="file-name">20251213.pdf</div>
                             <div class="file-desc">Pepecoin$PEP_蛙蛙系列教程之Capitoday 祝贺 Pepecoin ( $PEP ) 在 #Capitoday 投票达到10,000票。</div>
                         </a>
                     </li>
 
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20251130.pdf" class="pdf-link" id="test-pdf">
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20251130.pdf" class="file-link" target="_blank">
                             <div class="file-name">20251130.pdf</div>
                             <div class="file-desc">蛙蛙系列手册之未来已来v1.1</div>
                         </a>
                     </li>
+
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250924.zip" class="pdf-link" id="test-pdf">
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250924.zip" class="file-link" target="_blank">
                             <div class="file-name">20250924.pdf</div>
                             <div class="file-desc">佩佩币-带有青蛙标志的比特币v1.6</div>
                         </a>
                     </li>
 
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250729.pdf" class="pdf-link" id="test-pdf">
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250729.pdf" class="file-link" target="_blank">
                             <div class="file-name">20250729.pdf</div>
                             <div class="file-desc">蛙蛙系列手册之区块浏览器v1.1</div>
                         </a>
                     </li>
 
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250904.pdf" class="pdf-link" id="test-pdf">
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250904.pdf" class="file-link" target="_blank">
                             <div class="file-name">20250904.pdf</div>
                             <div class="file-desc">蛙蛙系列手册之了解这只青蛙v1.1</div>
                         </a>
                     </li>
 
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250908.pdf" class="pdf-link" id="test-pdf">
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20250908.pdf" class="file-link" target="_blank">
                             <div class="file-name">20250908.pdf</div>
                             <div class="file-desc">蛙蛙系列手册之购买与存储v1.1</div>
                         </a>
                     </li>
 
                     <li>
-                        <i class="fas fa-file-pdf"></i>
-                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20251018.pdf" class="pdf-link" id="test-pdf">
+                        <a href="https://download.bitcoinfortheyoung.com/gaolaoshi/20251018.pdf" class="file-link" target="_blank">
                             <div class="file-name">20251018.pdf</div>
                             <div class="file-desc">蛙蛙系列手册之为社区建设出力v1.1</div>
                         </a>
                     </li>
-                    <!-- <li>
-                        <i class="fas fa-file-alt"></i>
-                        <div>
-                            <div class="file-name">blockchain-fundamentals.docx</div>
-                            <div class="file-desc">区块链技术核心概念详解</div>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-file-video"></i>
-                        <div>
-                            <div class="file-name">crypto-wallet-tutorial.mp4</div>
-                            <div class="file-desc">如何安全创建和使用加密货币钱包</div>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-file-image"></i>
-                        <div>
-                            <div class="file-name">bitcoin-timeline.png</div>
-                            <div class="file-desc">比特币发展历程与重要事件时间线</div>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-file-code"></i>
-                        <div>
-                            <div class="file-name">smart-contracts-examples.zip</div>
-                            <div class="file-desc">智能合约开发实例与模板</div>
-                        </div>
-                    </li>  -->
                 </ul>
                 
                 <div class="about-section">
-                    <h3 class="section-title"><i class="fas fa-info-circle"></i> 关于本资料库</h3>
-                    <p>这个资料库专为年轻学习者设计。文件由高老师提供，关注<a href="https://x.com/allangbq_7873" target="_blank" style="font-weight:bold;color:#1da1f2;text-decoration:none;">高老师</a>。</p>
-                    <!-- <p>所有材料都经过精心挑选和设计，确保内容既有趣又富有教育意义。我们相信加密货币和区块链技术是未来金融体系的重要组成部分。</p>
-                    <p>你可以随时添加自己的学习材料到这个资料库中，只需点击下面的按钮上传新文件。</p> -->
-                    
-                    <!-- <button class="add-file-btn">
-                        <i class="fas fa-plus-circle"></i> 添加新文件
-                    </button> -->
+                    <h3 class="section-title">关于</h3>
+                    <p>文件由高老师提供，关注<a href="https://x.com/allangbq_7873" target="_blank">高老师</a>。</p>
+                    <p>由Meta提供网页与存储技术支持，关注<a href="https://x.com/Nlaoshicom" target="_blank">Meta</a>。</p>               
                 </div>
             </div>
             
+            <!-- 图形 -->
             <div class="bitcoin-graphic">
-                <div class="bitcoin-symbol"></div>
+                <div class="bitcoin-symbol">
+                    <img src="https://bitcoinfortheyoung.com/pep.jpg" alt="Pepecoin Logo">
+                </div>
             </div>
+
+            <!-- <a href="https://bitcoinfortheyoung.com/" class="nav-logo">
+                <img src="pep.jpg" alt="Bitcoin for the Young Logo">
+                <span>BitcoinForTheYoung</span>
+            </a> -->
         </div>
         
+        <!-- 页脚 -->
         <footer>
-            <p> &copy; 2025 Bitcoin for the Young 学习资料库 | 为下一代金融教育而设计</p>
+            <p>© 2025-2026 BitcoinfortheYoung.com</p>
             <p>本网站仅用于教育目的，不提供任何投资建议</p>
         </footer>
     </div>
-    
-    <script>
-        // 设置PDF文件链接
-        document.getElementById('20251213.pdf').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20251213.pdf';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
 
-        document.getElementById('20250924.zip').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20250924.zip';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
-        
-        document.getElementById('20250729.pdf').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20250729.pdf';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
-
-        document.getElementById('20250904.zip').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20250904.zip';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
-
-        document.getElementById('20250908.zip').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20250908.zip';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
-
-        document.getElementById('20251018.zip').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20251018.zip';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
-        document.getElementById('20251130.zip').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 在实际应用中，这里会指向真实的PDF文件
-            // 现在使用一个示例PDF链接（来自互联网的公开PDF）
-            const pdfUrl = 'https://download.bitcoinfortheyoung.com/gaolaoshi/20251130.zip';
-            
-            // 在新标签页中打开PDF
-            window.open(pdfUrl, '_blank');
-        });
-        // // 添加文件按钮功能
-        // document.querySelector('.add-file-btn').addEventListener('click', function() {
-        //     alert('在实际应用中，这里会打开文件上传对话框。\n现在，您可以添加新的文件到目录结构中。');
-        // });
-    </script>
 </body>
 </html>
