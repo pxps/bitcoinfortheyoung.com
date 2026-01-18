@@ -72,52 +72,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
 
-        打字效果
-
-
-        /* 核心：使用系统字体栈，苹果设备会自动显示最接近 SF Pro 的字体 */
-        .hero-title {
-        font-family: -apple-system, BlinkMacC, "Segoe UI", Roboto, 
-                    "Helvetica Neue", Arial, sans-serif;
-        font-size: 4.8rem;           /* Apple 常用超大标题尺寸 */
-        font-weight: 600;            /* SF Pro 的 Medium-Semibold 区间 */
-        letter-spacing: -0.02em;     /* 轻微负间距，更现代紧凑 */
-        line-height: 1.05;
-        color: #000000;              /* 纯黑（深色模式可用 #ffffff） */
-        margin: 0;
-        text-align: center;
+        /* 打字效果 */
+        .typing-demo {
+            color: rgb(20, 8, 8);
+            font-family: system-ui, sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+            overflow: hidden;
+            border-right: 0.15em solid #f7931a;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: 
+                typing 4s steps(22) infinite alternate,
+                blink 0.8s step-end infinite;
         }
 
-        /* 强调色 - 只用于 Young */
-        .highlight {
-        color: #f7931a;              /* 经典比特币橙，Apple 也会用单一强调色 */
-        font-weight: 700;
+        @keyframes typing {
+            from { width: 0 }
+            to   { width: 22ch }   /* "Bitcoin For The Young" 大约22字符 */
         }
 
-        /* 极简打字效果 - 更像渐现而非老式打字机 */
-        .typing {
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-        vertical-align: bottom;
-        animation: reveal-text 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        /* 去掉闪烁光标，或使用极细极淡的版本 */
-        border-right: 2px solid rgba(247, 147, 26, 0.6);
-        animation: 
-            reveal-text 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
-            subtle-blink 1.4s step-end infinite;
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
-
-        @keyframes reveal-text {
-        from { width: 0 }
-        to   { width: 5ch }          /* 只针对 "Young" 5个字符 */
-        }
-
-        @keyframes subtle-blink {
-        0%, 100%   { border-color: transparent }
-        50%        { border-color: rgba(247, 147, 26, 0.6); }
-        }
-
 
         /* Apple.com黑白风格重置 */
         * {
@@ -1170,11 +1147,9 @@
                 <!-- 本地图片pep.jpg -->
                 <img src="pep.jpg" alt="Bitcoin for the Young" class="logo-image">
                 <!-- 主标题 -->
-                <div class="logo">
-                    <h1 class="hero-title">
-                      Bitcoin For The <span class="highlight">Young</span>
-                    </h1>
-                </div>
+                <h1   class="typing-demo">
+                    Bitcoin For The Young
+                </h1>
             </div>
             <!-- 标语 -->
             <!-- <p class="slogan" id="slogan">
@@ -1591,7 +1566,7 @@
                     <a href="https://www.mexc.com/exchange/PEP_USDT?shareCode=mexc-2oTpe" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
-                            <h3 id="bellsCoin">Mexc</h3>
+                            <h3>Mexc</h3>
                             <p>mexc.com</p>
                         </div>
                     </a>
@@ -1599,7 +1574,7 @@
                     <a href="https://ascendex.com/en/register?inviteCode=U86OISG3R" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
-                            <h3 id="bellsCoin">Ascendex</h3>
+                            <h3>Ascendex</h3>
                             <p>Ascendex.com</p>
                         </div>
                     </a>
@@ -1607,7 +1582,7 @@
                     <a href="https://www.xt.com/en/trade/pep_usdt?ref=J48DGE" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
-                            <h3 id="bellsCoin">XT</h3>
+                            <h3>XT</h3>
                             <p>xt.com</p>
                         </div>
                     </a>
@@ -1615,18 +1590,18 @@
                     <a href="https://www.coinex.com/en/exchange/pep-usdt?rc=g8f6q" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
-                            <h3 id="bellsCoin">coinex</h3>
+                            <h3>coinex</h3>
                             <p>coinex.com</p>
                         </div>
                     </a>
 
-                    <a href="https://bitweb.bitexch.io/signup?code=ZHHVA7" class="community-link" target="_blank">
+                    <!-- <a href="https://bitweb.bitexch.io/signup?code=ZHHVA7" class="community-link" target="_blank">
                         <div class="link-icon"><i class="fas fa-globe" style="color: #4dccbd;"></i></div>
                         <div class="link-text">
                             <h3 id="bitExchange">BIT Crypto Exchange</h3>
                             <p>Bit.com</p>
                         </div>
-                    </a>
+                    </a> -->
                     
                 </div>
         
@@ -1652,6 +1627,8 @@
 </div> <!-- 容器结束 -->
 
 <script>
+
+    
     // 语言翻译数据
     const translations = {
         'en': {
@@ -2241,6 +2218,29 @@
     });
 </script>
 
+<!-- <script>
+    // 如果想要真正逐字出现而不是假动画，可以用这个小脚本
+    const text = "Bitcoin For The Young";
+    const el = document.querySelector('.typing-demo');
+    let i = 0;
+    
+    function type() {
+        if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 1);  // 打字速度，越小越快
+        } else {
+            // 可选：打完停一下再删除重来
+            setTimeout(() => {
+                el.textContent = "";
+                i = 0;
+                type();
+            }, 2000);
+        }
+    }
+    
+    type();
+</script> -->
 
 </body>
 
