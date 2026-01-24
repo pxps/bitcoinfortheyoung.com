@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <html lang="zh-CN">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+            <!-- 核心SEO Meta Tags -->
+            <title>Bitcoin for the Young news | Bitcoin For The Young | Crypto Education & Community | 年轻人比特币</title>
+            <meta name="description" content="Join the Bitcoin For The Young movement. Learn about Bitcoin, Pepecoin, and cryptocurrency education for the next generation. Forever passionate, forever young!">
+            <meta name="keywords" content="Bitcoin, Bitcoin for beginners，cryptocurrency, Pepecoin, crypto education, blockchain, Bitcoin for the young, crypto community, 比特币入门，年轻人比特币， 比特币年轻人，比特币入门，比特币教学">
+            <meta name="author" content="Bitcoin For The Young">
+            <meta name="robots" content="index, follow, max-image-preview:large">
+            
+            <!-- Open Graph Meta Tags -->
+            <meta property="og:title" content="Bitcoin For The Young | Crypto Education & Community">
+            <meta property="og:description" content="Join the Bitcoin For The Young movement. Learn about Bitcoin, Pepecoin, and cryptocurrency education for the next generation.">
+            <meta property="og:type" content="website">
+            <meta property="og:url" content="https://bitcoinfortheyoung.com/">
+            <meta property="og:image" content="https://bitcoinfortheyoung.com/pep.jpg">
+            <meta property="og:site_name" content="Bitcoin For The Young">
+            
+            <!-- Twitter Card Meta Tags -->
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="Bitcoin For The Young | Crypto Education & Community">
+            <meta name="twitter:description" content="Join the Bitcoin For The Young movement. Learn about Bitcoin, Pepecoin, and cryptocurrency education.">
+            <meta name="twitter:image" content="https://bitcoinfortheyoung.com/pep.jpg">
+            <meta name="twitter:site" content="@pepecoinnetwork">
+            
+            <!-- Canonical URL -->
+            <link rel="canonical" href="https://bitcoinfortheyoung.com/">
+        
+            <!-- 新增sitemap引用 -->
+            <link rel="sitemap" type="application/xml" title="Sitemap" href="https://bitcoinfortheyoung.com/sitemap.xml">
+            
+            <!-- Preload关键资源 -->
+            <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+            <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" as="style">
+            <link rel="preload" href="pep.jpg" as="image">
+            
+            <!-- 外部样式表 -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+            
+            <!-- PNG版本（现代浏览器和谷歌支持很好） -->
+            <link rel="icon" type="image/png" href="https://bitcoinfortheyoung.com/favicon.png">
+        
+            <!-- 传统.ico版本（谷歌最保险） -->
+            <link rel="shortcut icon" href="https://bitcoinfortheyoung.com/favicon.png" type="image/x-icon">
+        
+            <!-- 结构化数据 (Schema.org) -->
+            <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Bitcoin For The Young",
+                "url": "https://bitcoinfortheyoung.com",
+                "logo": "https://bitcoinfortheyoung.com/pep.jpg",
+                "description": "Cryptocurrency education and community for the next generation",
+                "sameAs": [
+                    "https://x.com/pepecoinnetwork",
+                    "https://t.me/PepecoinGroup",
+                    "https://reddit.com/r/pepecoin",
+                    "https://discord.gg/Pepecoin"
+                ]
+            }
+            </script>
+    
+<style>
+    :root {
+        --sf: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --primary: #0071e3;
+        --text: #1d1d1f;
+        --text-secondary: #6e6e73;
+        --bg: #f5f5f7;
+        --card: #ffffff;
+        --border: rgba(0,0,0,0.08);
+        --transition: 0.28s cubic-bezier(0.26, 0.86, 0.44, 0.985);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--sf);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 返回主页栏 - 苹果风格顶部导航条 */
+    .back-bar {
+        position: sticky;
+        top: 0;
+        background: rgba(245, 245, 247, 0.92);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        z-index: 100;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .back-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+    }
+
+    .back-link:hover {
+        opacity: 0.8;
+    }
+
+    .back-link::before {
+        content: "←";
+        font-size: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+
+    /* Hero 区域 */
+    .hero {
+        text-align: center;
+        padding: 120px 0 80px;
+    }
+
+    .hero h1 {
+        font-size: clamp(48px, 8vw, 96px);
+        font-weight: 700;
+        letter-spacing: -1.5px;
+        line-height: 1;
+        margin-bottom: 16px;
+    }
+
+    .hero .subtitle {
+        font-size: 24px;
+        font-weight: 400;
+        color: var(--text-secondary);
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    /* 内容布局 */
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        margin-bottom: 120px;
+    }
+
+    /* 资料卡片 */
+    .info-card {
+        background: var(--card);
+        border-radius: 18px;
+        padding: 48px;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+    }
+
+    .section-title {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+        margin-bottom: 32px;
+    }
+
+    .directory {
+        list-style: none;
+    }
+
+    .directory li {
+        margin-bottom: 24px;
+    }
+
+    .file-link {
+        display: block;
+        text-decoration: none;
+        color: var(--text);
+        padding: 20px;
+        border-radius: 12px;
+        background: var(--bg);
+        transition: var(--transition);
+        border: 1px solid var(--border);
+    }
+
+    .file-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .file-name {
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .file-desc {
+        font-size: 17px;
+        color: var(--text-secondary);
+    }
+
+    .about-section {
+        margin-top: 48px;
+        padding: 32px;
+        background: var(--bg);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+
+    .about-section p {
+        font-size: 17px;
+        margin-bottom: 16px;
+        color: var(--text-secondary);
+    }
+
+    .about-section a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    /* 图形区域 */
+    .bitcoin-graphic {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bitcoin-symbol {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    .bitcoin-symbol img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* 页脚 */
+    footer {
+        text-align: center;
+        padding: 80px 0;
+        color: var(--text-secondary);
+        font-size: 15px;
+        border-top: 1px solid var(--border);
+    }
+
+    footer p {
+        margin-bottom: 8px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+        .content {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .bitcoin-symbol {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            padding: 80px 0 60px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 24px;
+        }
+
+        .info-card {
+            padding: 32px;
+        }
+
+        .back-bar {
+            padding: 12px 0;
+        }
+
+        .back-link {
+            font-size: 15px;
+        }
+    }
+
+    /* 主导航栏样式 - Apple风格 */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid #e5e5e7;
+        z-index: 1001;
+        padding: 0;
+        height: 60px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    /* Logo样式 */
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #1d1d1f;
+        gap: 12px;
+        transition: opacity 0.3s ease;
+    }
+    
+    .nav-logo:hover {
+        opacity: 0.8;
+    }
+    
+    .nav-logo img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid #d2d2d7;
+        object-fit: cover;
+    }
+    
+    .nav-logo span {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1d1d1f;
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
+    }
+    
+    /* 导航链接样式 */
+    .nav-links {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+    }
+    
+    .nav-link {
+        color: #515154;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 400;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .nav-link:hover {
+        color: #1d1d1f;
+    }
+    
+    .nav-link:active {
+        color: #1d1d1f;
+    }
+    
+    /* 在链接后添加小图标（可选） */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #1d1d1f;
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    
+    /* 移动端响应式 */
+    @media (max-width: 768px) {
+        .nav-container {
+            flex-direction: row;
+            gap: 0;
+        }
+        
+        .nav-links {
+            width: auto;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            padding: 6px 0;
+            font-size: 0.85rem;
+        }
+</style></head>
+<body>
+
+<!-- 返回主页栏 -->
+<div class="back-bar">
+    <a href="https://bitcoinfortheyoung.com" class="back-link">返回主页</a>
+</div>
+
+<nav class="main-nav">
+    <div class="nav-container">
+        <!-- Logo链接到首页 -->
+        <a href="https://bitcoinfortheyoung.com/" class="nav-logo">
+            <img src="https://bitcoinfortheyoung.com/pep.jpg" alt="Bitcoin for the Young Logo">
+            <span>BitcoinForTheYoung</span>
+        </a>
+        
+        <!-- 主要页面导航链接 -->
+        <div class="nav-links">
+            <a href="https://bitcoinfortheyoung.com/educate" class="nav-link" id="Education">Edu</a>
+            <a href="https://Bitcoinfortheyoung.com/Bible.pdf" class="nav-link" id="Book">Book</a>
+            <a href="https://archive.org/details/@xin_polo" class="nav-link" id="Download">Guide</a>
+            <!-- 信任和合规相关链接 -->
+            <a href="https://x.com/BTCfortheYoung" class="nav-link" id="About">About</a>
+            <!-- <a href="/disclaimer/" class="nav-link">Disclaimer</a> -->
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Bitcoin for the Young</h1>
+        <p class="subtitle">最新新闻与更新：探索Pepecoin与比特币的世界</p>
+    </section>
+
+    <!-- 内容 -->
+    <div class="content">
+        <!-- 新闻卡片 -->
+        <div class="info-card">
+            <h2 class="section-title">最新新闻</h2>
+            
+            <ul class="directory">
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/pepecoin-vote-20260114" class="file-link" target="_blank">
+                        <div class="file-name">Pepecoin社区投票突破10,000票</div>
+                        <div class="file-desc">2026年1月14日 - Pepecoin ($PEP) 在Capitoday投票中取得里程碑式胜利，标志着社区力量的崛起。</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/future-arrived-20251213" class="file-link" target="_blank">
+                        <div class="file-name">未来已来：蛙蛙系列教程更新</div>
+                        <div class="file-desc">2025年12月13日 - 高老师发布《蛙蛙系列手册之未来已来v1.1》，聚焦比特币与Pepecoin的未来发展。</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/pepe-bitcoin-20251130" class="file-link" target="_blank">
+                        <div class="file-name">佩佩币：带有青蛙标志的比特币v1.6</div>
+                        <div class="file-desc">2025年11月30日 - 最新版本手册探讨Pepecoin如何融合比特币技术与独特社区文化。</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/block-explorer-20250924" class="file-link" target="_blank">
+                        <div class="file-name">区块浏览器教程更新</div>
+                        <div class="file-desc">2025年9月24日 - 《蛙蛙系列手册之区块浏览器v1.1》帮助新人掌握区块链查询工具。</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/understand-frog-20250729" class="file-link" target="_blank">
+                        <div class="file-name">了解这只青蛙：Pepecoin入门</div>
+                        <div class="file-desc">2025年7月29日 - 新手指南《蛙蛙系列手册之了解这只青蛙v1.1》发布，简化加密货币概念。</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/buy-store-20250904" class="file-link" target="_blank">
+                        <div class="file-name">购买与存储Pepecoin指南</div>
+                        <div class="file-desc">2025年9月4日 - 更新版手册提供安全购买和存储Pepecoin的实用建议。</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/community-build-20250908" class="file-link" target="_blank">
+                        <div class="file-name">为社区建设出力</div>
+                        <div class="file-desc">2025年9月8日 - 《蛙蛙系列手册之为社区建设出力v1.1》鼓励参与者贡献力量。</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://bitcoinfortheyoung.com/news/coinomi-tutorial-20251018" class="file-link" target="_blank">
+                        <div class="file-name">Coinomi钱包教程</div>
+                        <div class="file-desc">2025年10月18日 - 详细指导如何使用Coinomi管理Pepecoin资产。</div>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="about-section">
+                <h3 class="section-title">关于</h3>
+                <p>新闻由高老师团队 curation，关注<a href="https://x.com/allangbq_7873" target="_blank">高老师</a>获取最新更新。</p>
+                <p>由Meta提供网页与存储技术支持，关注<a href="https://x.com/Nlaoshicom" target="_blank">Meta</a>。</p>               
+            </div>
+        </div>
+        
+        <!-- 图形 -->
+        <div class="bitcoin-graphic">
+            <div class="bitcoin-symbol">
+                <img src="https://bitcoinfortheyoung.com/pep.jpg" alt="Pepecoin Logo">
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025-2026 BitcoinfortheYoung.com</p>
+        <p>本网站仅用于教育目的，不提供任何投资建议</p>
+    </footer>
+</div></body>
+</html>
+

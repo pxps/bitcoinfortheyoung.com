@@ -22,7 +22,6 @@
   </url>
 
   <url>
-    <url>
     <loc>https://bitcoinfortheyoung.com/download/</loc>
     <lastmod>2025-12-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,7 +29,6 @@
   </url>
 
   <url>
-    <url>
     <loc>https://bitcoinfortheyoung.com/about/</loc>
     <lastmod>2025-12-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -38,11 +36,18 @@
   </url>
 
   <url>
-    <url>
     <loc>https://bitcoinfortheyoung.com/gao/</loc>
     <lastmod>2025-12-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-  </url>  
-  <!-- 在此处添加更多URL -->
+  </url>
+
+  <url>
+    <loc>https://bitcoinfortheyoung.com/news/</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 在此处添加更多 <url> 条目 -->
 </urlset>
