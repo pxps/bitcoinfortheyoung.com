@@ -175,16 +175,34 @@
         color: #1d1d1f;
         }
 
-        .news-excerpt {
+                .news-excerpt {
         font-size: clamp(0.9375rem, 4vw, 1rem);
         line-height: 1.48;
         font-weight: 400;
         color: #424245;
         margin-bottom: 1.1rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;            /* 手機多顯示一行 */
-        -webkit-box-orient: vertical;
+
+        /* 防拉扯、防水平滾動 */
+        max-width: 100%;
         overflow: hidden;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        }
+
+        @media (max-width: 768px) {
+        .news-excerpt {
+            -webkit-line-clamp: 5;
+            line-height: 1.52;
+            font-size: clamp(0.95rem, 3.8vw, 1.0625rem);
+            /* 如果你接受更強制斷行，可以改成： */
+            /* word-break: break-all; */
+            /* overflow-wrap: anywhere; */
+        }
         }
 
         .read-more {
@@ -317,34 +335,6 @@
 
         .carousel-prev { left: 1.5rem; }
         .carousel-next { right: 1.5rem; }
-        }
-
-
-
-                .news-excerpt {
-        font-size: clamp(0.9375rem, 4vw, 1rem);
-        line-height: 1.48;
-        font-weight: 400;
-        color: #424245;
-        margin-bottom: 1.1rem;
-
-        /* 關鍵：讓文字自動換行、不撐開容器 */
-        word-break: break-word;           /* 斷開過長單詞（英文、長網址） */
-        overflow-wrap: break-word;        /* 現代標準寫法，與上面效果類似 */
-        hyphens: auto;                    /* 英文自動斷字（支援度中等） */
-
-        /* 強制限制在容器內，不產生水平滾動 */
-        overflow: hidden;
-        text-overflow: ellipsis;          /* 太長時顯示 ... （可選） */
-
-        /* 保持原本的多行限制 */
-        display: -webkit-box;
-        -webkit-line-clamp: 4;            /* 或 3，依需求 */
-        -webkit-box-orient: vertical;
-
-        /* 額外安全措施：防止極端情況撐開 */
-        max-width: 100%;
-        box-sizing: border-box;
         }
 
 
