@@ -130,8 +130,28 @@
 }
 
 .read-more {
-  font-size: 1rem;
-}
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #0071e3;                   /* Apple 招牌藍 */
+        text-decoration: none;
+        letter-spacing: -0.01em;
+        }
+
+        .read-more::after {
+        content: " →";
+        margin-left: 0.4rem;
+        transition: transform 0.25s ease;
+        }
+
+        .read-more:hover {
+        color: #0077ed;
+        }
+
+        .read-more:hover::after {
+        transform: translateX(4px);
+        }
 
 .carousel-prev, .carousel-next {
   width: 44px;
@@ -1823,7 +1843,7 @@
 </footer>
 </div> <!-- 容器结束 -->
 
-<script>
+<!--<script>
     // 放在 </body> 前或使用 defer
     document.addEventListener('DOMContentLoaded', () => {
       const wrapper = document.getElementById('carousel-wrapper');
@@ -1899,7 +1919,7 @@
       createDots();
       resetAutoPlay(); // 開始自動輪播
     });
-</script>
+</script>-->
 
 
 <script>
