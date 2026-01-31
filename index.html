@@ -100,344 +100,255 @@
 
         /*new*/
 
-                .news-carousel-preview {
-        position: relative;
-        width: 100%;
-        margin: 1.5rem 0;                 /* 手機減少上下留白 */
-        overflow: hidden;
-        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        color: #1d1d1f;
-        background: #f5f5f7;
-        border-radius: 0;                 /* 手機通常全寬 → 移除圓角 */
-        box-shadow: none;                 /* 手機移除陰影，輕量化 */
-        }
-
-        /* 深色模式（保持不變） */
-        @media (prefers-color-scheme: dark) {
         .news-carousel-preview {
-            background: #1d1d1f;
-            color: #f5f5f7;
-        }
-        .news-item {
-            background: rgba(29, 29, 31, 0.92);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .news-date { color: #86868b; }
-        .news-excerpt { color: #d2d2d7; }
-        .read-more { color: #2997ff; }
-        .read-more:hover { color: #6ab0ff; }
-        .carousel-prev, .carousel-next {
-            background: rgba(29, 29, 31, 0.7);
-        }
-        }
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem 0;
+  overflow: hidden;
+  font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  touch-action: pan-y;
+}
 
-        /* 輪播容器 */
-        .carousel-wrapper {
-        display: flex;
-        transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1); /* 稍微加快手機過渡 */
-        }
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .news-carousel-preview {
+    background: #1d1d1f;
+    color: #f5f5f7;
+  }
+  .news-item {
+    background: rgba(29, 29, 31, 0.92);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .news-date { color: #86868b; }
+  .news-excerpt { color: #d2d2d7; }
+  .read-more { color: #2997ff; }
+  .read-more:hover { color: #6ab0ff; }
+}
 
-        /* 每則新聞卡片 - 手機基礎樣式 */
-        .news-item {
-        flex: 0 0 100%;
-        min-width: 100%;
-        padding: 1.6rem 1.4rem;           /* 手機適中內距 */
-        background: #ffffff;
-        border-radius: 0;
-        box-sizing: border-box;
-        border: none;                     /* 手機不顯示邊框 */
-        box-shadow: 0 1px 8px rgba(0,0,0,0.06); /* 極輕陰影 */
-        backdrop-filter: none;            /* 手機關閉毛玻璃，提升流暢度 */
-        transition: transform 0.25s ease;
-        }
+/* 轮播容器 */
+.carousel-wrapper {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
 
-        .news-item:hover {
-        transform: translateY(-2px);      /* 手機抬升幅度減小 */
-        }
+/* 每张卡片 - 移动端基础样式 */
+.news-item {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 1.3rem 1.1rem;
+  background: #ffffff;
+  border-radius: 0;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  overflow: hidden;
+  backdrop-filter: none;
+  transition: transform 0.25s ease;
+}
 
-        /* 文字元件 - 使用 clamp 自動縮放 */
-        .news-date {
-        font-size: clamp(0.8125rem, 3.2vw, 0.875rem);
-        font-weight: 500;
-        color: #6e6e73;
-        letter-spacing: -0.01em;
-        margin-bottom: 0.5rem;
-        }
+.news-item:hover {
+  transform: translateY(-2px);
+}
 
-        .news-title {
-        font-size: clamp(1.25rem, 5.5vw, 1.5rem);
-        font-weight: 600;
-        line-height: 1.28;
-        letter-spacing: -0.015em;
-        margin: 0 0 0.8rem;
-        color: #1d1d1f;
-        }
+.news-date {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #6e6e73;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.45rem;
+}
 
-                .news-excerpt {
-        font-size: clamp(0.9375rem, 4vw, 1rem);
-        line-height: 1.48;
-        font-weight: 400;
-        color: #424245;
-        margin-bottom: 1.1rem;
+.news-title {
+  font-size: 1.28rem;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.7rem;
+  color: #1d1d1f;
+}
 
-        /* 防拉扯、防水平滾動 */
-        max-width: 100%;
-        overflow: hidden;
-        word-break: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
+.news-excerpt {
+  font-size: 0.96rem;
+  line-height: 1.52;
+  font-weight: 400;
+  color: #424245;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        }
+  /* 防拉扯核心 */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
-        @media (max-width: 768px) {
-        .news-excerpt {
-            -webkit-line-clamp: 5;
-            line-height: 1.52;
-            font-size: clamp(0.95rem, 3.8vw, 1.0625rem);
-            /* 如果你接受更強制斷行，可以改成： */
-            word-break: break-all;
-            overflow-wrap: anywhere;
-        }
-        }
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #0071e3;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
 
-        .read-more {
-        display: inline-flex;
-        align-items: center;
-        font-size: clamp(0.9375rem, 4vw, 1rem);
-        font-weight: 500;
-        color: #0071e3;
-        text-decoration: none;
-        letter-spacing: -0.01em;
-        }
+.read-more::after {
+  content: " →";
+  margin-left: 0.35rem;
+  transition: transform 0.25s ease;
+}
 
-        .read-more::after {
-        content: " →";
-        margin-left: 0.35rem;
-        transition: transform 0.25s ease;
-        }
+.read-more:hover::after {
+  transform: translateX(3px);
+}
 
-        .read-more:hover::after {
-        transform: translateX(3px);
-        }
+/* 箭头 - 移动端默认隐藏 */
+.carousel-prev,
+.carousel-next {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  color: #1d1d1f;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 300;
+  z-index: 5;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  transition: all 0.25s ease;
+}
 
-        /* 箭頭按鈕 - 手機上隱藏 */
-        .carousel-prev,
-        .carousel-next {
-        display: none;                    /* 預設隱藏（手機優先） */
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255,255,255,0.92);
-        backdrop-filter: blur(20px);
-        color: #1d1d1f;
-        border: none;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.4rem;
-        font-weight: 300;
-        z-index: 5;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-        transition: all 0.25s ease;
-        }
+.carousel-prev { left: 1rem; }
+.carousel-next { right: 1rem; }
 
-        .carousel-prev { left: 1rem; }
-        .carousel-next { right: 1rem; }
+/* 小圆点 - 移动端适配 */
+.carousel-dots {
+  text-align: center;
+  padding: 0.8rem 0 1rem;
+}
 
-        /* 小圓點 - 手機上更小更密集 */
-        .carousel-dots {
-        text-align: center;
-        padding: 1rem 0 0.8rem;
-        }
+.dot {
+  height: 7px;
+  width: 7px;
+  margin: 0 4px;
+  background-color: #d2d2d7;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-        .dot {
-        height: 7px;
-        width: 7px;
-        margin: 0 4px;
-        background-color: #d2d2d7;
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        }
+.dot.active {
+  background-color: #0071e3;
+  width: 18px;
+  border-radius: 4px;
+}
 
-        .dot.active {
-        background-color: #0071e3;
-        width: 20px;
-        border-radius: 4px;
-        }
+/* ────────────────────────────────────────
+   ≥ 768px （平板及以上）恢复更精致样式
+   ──────────────────────────────────────── */
+@media (min-width: 768px) {
+  .news-carousel-preview {
+    margin: 2rem auto;
+    max-width: 900px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    background: #f5f5f7;
+  }
 
-        /* ────────────── 斷點 - 從小到大逐步增強 ────────────── */
+  .news-item {
+    padding: 2.2rem 2.6rem;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.04);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
 
-        /* 平板以上（≥ 640px）開始顯示箭頭 + 加大樣式 */
-        @media (min-width: 640px) {
-        .news-carousel-preview {
-            margin: 2rem auto;
-            max-width: 720px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
+  .news-title {
+    font-size: 1.65rem;
+    line-height: 1.28;
+  }
 
-        .news-item {
-            padding: 2rem 2.2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.04);
-            backdrop-filter: blur(16px);
-        }
+  .news-excerpt {
+    font-size: 1.0625rem;
+    line-height: 1.48;
+    -webkit-line-clamp: 4;
+  }
 
-        .carousel-prev,
-        .carousel-next {
-            display: flex;                  /* 顯示箭頭 */
-        }
-        }
+  .news-date {
+    font-size: 0.9375rem;
+  }
 
-        /* 平板 / 小筆電（≥ 768px） */
-        @media (min-width: 768px) {
-        .news-carousel-preview {
-            max-width: 900px;
-            margin: 2.5rem auto;
-            border-radius: 18px;
-        }
+  .read-more {
+    font-size: 1rem;
+  }
 
-        .news-item {
-            padding: 2.4rem 2.8rem;
-        }
+  /* 显示箭头 */
+  .carousel-prev,
+  .carousel-next {
+    display: flex;
+  }
 
-        .news-title {
-            font-size: 1.75rem;
-        }
+  .carousel-prev { left: 1.4rem; }
+  .carousel-next { right: 1.4rem; }
 
-        .news-excerpt {
-            font-size: 1.125rem;
-            -webkit-line-clamp: 3;
-        }
-        }
+  .dot {
+    height: 8px;
+    width: 8px;
+    margin: 0 5px;
+  }
 
-        /* 桌面（≥ 980px） - 恢復你原本的設定 */
-        @media (min-width: 980px) {
-        .news-carousel-preview {
-            max-width: 980px;
-            margin: 3rem auto;
-            border-radius: 18px;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-        }
+  .dot.active {
+    width: 22px;
+  }
+}
 
-        .news-item {
-            padding: 2.4rem 2.8rem;
-            border-radius: 18px;
-        }
+/* 桌面大屏（可选） */
+@media (min-width: 980px) {
+  .news-carousel-preview {
+    max-width: 980px;
+    margin: 2.5rem auto;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+  }
 
-        .carousel-prev { left: 1.5rem; }
-        .carousel-next { right: 1.5rem; }
-        }
+  .news-item {
+    padding: 2.4rem 2.8rem;
+  }
 
+  .news-title {
+    font-size: 1.75rem;
+  }
+}
 
-
-
-
-        /* ================================================
-        移動端防拉扯核心強化（放在原有 CSS 之後）
-        ================================================ */
-
-
-
-        /* 每張卡片 - 手機安全版 */
-        .news-item {
-        flex: 0 0 100%;
-        width: 100%;                      /* 明確 100% */
-        max-width: 100%;
-        padding: 1.4rem 1.2rem;           /* 手機內距縮小但舒適 */
-        box-sizing: border-box;
-        overflow: hidden;                 /* 卡片內禁止溢出 */
-        }
-
-        /* 文字防拉扯重點區域 */
-        .news-excerpt {
-        /* 核心防拉扯三件組 */
-        word-break: break-word;           /* 斷長單詞 / 網址 */
-        overflow-wrap: break-word;        /* 現代標準 */
-        hyphens: auto;                    /* 英文自動斷字（可選） */
-
-        /* 強制不撐開 + 隱藏溢出 */
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;          /* 太長顯示 ... （可選，若不要可移除） */
-
-        /* 多行截斷保持 */
-        display: -webkit-box;
-        -webkit-line-clamp: 5;            /* 手機多顯示一點，減少「感覺被砍」 */
-        -webkit-box-orient: vertical;
-
-        line-height: 1.5;                 /* 手機行距加大好讀 */
-        font-size: clamp(0.95rem, 3.8vw, 1.0625rem);
-        }
-
-        /* 手機專用：更積極斷行（針對極端長英文/網址/代碼） */
-        @media (max-width: 768px) {
-        .news-excerpt {
-            word-break: break-all;          /* 強制所有連續字符斷開 */
-            overflow-wrap: anywhere;        /* 斷在任何位置，最新標準 */
-            -webkit-line-clamp: 6;          /* 再多顯示一行 */
-        }
-
-        .news-title {
-            font-size: clamp(1.2rem, 5vw, 1.4rem);
-            line-height: 1.3;
-        }
-
-        .news-date {
-            font-size: 0.85rem;
-        }
-
-        .read-more {
-            font-size: 0.95rem;
-        }
-
-        /* 手機隱藏箭頭，只靠自動輪播 + 圓點 */
-        .carousel-prev,
-        .carousel-next {
-            display: none !important;
-        }
-
-        /* 圓點更適合觸控 */
-        .carousel-dots {
-            padding: 0.8rem 0;
-        }
-
-        .dot {
-            height: 8px;
-            width: 8px;
-            margin: 0 5px;
-        }
-
-        .dot.active {
-            width: 22px;
-        }
-        }
-
-        /* 平板以上才顯示箭頭 + 恢復較大樣式 */
-        @media (min-width: 769px) {
-        .news-item {
-            padding: 2rem 2.2rem;
-        }
-
-        .carousel-prev,
-        .carousel-next {
-            display: flex;
-        }
-
-        .news-excerpt {
-            word-break: break-word;         /* 平板以上溫和斷行即可 */
-            overflow-wrap: break-word;
-            -webkit-line-clamp: 4;
-        }
-        }
+/* 全局防水平滚动保险 */
+.news-carousel-preview,
+.carousel-wrapper,
+.news-item,
+.news-excerpt {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 
 
