@@ -212,90 +212,87 @@
         }
         
         /* Mobile Controls */
-                .mobile-controls {
+        .mobile-controls {
             position: absolute;
             bottom: 10px;
             left: 0;
             right: 0;
-            display: none;               /* 默认隐藏（PC优先） */
+            display: none !important; /* 默认隐藏，JS控制 */
             justify-content: space-between;
-            padding: 0 20px;
-            z-index: 10;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-controls {
-                display: flex;           /* 手机/平板显示 */
-            }
-            
-            /* 可选：让按钮更大更易点 */
-            .mobile-btn {
-                padding: 25px 30px;
-                font-size: 28px;
-                min-width: 70px;
-            }
+            padding: 0 15px;
+            z-index: 20; /* 提高z-index，确保覆盖canvas */
+            pointer-events: auto;
         }
         
         .mobile-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
-            border: none;
-            padding: 20px;
-            font-size: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px 25px;
+            font-size: 20px;
+            font-weight: bold;
             border-radius: 50%;
             cursor: pointer;
-            transition: background 0.3s;
-            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
         
-        .mobile-btn:active {
-            background: rgba(255, 255, 255, 0.2);
+        .mobile-btn:active,
+        .mobile-btn.pressed {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        
+        .mobile-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* 媒体查询 + 强制移动端优化 */
+        @media (max-width: 900px) and (orientation: portrait) {
+            .mobile-controls {
+                display: flex !important;
+            }
+            
+            .mobile-btn {
+                padding: 25px 30px;
+                font-size: 24px;
+                min-width: 65px;
+                min-height: 65px;
+            }
         }
         
         @media (max-width: 768px) {
             .game-container {
-                max-height: none;
+                border-radius: 0;
                 height: 100vh;
             }
             
-            .hud {
-                top: 10px;
-                left: 10px;
-                gap: 10px;
-                padding: 5px 10px;
-            }
-            
-            .hud-value {
-                font-size: 18px;
-            }
-            
-            .hud-label {
-                font-size: 12px;
-            }
-            
-            .title {
-                font-size: 36px;
-            }
-            
-            .subtitle {
-                font-size: 16px;
-            }
-            
-            .btn {
-                padding: 12px 30px;
-                font-size: 14px;
+            canvas {
+                height: calc(100vh - 120px); /* 为按钮留空间 */
             }
             
             .mobile-controls {
-                display: flex;
+                display: flex !important;
+                bottom: 5px;
+            }
+        }
+        
+        /* 横屏优化 */
+        @media (max-height: 500px) {
+            .mobile-controls {
+                bottom: 2px;
+                padding: 0 10px;
             }
             
-            .health-bar {
-                width: 150px;
-            }
-            
-            .boss-health {
-                width: 300px;
+            .mobile-btn {
+                padding: 15px 20px;
+                font-size: 18px;
             }
         }
         
