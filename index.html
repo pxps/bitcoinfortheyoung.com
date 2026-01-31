@@ -340,6 +340,131 @@
 
 
 
+
+        /* ================================================
+        移動端防拉扯核心強化（放在原有 CSS 之後）
+        ================================================ */
+
+        .news-carousel-preview {
+        position: relative;
+        width: 100%;
+        max-width: 100%;                  /* 強制不超過螢幕 */
+        margin: 1rem 0;                   /* 手機減少邊距 */
+        overflow: hidden;                 /* 絕對禁止水平溢出 */
+        box-sizing: border-box;
+        touch-action: pan-y;              /* 改善觸控滑動（輪播用） */
+        }
+
+        .carousel-wrapper {
+        display: flex;
+        width: 100%;
+        transition: transform 0.6s ease;  /* 手機稍快一點更順 */
+        }
+
+        /* 每張卡片 - 手機安全版 */
+        .news-item {
+        flex: 0 0 100%;
+        width: 100%;                      /* 明確 100% */
+        max-width: 100%;
+        padding: 1.4rem 1.2rem;           /* 手機內距縮小但舒適 */
+        box-sizing: border-box;
+        overflow: hidden;                 /* 卡片內禁止溢出 */
+        }
+
+        /* 文字防拉扯重點區域 */
+        .news-excerpt {
+        /* 核心防拉扯三件組 */
+        word-break: break-word;           /* 斷長單詞 / 網址 */
+        overflow-wrap: break-word;        /* 現代標準 */
+        hyphens: auto;                    /* 英文自動斷字（可選） */
+
+        /* 強制不撐開 + 隱藏溢出 */
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;          /* 太長顯示 ... （可選，若不要可移除） */
+
+        /* 多行截斷保持 */
+        display: -webkit-box;
+        -webkit-line-clamp: 5;            /* 手機多顯示一點，減少「感覺被砍」 */
+        -webkit-box-orient: vertical;
+
+        line-height: 1.5;                 /* 手機行距加大好讀 */
+        font-size: clamp(0.95rem, 3.8vw, 1.0625rem);
+        }
+
+        /* 手機專用：更積極斷行（針對極端長英文/網址/代碼） */
+        @media (max-width: 768px) {
+        .news-excerpt {
+            word-break: break-all;          /* 強制所有連續字符斷開 */
+            overflow-wrap: anywhere;        /* 斷在任何位置，最新標準 */
+            -webkit-line-clamp: 6;          /* 再多顯示一行 */
+        }
+
+        .news-title {
+            font-size: clamp(1.2rem, 5vw, 1.4rem);
+            line-height: 1.3;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+        }
+
+        .read-more {
+            font-size: 0.95rem;
+        }
+
+        /* 手機隱藏箭頭，只靠自動輪播 + 圓點 */
+        .carousel-prev,
+        .carousel-next {
+            display: none !important;
+        }
+
+        /* 圓點更適合觸控 */
+        .carousel-dots {
+            padding: 0.8rem 0;
+        }
+
+        .dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 5px;
+        }
+
+        .dot.active {
+            width: 22px;
+        }
+        }
+
+        /* 平板以上才顯示箭頭 + 恢復較大樣式 */
+        @media (min-width: 769px) {
+        .news-item {
+            padding: 2rem 2.2rem;
+        }
+
+        .carousel-prev,
+        .carousel-next {
+            display: flex;
+        }
+
+        .news-excerpt {
+            word-break: break-word;         /* 平板以上溫和斷行即可 */
+            overflow-wrap: break-word;
+            -webkit-line-clamp: 4;
+        }
+        }
+
+        /* 保險：整體容器再加一層防 */
+        body, html {
+        overflow-x: hidden;               /* 萬一有其他元素溢出，也擋住 */
+        }
+
+
+
+
+
+
+        
+
         * {
             margin: 0;
             padding: 0;
