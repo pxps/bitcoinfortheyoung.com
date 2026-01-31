@@ -100,84 +100,227 @@
 
         /*new*/
 
-/* 強化移動端適配 - 加在原本 CSS 後面或覆蓋 */
-
-        .news-carousel-preview {
-        margin: 1.5rem 0;                 /* 手機減少上下邊距 */
-        border-radius: 0;                 /* 手機常全寬，圓角移除更現代 */
-        max-width: none;                  /* 手機強制全寬 */
-        padding: 0;
-        background: transparent;          /* 手機避免背景色卡邊 */
-        box-shadow: none;                 /* 小螢幕移除陰影，輕量化 */
+                .news-carousel-preview {
+        position: relative;
+        width: 100%;
+        margin: 1.5rem 0;                 /* 手機減少上下留白 */
+        overflow: hidden;
+        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #1d1d1f;
+        background: #f5f5f7;
+        border-radius: 0;                 /* 手機通常全寬 → 移除圓角 */
+        box-shadow: none;                 /* 手機移除陰影，輕量化 */
         }
 
+        /* 深色模式（保持不變） */
+        @media (prefers-color-scheme: dark) {
+        .news-carousel-preview {
+            background: #1d1d1f;
+            color: #f5f5f7;
+        }
         .news-item {
-        padding: 1.6rem 1.4rem;           /* 手機 padding 適中，不擠 */
+            background: rgba(29, 29, 31, 0.92);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .news-date { color: #86868b; }
+        .news-excerpt { color: #d2d2d7; }
+        .read-more { color: #2997ff; }
+        .read-more:hover { color: #6ab0ff; }
+        .carousel-prev, .carousel-next {
+            background: rgba(29, 29, 31, 0.7);
+        }
+        }
+
+        /* 輪播容器 */
+        .carousel-wrapper {
+        display: flex;
+        transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1); /* 稍微加快手機過渡 */
+        }
+
+        /* 每則新聞卡片 - 手機基礎樣式 */
+        .news-item {
+        flex: 0 0 100%;
+        min-width: 100%;
+        padding: 1.6rem 1.4rem;           /* 手機適中內距 */
+        background: #ffffff;
         border-radius: 0;
-        border: none;                     /* 手機常不顯示邊框 */
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06); /* 極輕陰影 */
+        box-sizing: border-box;
+        border: none;                     /* 手機不顯示邊框 */
+        box-shadow: 0 1px 8px rgba(0,0,0,0.06); /* 極輕陰影 */
+        backdrop-filter: none;            /* 手機關閉毛玻璃，提升流暢度 */
+        transition: transform 0.25s ease;
+        }
+
+        .news-item:hover {
+        transform: translateY(-2px);      /* 手機抬升幅度減小 */
+        }
+
+        /* 文字元件 - 使用 clamp 自動縮放 */
+        .news-date {
+        font-size: clamp(0.8125rem, 3.2vw, 0.875rem);
+        font-weight: 500;
+        color: #6e6e73;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.5rem;
         }
 
         .news-title {
-        font-size: clamp(1.3rem, 5.5vw, 1.6rem); /* 手機標題不要太大 */
-        margin: 0.4rem 0 0.8rem;
+        font-size: clamp(1.25rem, 5.5vw, 1.5rem);
+        font-weight: 600;
+        line-height: 1.28;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.8rem;
+        color: #1d1d1f;
         }
 
         .news-excerpt {
-        font-size: clamp(0.95rem, 4vw, 1.0625rem);
-        line-height: 1.5;
-        -webkit-line-clamp: 4;            /* 手機多顯示一點內容 */
+        font-size: clamp(0.9375rem, 4vw, 1rem);
+        line-height: 1.48;
+        font-weight: 400;
+        color: #424245;
+        margin-bottom: 1.1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;            /* 手機多顯示一行 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         }
 
         .read-more {
-        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        font-size: clamp(0.9375rem, 4vw, 1rem);
+        font-weight: 500;
+        color: #0071e3;
+        text-decoration: none;
+        letter-spacing: -0.01em;
         }
 
-        .carousel-prev, .carousel-next {
-        width: 44px;
-        height: 44px;
-        font-size: 1.3rem;
-        background: rgba(255,255,255,0.85);
-        backdrop-filter: blur(16px);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        .read-more::after {
+        content: " →";
+        margin-left: 0.35rem;
+        transition: transform 0.25s ease;
         }
 
-        .carousel-prev { left: 0.8rem; }
-        .carousel-next { right: 0.8rem; }
+        .read-more:hover::after {
+        transform: translateX(3px);
+        }
 
-        /* 小螢幕隱藏箭頭，只靠自動輪播 + 圓點（Apple 很多頁面這樣做） */
-        @media (max-width: 640px) {
+        /* 箭頭按鈕 - 手機上隱藏 */
         .carousel-prev,
         .carousel-next {
-            display: none;                  /* 手機常隱藏箭頭，減少干擾 */
+        display: none;                    /* 預設隱藏（手機優先） */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.92);
+        backdrop-filter: blur(20px);
+        color: #1d1d1f;
+        border: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.4rem;
+        font-weight: 300;
+        z-index: 5;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        transition: all 0.25s ease;
         }
-        
+
+        .carousel-prev { left: 1rem; }
+        .carousel-next { right: 1rem; }
+
+        /* 小圓點 - 手機上更小更密集 */
         .carousel-dots {
-            padding: 0.8rem 0;
+        text-align: center;
+        padding: 1rem 0 0.8rem;
         }
-        
+
         .dot {
-            height: 7px;
-            width: 7px;
-            margin: 0 4px;
+        height: 7px;
+        width: 7px;
+        margin: 0 4px;
+        background-color: #d2d2d7;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: all 0.3s ease;
         }
-        
+
         .dot.active {
-            width: 20px;
-        }
+        background-color: #0071e3;
+        width: 20px;
+        border-radius: 4px;
         }
 
-        /* 超小螢幕（如 iPhone SE） */
-        @media (max-width: 380px) {
+        /* ────────────── 斷點 - 從小到大逐步增強 ────────────── */
+
+        /* 平板以上（≥ 640px）開始顯示箭頭 + 加大樣式 */
+        @media (min-width: 640px) {
+        .news-carousel-preview {
+            margin: 2rem auto;
+            max-width: 720px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
         .news-item {
-            padding: 1.3rem 1.1rem;
+            padding: 2rem 2.2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.04);
+            backdrop-filter: blur(16px);
         }
+
+        .carousel-prev,
+        .carousel-next {
+            display: flex;                  /* 顯示箭頭 */
+        }
+        }
+
+        /* 平板 / 小筆電（≥ 768px） */
+        @media (min-width: 768px) {
+        .news-carousel-preview {
+            max-width: 900px;
+            margin: 2.5rem auto;
+            border-radius: 18px;
+        }
+
+        .news-item {
+            padding: 2.4rem 2.8rem;
+        }
+
         .news-title {
-            font-size: 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        .news-excerpt {
+            font-size: 1.125rem;
+            -webkit-line-clamp: 3;
         }
         }
 
+        /* 桌面（≥ 980px） - 恢復你原本的設定 */
+        @media (min-width: 980px) {
+        .news-carousel-preview {
+            max-width: 980px;
+            margin: 3rem auto;
+            border-radius: 18px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
 
+        .news-item {
+            padding: 2.4rem 2.8rem;
+            border-radius: 18px;
+        }
+
+        .carousel-prev { left: 1.5rem; }
+        .carousel-next { right: 1.5rem; }
+        }
+
+
+        
 
 
 
