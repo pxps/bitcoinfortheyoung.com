@@ -212,16 +212,28 @@
         }
         
         /* Mobile Controls */
-        .mobile-controls {
+                .mobile-controls {
             position: absolute;
             bottom: 10px;
             left: 0;
             right: 0;
-            display: flex;
+            display: none;               /* 默认隐藏（PC优先） */
             justify-content: space-between;
             padding: 0 20px;
             z-index: 10;
-            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-controls {
+                display: flex;           /* 手机/平板显示 */
+            }
+            
+            /* 可选：让按钮更大更易点 */
+            .mobile-btn {
+                padding: 25px 30px;
+                font-size: 28px;
+                min-width: 70px;
+            }
         }
         
         .mobile-btn {
