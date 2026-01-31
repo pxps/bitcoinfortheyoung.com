@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pepecoin Battle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 100vh;
+            max-height: 600px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+        
+        .hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            display: flex;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+        }
+        
+        .hud-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hud-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .hud-label {
+            font-size: 14px;
+            color: #a5a5a5;
+        }
+        
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 20;
+            transition: opacity 0.5s ease;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #a5a5a5;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 10px 0;
+        }
+        
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .controls {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 80%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .controls h2 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a5a5a5;
+        }
+        
+        .control-key {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .game-over {
+            font-size: 48px;
+            color: #ff3b30;
+            margin-bottom: 30px;
+        }
+        
+        .final-score {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+        
+        .health-bar {
+            width: 200px;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(to right, #34c759, #30d158);
+            transition: width 0.3s ease;
+        }
+        
+        .boss-health {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index: 5;
+            backdrop-filter: blur(10px);
+        }
+        
+        .boss-health-fill {
+            height: 100%;
+            background: linear-gradient(to right, #ff3b30, #ff2d55);
+            transition: width 0.3s ease;
+        }
+        
+        /* Mobile Controls */
+        .mobile-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
+            display: none;
+        }
+        
+        .mobile-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: none;
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                max-height: none;
+                height: 100vh;
+            }
+            
+            .hud {
+                top: 10px;
+                left: 10px;
+                gap: 10px;
+                padding: 5px 10px;
+            }
+            
+            .hud-value {
+                font-size: 18px;
+            }
+            
+            .hud-label {
+                font-size: 12px;
+            }
+            
+            .title {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+            
+            .mobile-controls {
+                display: flex;
+            }
+            
+            .health-bar {
+                width: 150px;
+            }
+            
+            .boss-health {
+                width: 300px;
+            }
+        }
+        
+        /* Particle Effects */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="startScreen" class="screen">
+            <h1 class="title">Pepecoin Battle</h1>
+            <p class="subtitle">Developed by Meta/游戏由Meta开发</p>
+            
+            <div class="controls">
+                <h2>Controls/控制</h2>
+                <div class="control-item">
+                    <span>Move/移动</span>
+                    <span class="control-key">←</span>
+                    <span class="control-key">→</span>
+                </div>
+                <div class="control-item">
+                    <span>Jump/跳跃</span>
+                    <span class="control-key">Space</span>
+                </div>
+                <div class="control-item">
+                    <span>Attack/普攻</span>
+                    <span class="control-key">A</span>
+                </div>
+                <div class="control-item">
+                    <span>Special Attack/大招</span>
+                    <span class="control-key">S</span>
+                </div>
+                <div class="control-item">
+                    <span>On Mobile: Use buttons below</span>
+                </div>
+            </div>
+            
+            <button id="startBtn" class="btn">Start Game/开始游戏</button>
+            <button id="tutorialBtn" class="btn">Tutorial/教学</button>
+            <p></p>
+        </div>
+        
+        <div id="tutorialScreen" class="screen hidden">
+            <h2 class="title">Tutorial</h2>
+            
+            <div class="controls">
+                <div class="control-item">
+                    <p>Use left/right arrows to move your Pepe</p>
+                </div>
+                <div class="control-item">
+                    <p>Press space to jump and dodge attacks</p>
+                </div>
+                <div class="control-item">
+                    <p>Press A to shoot bullets at enemies</p>
+                </div>
+                <div class="control-item">
+                    <p>Press S for special attack (requires energy)</p>
+                </div>
+                <div class="control-item">
+                    <p>Defeat enemies to gain score and Pepecoin</p>
+                </div>
+                <div class="control-item">
+                    <p>Every 1000 points, face a powerful Boss</p>
+                </div>
+                <div class="control-item">
+                    <p>Collect Pepecoin to boost your score</p>
+                </div>
+                <div class="control-item">
+                    <p>New: Levels increase difficulty, power-ups appear randomly</p>
+                </div>
+            </div>
+            
+            <button id="backBtn" class="btn">Back/返回</button>
+        </div>
+        
+        <div id="gameOverScreen" class="screen hidden">
+            <h2 class="game-over">Game Over/游戏结束</h2>
+            <p class="final-score">Final Score/最终得分: <span id="finalScore">0</span></p>
+            <button id="restartBtn" class="btn">Play Again/重玩</button>
+        </div>
+        
+        <div class="hud">
+            <div class="hud-item">
+                <div class="hud-label">Score/分数</div>
+                <div id="score" class="hud-value">0</div>
+            </div>
+            <div class="hud-item">
+                <div class="hud-label">Health/生命值</div>
+                <div class="health-bar">
+                    <div id="healthBar" class="health-fill"></div>
+                </div>
+            </div>
+            <div class="hud-item">
+                <div class="hud-label">Energy/能量</div>
+                <div class="health-bar">
+                    <div id="energyBar" class="health-fill" style="background: linear-gradient(to right, #0a84ff, #0061ff);"></div>
+                </div>
+            </div>
+            <div class="hud-item">
+                <div class="hud-label">Pepecoin</div>
+                <div id="bitcoinCount" class="hud-value">0</div>
+            </div>
+            <div class="hud-item">
+                <div class="hud-label">Level/难度</div>
+                <div id="level" class="hud-value">1</div>
+            </div>
+        </div>
+        
+        <div id="bossHealth" class="boss-health hidden">
+            <div id="bossHealthBar" class="boss-health-fill"></div>
+        </div>
+        
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="mobile-controls">
+            <div>
+                <button id="leftBtn" class="mobile-btn">←</button>
+                <button id="rightBtn" class="mobile-btn">→</button>
+            </div>
+            <div>
+                <button id="jumpBtn" class="mobile-btn">↑</button>
+            </div>
+            <div>
+                <button id="attackBtn" class="mobile-btn">A</button>
+                <button id="specialBtn" class="mobile-btn">S</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2024/10/15/audio_5d4f7d8c6c.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Game Core
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startScreen = document.getElementById('startScreen');
+        const tutorialScreen = document.getElementById('tutorialScreen');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const startBtn = document.getElementById('startBtn');
+        const tutorialBtn = document.getElementById('tutorialBtn');
+        const backBtn = document.getElementById('backBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const scoreDisplay = document.getElementById('score');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        const healthBar = document.getElementById('healthBar');
+        const energyBar = document.getElementById('energyBar');
+        const bitcoinCountDisplay = document.getElementById('bitcoinCount');
+        const levelDisplay = document.getElementById('level');
+        const bossHealthContainer = document.getElementById('bossHealth');
+        const bossHealthBar = document.getElementById('bossHealthBar');
+        const bgMusic = document.getElementById('bgMusic');
+        
+        // Mobile Buttons
+        const leftBtn = document.getElementById('leftBtn');
+        const rightBtn = document.getElementById('rightBtn');
+        const jumpBtn = document.getElementById('jumpBtn');
+        const attackBtn = document.getElementById('attackBtn');
+        const specialBtn = document.getElementById('specialBtn');
+        
+        // Sound Effects
+        const jumpSound = new Audio('https://cdn.pixabay.com/audio/2022/03/13/audio_9d47f2aebb.mp3'); // Example jump sound
+        const shootSound = new Audio('https://cdn.pixabay.com/audio/2022/01/18/audio_684deda8a2.mp3'); // Shooting
+        const explosionSound = new Audio('https://cdn.pixabay.com/audio/2022/03/10/audio_02d475ef94.mp3'); // Explosion
+        const defeatSound = new Audio('https://samplefocus.com/samples/retro-game-sfx-enemy-defeated'); // Enemy defeat
+        const collectSound = new Audio('https://cdn.pixabay.com/audio/2022/03/10/audio_7ef2e922e3.mp3'); // Collect bitcoin
+        
+        // Game State
+        let gameRunning = false;
+        let score = 0;
+        let bitcoinCount = 0;
+        let health = 100;
+        let energy = 100;
+        let level = 1;
+        let playerX = 100;
+        let playerY = canvas.height - 150; // Adjust for ground
+        let playerWidth = 120;
+        let playerHeight = 120;
+        let velocityY = 0;
+        let isJumping = false;
+        let attackCooldown = 0;
+        let specialCooldown = 0;
+        let enemies = [];
+        let enemySpawnTimer = 0;
+        let boss = null;
+        let bossSpawned = false;
+        let projectiles = [];
+        let explosions = [];
+        let bitcoins = [];
+        let powerUps = [];
+        let particles = [];
+        let keys = {};
+        let touchControls = { left: false, right: false };
+        
+        // Player Image
+        const playerImg = new Image();
+        playerImg.src = "https://bitcoinfortheyoung.com/pep.jpg";
+        
+        // Resize Canvas
+        function resizeCanvas() {
+            canvas.width = window.innerWidth > 900 ? 900 : window.innerWidth;
+            canvas.height = window.innerHeight > 600 ? 600 : window.innerHeight;
+            playerY = canvas.height - 150;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // Event Listeners
+        startBtn.addEventListener('click', startGame);
+        tutorialBtn.addEventListener('click', showTutorial);
+        backBtn.addEventListener('click', hideTutorial);
+        restartBtn.addEventListener('click', restartGame);
+        
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            handleInput(e.key);
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // Mobile Touch Events
+        leftBtn.addEventListener('touchstart', () => touchControls.left = true);
+        leftBtn.addEventListener('touchend', () => touchControls.left = false);
+        rightBtn.addEventListener('touchstart', () => touchControls.right = true);
+        rightBtn.addEventListener('touchend', () => touchControls.right = false);
+        jumpBtn.addEventListener('touchstart', () => handleInput(' '));
+        attackBtn.addEventListener('touchstart', () => handleInput('a'));
+        specialBtn.addEventListener('touchstart', () => handleInput('s'));
+        
+        function handleInput(key) {
+            if (key === ' ' && !isJumping) {
+                velocityY = -20;
+                isJumping = true;
+                jumpSound.play();
+            }
+            
+            if (key === 'a' && attackCooldown <= 0) {
+                attackCooldown = 15;
+                projectiles.push({
+                    x: playerX + playerWidth,
+                    y: playerY + playerHeight / 2 - 5,
+                    width: 15,
+                    height: 10,
+                    speed: 12
+                });
+                shootSound.play();
+            }
+            
+            if (key === 's' && energy >= 30 && specialCooldown <= 0) {
+                energy -= 30;
+                specialCooldown = 50;
+                for (let i = -2; i <= 2; i++) {
+                    projectiles.push({
+                        x: playerX + playerWidth,
+                        y: playerY + playerHeight / 2 - 5,
+                        width: 20,
+                        height: 15,
+                        speed: 10 + Math.abs(i) * 2,
+                        angle: i * 0.1,
+                        isSpecial: true
+                    });
+                }
+                shootSound.play();
+            }
+        }
+        
+        // Game Functions
+        function startGame() {
+            gameRunning = true;
+            startScreen.classList.add('hidden');
+            resetGame();
+            bgMusic.play();
+            gameLoop();
+        }
+        
+        function showTutorial() {
+            startScreen.classList.add('hidden');
+            tutorialScreen.classList.remove('hidden');
+        }
+        
+        function hideTutorial() {
+            tutorialScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+        
+        function gameOver() {
+            gameRunning = false;
+            gameOverScreen.classList.remove('hidden');
+            finalScoreDisplay.textContent = score;
+            bgMusic.pause();
+        }
+        
+        function restartGame() {
+            gameOverScreen.classList.add('hidden');
+            startGame();
+        }
+        
+        function resetGame() {
+            score = 0;
+            bitcoinCount = 0;
+            health = 100;
+            energy = 100;
+            level = 1;
+            playerX = 100;
+            playerY = canvas.height - 150;
+            velocityY = 0;
+            isJumping = false;
+            attackCooldown = 0;
+            specialCooldown = 0;
+            enemies = [];
+            enemySpawnTimer = 0;
+            boss = null;
+            bossSpawned = false;
+            projectiles = [];
+            explosions = [];
+            bitcoins = [];
+            powerUps = [];
+            particles = [];
+            keys = {};
+            touchControls = { left: false, right: false };
+            bossHealthContainer.classList.add('hidden');
+            
+            updateHUD();
+        }
+        
+        function updateHUD() {
+            scoreDisplay.textContent = score;
+            bitcoinCountDisplay.textContent = bitcoinCount;
+            levelDisplay.textContent = level;
+            healthBar.style.width = `${health}%`;
+            energyBar.style.width = `${energy}%`;
+            
+            if (boss) {
+                bossHealthBar.style.width = `${(boss.health / boss.maxHealth) * 100}%`;
+            }
+        }
+        
+        function spawnEnemy() {
+            const types = ['basic', 'fast', 'tank'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            let enemy = {
+                x: canvas.width,
+                y: Math.random() * (canvas.height - 200) + 50,
+                width: 50,
+                height: 80,
+                speed: 3 + level * 0.5,
+                health: 20 + level * 5
+            };
+            
+            if (type === 'fast') {
+                enemy.speed *= 1.5;
+                enemy.health *= 0.7;
+            } else if (type === 'tank') {
+                enemy.speed *= 0.7;
+                enemy.health *= 1.5;
+                enemy.width = 70;
+                enemy.height = 100;
+            }
+            
+            enemies.push(enemy);
+        }
+        
+        function spawnBoss() {
+            boss = {
+                x: canvas.width - 150,
+                y: 200,
+                width: 120,
+                height: 150,
+                speed: 2 + level * 0.5,
+                health: 500 + level * 100,
+                maxHealth: 500 + level * 100,
+                attackCooldown: 0,
+                isActive: true
+            };
+            bossSpawned = true;
+            bossHealthContainer.classList.remove('hidden');
+        }
+        
+        function spawnPowerUp(x, y) {
+            const types = ['health', 'energy', 'score'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            powerUps.push({
+                x,
+                y,
+                type,
+                size: 30,
+                alpha: 1
+            });
+        }
+        
+        function createExplosion(x, y, text) {
+            explosions.push({
+                x,
+                y,
+                text,
+                size: 24,
+                alpha: 1,
+                life: 60
+            });
+            explosionSound.play();
+            
+            // Particles
+            for (let i = 0; i < 20; i++) {
+                particles.push({
+                    x,
+                    y,
+                    vx: Math.random() * 10 - 5,
+                    vy: Math.random() * 10 - 5,
+                    size: Math.random() * 5 + 2,
+                    color: '#ffcc00',
+                    alpha: 1,
+                    life: 30
+                });
+            }
+        }
+        
+        function createBitcoin(x, y) {
+            bitcoins.push({
+                x,
+                y,
+                value: Math.floor(Math.random() * 5) + 1 + level,
+                size: 20,
+                alpha: 1,
+                collected: false
+            });
+        }
+        
+        function update() {
+            if (!gameRunning) return;
+            
+            // Player Movement
+            if (keys['ArrowLeft'] || touchControls.left) playerX = Math.max(0, playerX - 7 - level * 0.2);
+            if (keys['ArrowRight'] || touchControls.right) playerX = Math.min(canvas.width - playerWidth, playerX + 7 + level * 0.2);
+            
+            // Gravity
+            playerY += velocityY;
+            velocityY += 0.8;
+            
+            // Ground Detection
+            if (playerY > canvas.height - 150) {
+                playerY = canvas.height - 150;
+                velocityY = 0;
+                isJumping = false;
+            }
+            
+            // Cooldowns
+            attackCooldown = Math.max(0, attackCooldown - 1);
+            specialCooldown = Math.max(0, specialCooldown - 1);
+            
+            // Regen
+            if (energy < 100) energy += 0.3;
+            if (health < 100) health += 0.1;
+            
+            // Spawn Enemies
+            enemySpawnTimer++;
+            if (enemySpawnTimer > 50 - level * 2) {
+                spawnEnemy();
+                enemySpawnTimer = 0;
+            }
+            
+            // Spawn Boss
+            if (!bossSpawned && score >= level * 1000) {
+                spawnBoss();
+            }
+            
+            // Update Enemies
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                const enemy = enemies[i];
+                enemy.x -= enemy.speed;
+                
+                // Collision with Player
+                if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy.x, enemy.y, enemy.width, enemy.height)) {
+                    health -= 10 + level;
+                    enemies.splice(i, 1);
+                    createExplosion(enemy.x, enemy.y, "Hit!");
+                    continue;
+                }
+                
+                // Offscreen
+                if (enemy.x + enemy.width < 0) {
+                    enemies.splice(i, 1);
+                }
+            }
+            
+            // Update Boss
+            if (boss) {
+                boss.y += boss.speed;
+                if (boss.y > canvas.height - boss.height - 50 || boss.y < 50) boss.speed = -boss.speed;
+                
+                boss.attackCooldown--;
+                if (boss.attackCooldown <= 0) {
+                    projectiles.push({
+                        x: boss.x,
+                        y: boss.y + boss.height / 2,
+                        width: 15,
+                        height: 15,
+                        speed: -8 - level,
+                        isEnemy: true
+                    });
+                    boss.attackCooldown = 25 - level;
+                }
+                
+                if (checkCollision(playerX, playerY, playerWidth, playerHeight, boss.x, boss.y, boss.width, boss.height)) {
+                    health -= 5 + level;
+                }
+                
+                if (boss.health <= 0) {
+                    createExplosion(boss.x + boss.width / 2, boss.y + boss.height / 2, "Boss Defeated!");
+                    createBitcoin(boss.x + boss.width / 2, boss.y + boss.height / 2);
+                    for (let i = 0; i < 5; i++) {
+                        createBitcoin(boss.x + Math.random() * boss.width, boss.y + Math.random() * boss.height);
+                    }
+                    score += 500 + level * 100;
+                    bitcoinCount += 10 + level;
+                    boss = null;
+                    bossHealthContainer.classList.add('hidden');
+                    level++;
+                    spawnPowerUp(canvas.width / 2, canvas.height / 2);
+                    bossSpawned = false;
+                }
+            }
+            
+            // Update Projectiles
+            for (let i = projectiles.length - 1; i >= 0; i--) {
+                const proj = projectiles[i];
+                proj.x += proj.speed;
+                if (proj.angle) proj.y += proj.angle * proj.speed; // For special attacks
+                
+                if (proj.isEnemy) {
+                    if (checkCollision(playerX, playerY, playerWidth, playerHeight, proj.x, proj.y, proj.width, proj.height)) {
+                        health -= 15 + level;
+                        projectiles.splice(i, 1);
+                        createExplosion(playerX, playerY, "Ouch!");
+                        continue;
+                    }
+                } else {
+                    let hit = false;
+                    for (let j = enemies.length - 1; j >= 0; j--) {
+                        const enemy = enemies[j];
+                        if (checkCollision(proj.x, proj.y, proj.width, proj.height, enemy.x, enemy.y, enemy.width, enemy.height)) {
+                            enemy.health -= proj.isSpecial ? 15 + level : 8 + level / 2;
+                            if (enemy.health <= 0) {
+                                createExplosion(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2, "bitcoin for the young! 年轻人比特币");
+                                createBitcoin(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2);
+                                if (Math.random() < 0.1) spawnPowerUp(enemy.x, enemy.y);
+                                score += 50 + level * 10;
+                                bitcoinCount++;
+                                defeatSound.play();
+                                enemies.splice(j, 1);
+                            }
+                            hit = true;
+                            break;
+                        }
+                    }
+                    
+                    if (boss && !hit) {
+                        if (checkCollision(proj.x, proj.y, proj.width, proj.height, boss.x, boss.y, boss.width, boss.height)) {
+                            boss.health -= proj.isSpecial ? 30 + level : 15 + level / 2;
+                            hit = true;
+                        }
+                    }
+                    
+                    if (hit) {
+                        projectiles.splice(i, 1);
+                        continue;
+                    }
+                }
+                
+                if (proj.x > canvas.width || proj.x + proj.width < 0) {
+                    projectiles.splice(i, 1);
+                }
+            }
+            
+            // Update Explosions
+            for (let i = explosions.length - 1; i >= 0; i--) {
+                explosions[i].life--;
+                explosions[i].size += 0.5;
+                explosions[i].alpha = explosions[i].life / 60;
+                if (explosions[i].life <= 0) explosions.splice(i, 1);
+            }
+            
+            // Update Bitcoins
+            for (let i = bitcoins.length - 1; i >= 0; i--) {
+                const bitcoin = bitcoins[i];
+                if (!bitcoin.collected && checkCollision(playerX, playerY, playerWidth, playerHeight, bitcoin.x - bitcoin.size / 2, bitcoin.y - bitcoin.size / 2, bitcoin.size, bitcoin.size)) {
+                    bitcoin.collected = true;
+                    score += bitcoin.value * 10;
+                    bitcoinCount += bitcoin.value;
+                    collectSound.play();
+                }
+                
+                bitcoin.y -= 2; // Float up
+                bitcoin.alpha -= 0.01;
+                if (bitcoin.alpha <= 0) bitcoins.splice(i, 1);
+            }
+            
+            // Update PowerUps
+            for (let i = powerUps.length - 1; i >= 0; i--) {
+                const pu = powerUps[i];
+                if (checkCollision(playerX, playerY, playerWidth, playerHeight, pu.x - pu.size / 2, pu.y - pu.size / 2, pu.size, pu.size)) {
+                    if (pu.type === 'health') health = Math.min(100, health + 30);
+                    if (pu.type === 'energy') energy = Math.min(100, energy + 50);
+                    if (pu.type === 'score') score += 200;
+                    powerUps.splice(i, 1);
+                    collectSound.play();
+                }
+                
+                pu.y += Math.sin(Date.now() / 500) * 0.5; // Hover effect
+                pu.alpha -= 0.002;
+                if (pu.alpha <= 0) powerUps.splice(i, 1);
+            }
+            
+            // Update Particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha = p.life / 30;
+                p.life--;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+            
+            // Game Over Check
+            if (health <= 0) {
+                gameOver();
+            }
+            
+            updateHUD();
+        }
+        
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Background
+            drawBackground();
+            
+            // Ground
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+            
+            // Player
+            ctx.drawImage(playerImg, playerX, playerY, playerWidth, playerHeight);
+            
+            // Enemies
+            for (const enemy of enemies) {
+                ctx.fillStyle = '#ff3b30';
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                // Health Bar
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(enemy.x, enemy.y - 10, enemy.width, 5);
+                ctx.fillStyle = '#34c759';
+                ctx.fillRect(enemy.x, enemy.y - 10, enemy.width * (enemy.health / (20 + level * 5)), 5);
+            }
+            
+            // Boss
+            if (boss) {
+                ctx.fillStyle = '#ff3b30';
+                ctx.fillRect(boss.x, boss.y, boss.width, boss.height);
+            }
+            
+            // Projectiles
+            for (const proj of projectiles) {
+                ctx.fillStyle = proj.isEnemy ? '#ff3b30' : (proj.isSpecial ? '#ffcc00' : '#0a84ff');
+                ctx.fillRect(proj.x, proj.y, proj.width, proj.height);
+            }
+            
+            // Explosions
+            for (const exp of explosions) {
+                ctx.font = `${exp.size}px system-ui`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${exp.alpha})`;
+                ctx.textAlign = 'center';
+                ctx.fillText(exp.text, exp.x, exp.y);
+            }
+            
+            // Bitcoins
+            for (const bitcoin of bitcoins) {
+                ctx.font = `${bitcoin.size}px Arial`;
+                ctx.fillStyle = `rgba(255, 204, 0, ${bitcoin.alpha})`;
+                ctx.fillText('₿', bitcoin.x, bitcoin.y);
+            }
+            
+            // PowerUps
+            for (const pu of powerUps) {
+                ctx.fillStyle = pu.type === 'health' ? '#34c759' : (pu.type === 'energy' ? '#0a84ff' : '#ffcc00');
+                ctx.beginPath();
+                ctx.arc(pu.x, pu.y, pu.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Particles
+            for (const p of particles) {
+                ctx.fillStyle = `rgba(255, 204, 0, ${p.alpha})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function drawBackground() {
+            // Parallax Stars
+            ctx.fillStyle = '#ffffff';
+            for (let i = 0; i < 200; i++) {
+                const x = (Math.random() * canvas.width + score / 10) % canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 2;
+                ctx.fillRect(x, y, size, size);
+            }
+            
+            // City Silhouette
+            ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
+            for (let i = 0; i < 15; i++) {
+                const height = Math.random() * 300 + 100;
+                ctx.fillRect((i * 80 + score / 5) % canvas.width, canvas.height - height - 100, 60, height);
+            }
+        }
+        
+        function checkCollision(x1, y1, w1, h1, x2, y2, w2, h2) {
+            return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
+        }
+        
+        function gameLoop() {
+            if (!gameRunning) return;
+            
+            update();
+            draw();
+            
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Preload
+        playerImg.onload = () => console.log("Player loaded");
+    </script>
+</body>
+</html>
