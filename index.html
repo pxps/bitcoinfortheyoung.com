@@ -97,6 +97,206 @@
         } */
 
         /* Apple.com黑白风格重置 */
+
+        /*new*/
+
+                .news-carousel-preview {
+        position: relative;
+        width: 100%;
+        max-width: 980px;                 /* apple.com 常見內容最大寬度範圍 */
+        margin: 3rem auto;                /* 大量留白 */
+        overflow: hidden;
+        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #1d1d1f;                   /* Apple 深灰主文字色（light mode） */
+        background: #f5f5f7;              /* Apple 經典淺灰背景 */
+        border-radius: 18px;              /* 柔和大圓角 */
+        box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+
+        /* 深色模式支援（Apple 很重視 dark mode） */
+        @media (prefers-color-scheme: dark) {
+        .news-carousel-preview {
+            background: #1d1d1f;
+            color: #f5f5f7;
+        }
+        .news-item {
+            background: rgba(29, 29, 31, 0.92);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .news-date { color: #86868b; }
+        .news-excerpt { color: #d2d2d7; }
+        .read-more { color: #2997ff; }
+        .read-more:hover { color: #6ab0ff; }
+        .carousel-prev, .carousel-next {
+            background: rgba(29, 29, 31, 0.7);
+        }
+        }
+
+        .carousel-wrapper {
+        display: flex;
+        transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Apple 常用平滑曲線 */
+        }
+
+        .news-item {
+        flex: 0 0 100%;
+        min-width: 100%;
+        padding: 2.4rem 2.8rem;           /* 更大留白 */
+        background: #ffffff;              /* light mode 純白卡片 */
+        border-radius: 18px;
+        box-sizing: border-box;
+        border: 1px solid rgba(0,0,0,0.04);
+        backdrop-filter: blur(20px);      /* 輕微毛玻璃感，接近 Liquid Glass 氛圍 */
+        transition: transform 0.3s ease;
+        }
+
+        .news-item:hover {
+        transform: translateY(-4px);      /* 輕微抬升感，Apple 常見互動 */
+        }
+
+        .news-date {
+        font-size: 0.9375rem;             /* ≈15px */
+        font-weight: 500;
+        color: #6e6e73;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.6rem;
+        }
+
+        .news-title {
+        font-size: 1.75rem;               /* ≈28px，headline 級 */
+        font-weight: 600;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        margin: 0 0 1rem;
+        color: #1d1d1f;
+        }
+
+        .news-excerpt {
+        font-size: 1.125rem;              /* ≈18px */
+        line-height: 1.45;
+        font-weight: 400;
+        color: #424245;
+        margin-bottom: 1.4rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        }
+
+        .read-more {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #0071e3;                   /* Apple 招牌藍 */
+        text-decoration: none;
+        letter-spacing: -0.01em;
+        }
+
+        .read-more::after {
+        content: " →";
+        margin-left: 0.4rem;
+        transition: transform 0.25s ease;
+        }
+
+        .read-more:hover {
+        color: #0077ed;
+        }
+
+        .read-more:hover::after {
+        transform: translateX(4px);
+        }
+
+        /* 箭頭按鈕 – 極簡圓形 */
+        .carousel-prev, .carousel-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.92);
+        backdrop-filter: blur(20px);
+        color: #1d1d1f;
+        border: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.5rem;
+        font-weight: 300;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+        transition: all 0.25s ease;
+        }
+
+        .carousel-prev { left: 1.5rem; }
+        .carousel-next { right: 1.5rem; }
+
+        .carousel-prev:hover, .carousel-next:hover {
+        background: rgba(255,255,255,1);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+        transform: translateY(-50%) scale(1.08);
+        }
+
+        /* 小圓點 – 極簡 */
+        .carousel-dots {
+        text-align: center;
+        padding: 1.5rem 0 1rem;
+        }
+
+        .dot {
+        height: 8px;
+        width: 8px;
+        margin: 0 5px;
+        background-color: #d2d2d7;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        }
+
+        .dot.active {
+        background-color: #0071e3;
+        width: 24px;                      /* active 時拉長，像 Apple 分頁點 */
+        border-radius: 4px;
+        }
+
+        /* 響應式微調 */
+        @media (max-width: 768px) {
+        .news-carousel-preview {
+            margin: 2rem auto;
+            border-radius: 0;
+        }
+        .news-item {
+            padding: 2rem 1.8rem;
+            border-radius: 0;
+        }
+        .news-title {
+            font-size: 1.5rem;
+        }
+        .news-excerpt {
+            font-size: 1.0625rem;
+        }
+        .carousel-prev { left: 1rem; }
+        .carousel-next { right: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+        .news-title {
+            font-size: 1.375rem;
+        }
+        .news-excerpt {
+            -webkit-line-clamp: 4;
+        }
+        }
+
+
+
+
+
+
         * {
             margin: 0;
             padding: 0;
@@ -1234,6 +1434,90 @@
                 <path d="M0,170 C50,100 100,140 150,120 C200,100 250,160 300,130 C350,100 400,150 450,120 C500,90 500,90 500,90" />
             </svg>
         </div>
+
+         <!-- news区域 -->
+        <div class="news-carousel-preview" id="news-carousel">
+            <div class="carousel-wrapper" id="carousel-wrapper">
+              
+              <!-- 範例文章1 -->
+              <div class="news-item">
+                <div class="news-date">11:56 am · 31 Jan 2026</div>
+                <h3 class="news-title">JUST IN: Pepecoin hits 2-year milestone!</h3>
+                <p class="news-excerpt">
+                    Co-founder zordiak
+                    announces on X:
+                   
+                   “Happy 2nd Birthday to Pepecoin! It seems like just yesterday Karzo
+                    and I were stressing out about the launch... ”
+                </p>
+                <a href="/pepecoinnews" class="read-more">read more</a>
+              </div>
+          
+              <!-- 範例文章2 -->
+              <div class="news-item">
+                <div class="news-date">11:50 am · 25 Jan 2026</div>
+                <h3 class="news-title">Pepecoin Saturday Update (Jan 24, 2026)</h3>
+                <p class="news-excerpt">
+                    1. The Pepecoin team is currently working on a new browser extension for Ribbit Raiders.
+
+                    2. Pepecoin's official account is seeing massive growth in engagement: Multiple tweets have now surpassed 50,000 views each.
+                </p>
+                <a href="/pepecoinnews" class="read-more">read more</a>
+              </div>
+          
+              <!-- 範例文章3 -->
+              <div class="news-item">
+                <div class="news-date">8:36 am · 22 Jan 2026</div>
+                <h3 class="news-title">JUST IN: Zordiak talks about Pepecoin exposure</h3>
+                <p class="news-excerpt">
+                    “We've had more impressions (views) on Twitter today than any other day this year.”
+                </p>
+                <a href="/pepecoinnews" class="read-more">read more</a>
+              </div>
+
+              <!-- 範例文章4 -->
+              <div class="news-item">
+                <div class="news-date">12:13 am · 20 Jan 2026</div>
+                <h3 class="news-title">JUST IN: CoinStats now officially supports Pepecoin! Time to flex those bags</h3>
+                <p class="news-excerpt">
+                    
+                </p>
+                <a href="/pepecoinnews" class="read-more">read more</a>
+              </div>
+
+                   <!-- 範例文章5 -->
+              <div class="news-item">
+                <div class="news-date">8:58 am · 18 Jan 2026</div>
+                <h3 class="news-title">Pepecoin Saturday Update</h3>
+                <p class="news-excerpt">
+                    1. Preparations for the upcoming Litecoin Summit are going smoothly.  
+
+2. All key metrics for the official Twitter account have shown significant growth compared to last month.
+                </p>
+                <a href="/pepecoinnews" class="read-more">read more</a>
+              </div>
+
+                                 <!-- 範例文章5 -->
+              <div class="news-item">
+                <div class="news-date">6:46 pm · 15 Jan 2026</div>
+                <h3 class="news-title">BREAKING NEWS</h3>
+                <p class="news-excerpt">
+                    Kraken is cooking something huge! They've started planning Pepecoin social content！
+                </p>
+                <a href="/pepecoinnews" class="read-more">read more</a>
+              </div>
+          
+              <!-- 你可以繼續添加更多 news-item -->
+          
+            </div>
+          
+            <!-- 左右箭頭（可選） -->
+            <button class="carousel-prev" aria-label="上一條">←</button>
+            <button class="carousel-next" aria-label="下一條">→</button>
+          
+            <!-- 小圓點指示器（可選） -->
+            <div class="carousel-dots" id="carousel-dots"></div>
+          </div>
         
         <!-- 主要内容区域 -->
         <div class="main-content">
@@ -1651,6 +1935,85 @@
     </div>
 </footer>
 </div> <!-- 容器结束 -->
+
+<script>
+    // 放在 </body> 前或使用 defer
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrapper = document.getElementById('carousel-wrapper');
+      const items = document.querySelectorAll('.news-item');
+      const prevBtn = document.querySelector('.carousel-prev');
+      const nextBtn = document.querySelector('.carousel-next');
+      const dotsContainer = document.getElementById('carousel-dots');
+    
+      if (items.length === 0) return;
+    
+      let currentIndex = 0;
+      let autoPlayInterval = null;
+      const intervalTime = 5000; // 每5秒切換一次（可自行調整）
+    
+      // 動態生成小圓點
+      function createDots() {
+        dotsContainer.innerHTML = '';
+        items.forEach((_, i) => {
+          const dot = document.createElement('span');
+          dot.classList.add('dot');
+          if (i === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => {
+            goToSlide(i);
+          });
+          dotsContainer.appendChild(dot);
+        });
+      }
+    
+      // 更新小圓點狀態
+      function updateDots() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+    
+      // 移動到指定索引
+      function goToSlide(index) {
+        currentIndex = (index + items.length) % items.length; // 循環
+        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateDots();
+        resetAutoPlay(); // 重置自動計時
+      }
+    
+      // 下一張
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+    
+      // 上一張
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+    
+      // 重置自動播放計時器
+      function resetAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(nextSlide, intervalTime);
+      }
+    
+      // 綁定按鈕事件
+      if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+      if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    
+      // 滑鼠進入時暫停自動播放（可選）
+      const container = document.getElementById('news-carousel');
+      container.addEventListener('mouseenter', () => {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+      });
+      container.addEventListener('mouseleave', resetAutoPlay);
+    
+      // 初始化
+      createDots();
+      resetAutoPlay(); // 開始自動輪播
+    });
+</script>
+
 
 <script>
 
