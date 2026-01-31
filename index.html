@@ -112,11 +112,20 @@
 }
 
 .news-item {
-  padding: 1.6rem 1.4rem;           /* 手機 padding 適中，不擠 */
-  border-radius: 0;
-  border: none;                     /* 手機常不顯示邊框 */
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06); /* 極輕陰影 */
-}
+        flex: 0 0 100%;
+        min-width: 100%;
+        padding: 2.4rem 2.8rem;           /* 更大留白 */
+        background: #ffffff;              /* light mode 純白卡片 */
+        border-radius: 18px;
+        box-sizing: border-box;
+        border: 1px solid rgba(0,0,0,0.04);
+        backdrop-filter: blur(20px);      /* 輕微毛玻璃感，接近 Liquid Glass 氛圍 */
+        transition: transform 0.3s ease;
+        }
+
+        .news-item:hover {
+        transform: translateY(-4px);      /* 輕微抬升感，Apple 常見互動 */
+        }
 
 .news-title {
   font-size: clamp(1.3rem, 5.5vw, 1.6rem); /* 手機標題不要太大 */
@@ -1418,9 +1427,9 @@
           
             </div>
           
-            <!-- 左右箭頭（可選） -->
+            <!-- 左右箭頭（可選） 
             <button class="carousel-prev" aria-label="上一條">←</button>
-            <button class="carousel-next" aria-label="下一條">→</button>
+            <button class="carousel-next" aria-label="下一條">→</button> -->
           
             <!-- 小圓點指示器（可選） -->
             <div class="carousel-dots" id="carousel-dots"></div>
