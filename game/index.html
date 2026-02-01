@@ -27,18 +27,19 @@
             width: 100%;
             max-width: 900px;
             height: 100vh;
-            max-height: 600px;
+            max-height: 900px;           /* 避免過長 */
+            margin: 0 auto;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 16px;
-            box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
         }
         
         canvas {
+            display: block;
             width: 100%;
             height: 100%;
-            background: transparent;
         }
         
         .hud {
@@ -83,7 +84,7 @@
             justify-content: center;
             align-items: center;
             background: rgba(0, 0, 0, 0.9);
-            z-index: 20;
+            z-index: 40 !important;
             transition: opacity 0.5s ease;
         }
         
@@ -214,14 +215,18 @@
         /* Mobile Controls */
         .mobile-controls {
             position: absolute;
-            bottom: 10px;
+            bottom: 12px;
             left: 0;
             right: 0;
-            display: none !important; /* 默认隐藏，JS控制 */
+            display: none;               /* 改為 none，靠 JS 控制 */
             justify-content: space-between;
-            padding: 0 15px;
-            z-index: 20; /* 提高z-index，确保覆盖canvas */
+            align-items: center;
+            padding: 0 16px;
+            z-index: 30;                 /* 提高層級 */
             pointer-events: auto;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
         
         .mobile-btn {
@@ -251,6 +256,20 @@
         .mobile-btn-group {
             display: flex;
             gap: 10px;
+        }
+
+        @media (max-width: 960px) {
+            .mobile-controls.show-on-mobile {
+                display: flex !important;
+            }
+            
+            .mobile-btn {
+                width: 64px;
+                height: 64px;
+                font-size: 26px;
+                padding: 0;
+                line-height: 64px;
+            }
         }
         
         /* 媒体查询 + 强制移动端优化 */
