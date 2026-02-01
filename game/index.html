@@ -9,13 +9,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    
+       
         body {
-            background: #000000;
+            background: linear-gradient(135deg, #0a0e17, #1a1f2d, #2d3446);
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -23,7 +21,7 @@
             align-items: center;
             color: #ffffff;
         }
-    
+       
         .game-container {
             position: relative;
             width: 100%;
@@ -31,60 +29,53 @@
             height: 100vh;
             max-height: 900px;
             margin: 0 auto;
-            background: rgba(0, 0, 0, 0.85);
-            border-radius: 24px;
+            background: rgba(10, 15, 25, 0.9);
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6),
-                        inset 0 0 80px rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 100, 255, 0.4);
         }
-    
+       
         canvas {
             display: block;
             width: 100%;
             height: 100%;
-            border-radius: 24px;
         }
-    
+       
         .hud {
             position: absolute;
-            top: 24px;
-            left: 24px;
+            top: 20px;
+            left: 20px;
             z-index: 10;
             display: flex;
-            gap: 32px;
-            background: rgba(30, 30, 36, 0.65);
-            padding: 16px 32px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
-    
+       
         .hud-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 100px;
+            min-width: 80px;
         }
-    
+       
         .hud-value {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 700;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            letter-spacing: -0.5px;
+            text-shadow: 0 0 8px rgba(0, 200, 255, 0.7);
         }
-    
+       
         .hud-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #ffffff99;
-            margin-top: 6px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            font-size: 14px;
+            color: #a5c7ff;
+            margin-bottom: 5px;
         }
-    
+       
         .screen {
             position: absolute;
             top: 0;
@@ -95,312 +86,295 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(20px);
-            z-index: 40;
-            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(5, 10, 20, 0.95);
+            z-index: 40 !important;
+            transition: opacity 0.5s ease;
         }
-    
+       
         .title {
-            font-size: 72px;
+            font-size: 56px;
             font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #f0f0f0);
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 150, 255, 0.8);
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-            text-shadow: 0 4px 30px rgba(255, 255, 255, 0.3);
         }
-    
+       
         .subtitle {
-            font-size: 22px;
-            font-weight: 500;
-            color: #ffffffaa;
-            margin-bottom: 48px;
+            font-size: 20px;
+            color: #a5c7ff;
+            margin-bottom: 40px;
             text-align: center;
-            max-width: 70%;
-            line-height: 1.5;
+            max-width: 80%;
         }
-    
+       
         .btn {
-            background: linear-gradient(45deg, #282d34, #2e3d42);
+            background: linear-gradient(45deg, #0061ff, #60efff);
             color: #ffffff;
             border: none;
-            padding: 18px 56px;
-            font-size: 20px;
+            padding: 16px 45px;
+            font-size: 18px;
             font-weight: 600;
-            border-radius: 18px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            margin: 12px 0;
-            box-shadow: 0 10px 40px rgba(0, 122, 255, 0.4);
-            letter-spacing: 0.2px;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 150, 255, 0.4);
         }
-    
+       
         .btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 122, 255, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 150, 255, 0.6);
         }
-    
+       
         .btn:active {
-            transform: translateY(2px) scale(0.98);
+            transform: translateY(1px);
         }
-    
+       
         .controls {
-            background: rgba(30, 30, 36, 0.65);
-            padding: 32px;
-            border-radius: 24px;
-            margin: 40px 0;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 16px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             width: 80%;
-            max-width: 640px;
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
+            max-width: 600px;
+            backdrop-filter: blur(10px);
         }
-    
+       
         .controls h2 {
-            color: rgba(255, 255, 255, 0.3);
+            color: #60efff;
             text-align: center;
-            margin-bottom: 28px;
-            font-size: 32px;
-            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 28px;
         }
-    
+       
         .control-item {
             display: flex;
             justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ffffffcc;
-            font-size: 18px;
-            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a5c7ff;
+            font-size: 16px;
         }
-    
+       
         .control-key {
             background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-weight: 600;
-            min-width: 60px;
+            min-width: 50px;
             text-align: center;
-            backdrop-filter: blur(10px);
         }
-    
+       
         .hidden {
             display: none;
         }
-    
+       
         .game-over {
-            font-size: 80px;
-            font-weight: 800;
-            color: #ff453a;
-            margin-bottom: 24px;
-            text-shadow: 0 0 40px rgba(255, 69, 58, 0.8);
-            letter-spacing: -1px;
+            font-size: 60px;
+            color: #ff3b30;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 59, 48, 0.7);
         }
-    
+       
         .final-score {
-            font-size: 44px;
+            font-size: 36px;
             color: #ffffff;
-            margin-bottom: 48px;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
-    
+       
         .health-bar {
-            width: 240px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            width: 200px;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
             overflow: hidden;
-            margin: 12px 0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-    
+       
         .health-fill {
             height: 100%;
-            background: linear-gradient(to right, #30d158, #32d74b);
-            transition: width 0.4s ease;
-            box-shadow: 0 0 20px rgba(48, 209, 88, 0.6);
+            background: linear-gradient(to right, #34c759, #30d158);
+            transition: width 0.3s ease;
         }
-    
+       
         .boss-health {
             position: absolute;
-            bottom: 32px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 480px;
-            height: 18px;
-            background: rgba(30, 30, 36, 0.7);
-            border-radius: 12px;
+            width: 400px;
+            height: 14px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 7px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             z-index: 5;
-            backdrop-filter: blur(32px);
+            backdrop-filter: blur(10px);
         }
-    
+       
         .boss-health-fill {
             height: 100%;
-            background: linear-gradient(to right, #ff453a, #ff9f0a);
-            transition: width 0.4s ease;
-            box-shadow: 0 0 30px rgba(255, 69, 58, 0.8);
+            background: linear-gradient(to right, #ff3b30, #ff2d55);
+            transition: width 0.3s ease;
         }
-    
+       
         /* Mobile Controls */
         .mobile-controls {
             position: absolute;
-            bottom: 24px;
+            bottom: 20px;
             left: 0;
             right: 0;
             display: none;
             justify-content: space-between;
             align-items: center;
-            padding: 0 32px;
+            padding: 0 20px;
             z-index: 30;
             pointer-events: auto;
             user-select: none;
+            -webkit-user-select: none;
             touch-action: manipulation;
         }
-    
+       
         .mobile-btn {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.2);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            width: 80px;
-            height: 80px;
-            font-size: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 22px 28px;
+            font-size: 24px;
             font-weight: bold;
-            border-radius: 24px;
+            border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s ease;
             backdrop-filter: blur(20px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
-    
+       
         .mobile-btn:active,
         .mobile-btn.pressed {
             background: rgba(255, 255, 255, 0.3);
-            transform: scale(0.9);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transform: scale(0.92);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
-    
+       
         .mobile-btn-group {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
-    
-        /* Particle Effects - 更加炸裂 */
+        
+        /* Particle Effects */
         .particle {
             position: absolute;
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 20px 4px currentColor;
         }
-    
+       
         @keyframes explode {
             0% {
-                transform: scale(0) rotate(0deg);
+                transform: scale(0.5);
                 opacity: 1;
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(3);
             }
             100% {
-                transform: scale(6) rotate(180deg);
+                transform: scale(3);
                 opacity: 0;
-                filter: brightness(1);
             }
         }
-    
+       
         @keyframes float {
             0% {
                 transform: translateY(0) scale(1);
                 opacity: 1;
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(2.5);
             }
             100% {
-                transform: translateY(-200px) scale(2);
+                transform: translateY(-100px) scale(1.5);
                 opacity: 0;
             }
         }
-    
-        /* Stats Panel */
-        /* .stats-panel {
+        
+        /* Game Stats */
+        .stats-panel {
             position: absolute;
-            top: 24px;
-            right: 24px;
+            top: 20px;
+            right: 20px;
             z-index: 10;
-            background: rgba(30, 30, 36, 0.65);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(32px);
-        } */
-    
-        .stat-item {
-            margin: 12px 0;
-            color: #ffffffaa;
-            font-size: 17px;
-            font-weight: 500;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
-    
+        
+        .stat-item {
+            margin: 8px 0;
+            color: #a5c7ff;
+            font-size: 16px;
+        }
+        
         .stat-value {
             color: #ffffff;
             font-weight: 600;
-            margin-left: 12px;
+            margin-left: 10px;
         }
-    
-        /* Responsive */
+        
+        /* Responsive adjustments */
         @media (max-width: 960px) {
             .mobile-controls.show-on-mobile {
                 display: flex !important;
-            }
-            .title {
-                font-size: 56px;
-            }
-            .hud {
-                padding: 14px 24px;
-                gap: 24px;
-            }
-            .boss-health {
-                width: 380px;
-                bottom: 24px;
-            }
-        }
-    
-        @media (max-width: 768px) {
-            .game-container {
-                border-radius: 0;
-            }
-            canvas {
-                border-radius: 0;
-            }
-            .title {
-                font-size: 48px;
-            }
-            .subtitle {
-                font-size: 18px;
-            }
-            .btn {
-                padding: 16px 48px;
-                font-size: 18px;
-            }
-            .mobile-controls {
-                padding: 0 20px;
             }
             .mobile-btn {
                 width: 70px;
                 height: 70px;
                 font-size: 28px;
+                padding: 0;
+                line-height: 70px;
+            }
+            .title {
+                font-size: 42px;
+            }
+            .controls {
+                padding: 15px;
+            }
+            .hud {
+                padding: 10px 15px;
+                gap: 15px;
+            }
+            .hud-item {
+                min-width: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                border-radius: 0;
+                height: 100vh;
+            }
+            canvas {
+                height: calc(100vh - 120px);
+            }
+            .mobile-controls {
+                bottom: 10px;
+            }
+            .title {
+                font-size: 36px;
+            }
+            .subtitle {
+                font-size: 16px;
+            }
+            .btn {
+                padding: 14px 35px;
+                font-size: 16px;
             }
         }
     </style>
@@ -409,7 +383,7 @@
     <div class="game-container">
         <div id="startScreen" class="screen">
             <h1 class="title">Pepecoin Battle</h1>
-            <p class="subtitle">Developed by Meta/游戏由Meta开发</p>
+            <p class="subtitle">Defeat enemies, collect coins, and defeat bosses to earn high scores!</p>
            
             <div class="controls">
                 <h2>Controls</h2>
@@ -507,9 +481,9 @@
         </div>
         
         <div class="stats-panel">
-            <div class="stat-item"><span id="enemiesDefeated" class="stat-value">0</span></div>
-            <div class="stat-item"><span id="bossesDefeated" class="stat-value">0</span></div>
-            <div class="stat-item"><span id="powerupsCollected" class="stat-value">0</span></div>
+            <div class="stat-item">Enemies Defeated: <span id="enemiesDefeated" class="stat-value">0</span></div>
+            <div class="stat-item">Bosses Defeated: <span id="bossesDefeated" class="stat-value">0</span></div>
+            <div class="stat-item">Power-ups Collected: <span id="powerupsCollected" class="stat-value">0</span></div>
         </div>
        
         <div id="bossHealth" class="boss-health hidden">
