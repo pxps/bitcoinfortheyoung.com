@@ -530,6 +530,8 @@
         let particles = [];
         let keys = {};
         let touchControls = { left: false, right: false };
+        let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || window.innerWidth <= 960;
         
         // Player Image
         const playerImg = new Image();
@@ -537,9 +539,27 @@
         
         // Resize Canvas
         function resizeCanvas() {
-            canvas.width = window.innerWidth > 900 ? 900 : window.innerWidth;
-            canvas.height = window.innerHeight > 600 ? 600 : window.innerHeight;
-            playerY = canvas.height - 150;
+            // 考慮 device pixel ratio → 更清晰
+            const dpr = window.devicePixelRatio || 1;
+            
+            // 決定畫布邏輯尺寸
+            let targetWidth  = Math.min(window.innerWidth, 900);
+            let targetHeight = Math.min(window.innerHeight, 800); // 限制最大高度
+            
+            // 維持大約 3:2 ~ 4:3 比例（可自行調整）
+            if (targetWidth / targetHeight > 1.5) {
+                targetWidth = targetHeight * 1.333; // 偏好 4:3
+            }
+            
+            canvas.width  = targetWidth  * dpr;
+            canvas.height = targetHeight * dpr;
+            canvas.style.width  = targetWidth  + 'px';
+            canvas.style.height = targetHeight + 'px';
+            
+            // 更新玩家位置參考值
+            playerY = canvas.height / dpr - 150; // 注意除以 dpr
+            
+            // 重新計算 UI 位置（如果有其他元素需要）
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
@@ -610,9 +630,17 @@
             gameRunning = true;
             startScreen.classList.add('hidden');
             resetGame();
-            bgMusic.play();
+            
+            // 關鍵：遊戲開始才顯示移動控制
+            if (isMobile || window.innerWidth <= 960) {
+                document.querySelector('.mobile-controls').classList.add('show-on-mobile');
+            }
+            
+            bgMusic.play().catch(e => console.log("Audio autoplay blocked", e));
             gameLoop();
         }
+
+        // 遊戲結束 / 重玩時隱藏移動按鈕
         
         function showTutorial() {
             startScreen.classList.add('hidden');
@@ -627,16 +655,19 @@
         function gameOver() {
             gameRunning = false;
             gameOverScreen.classList.remove('hidden');
-            finalScoreDisplay.textContent = score;
+            document.querySelector('.mobile-controls').classList.remove('show-on-mobile');
             bgMusic.pause();
         }
         
         function restartGame() {
             gameOverScreen.classList.add('hidden');
-            startGame();
+            startGame(); // 會再次檢查並顯示移動控制
         }
         
         function resetGame() {
+            if (!gameRunning) {
+                document.querySelector('.mobile-controls').classList.remove('show-on-mobile');
+            }
             score = 0;
             bitcoinCount = 0;
             health = 100;
@@ -1070,6 +1101,13 @@
         
         // Preload
         playerImg.onload = () => console.log("Player loaded");
+                // 在 <script> 開頭或 preload 後呼叫一次
+        setupMobileControls();
+
+        // 頁面載入與旋轉時重新調整
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('orientationchange', resizeCanvas);
+        resizeCanvas();  // 初次執行
     </script>
 </body>
 </html>
