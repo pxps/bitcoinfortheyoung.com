@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pepecoin Battle/佩佩大斗 - BETA2.0</title>
+    <title>Pepecoin Battle</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-    
+        
         body {
-            background: #000000;
+            background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -23,68 +21,57 @@
             align-items: center;
             color: #ffffff;
         }
-    
+        
         .game-container {
             position: relative;
             width: 100%;
             max-width: 900px;
             height: 100vh;
-            max-height: 900px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.85);
-            border-radius: 24px;
+            max-height: 600px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6),
-                        inset 0 0 80px rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-    
+        
         canvas {
-            display: block;
             width: 100%;
             height: 100%;
-            border-radius: 24px;
+            background: transparent;
         }
-    
+        
         .hud {
             position: absolute;
-            top: 24px;
-            left: 24px;
+            top: 20px;
+            left: 20px;
             z-index: 10;
             display: flex;
-            gap: 32px;
-            background: rgba(30, 30, 36, 0.65);
-            padding: 16px 32px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
         }
-    
+        
         .hud-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 100px;
         }
-    
+        
         .hud-value {
-            font-size: 32px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 600;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            letter-spacing: -0.5px;
         }
-    
+        
         .hud-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #ffffff99;
-            margin-top: 6px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            font-size: 14px;
+            color: #a5a5a5;
         }
-    
+        
         .screen {
             position: absolute;
             top: 0;
@@ -95,312 +82,245 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(20px);
-            z-index: 40;
-            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 20;
+            transition: opacity 0.5s ease;
         }
-    
+        
         .title {
-            font-size: 72px;
-            font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #f0f0f0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-            text-shadow: 0 4px 30px rgba(255, 255, 255, 0.3);
-        }
-    
-        .subtitle {
-            font-size: 22px;
-            font-weight: 500;
-            color: #ffffffaa;
-            margin-bottom: 48px;
-            text-align: center;
-            max-width: 70%;
-            line-height: 1.5;
-        }
-    
-        .btn {
-            background: linear-gradient(45deg, #2d343b, #101315);
-            color: #ffffff;
-            border: none;
-            padding: 18px 56px;
-            font-size: 20px;
-            font-weight: 600;
-            border-radius: 18px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            margin: 12px 0;
-            box-shadow: 0 10px 40px rgba(0, 122, 255, 0.4);
-            letter-spacing: 0.2px;
-        }
-    
-        .btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 122, 255, 0.6);
-        }
-    
-        .btn:active {
-            transform: translateY(2px) scale(0.98);
-        }
-    
-        .controls {
-            background: rgba(30, 30, 36, 0.65);
-            padding: 32px;
-            border-radius: 24px;
-            margin: 40px 0;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            width: 80%;
-            max-width: 640px;
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-        }
-    
-        .controls h2 {
-            color: rgba(255, 255, 255, 0.3);
-            text-align: center;
-            margin-bottom: 28px;
-            font-size: 32px;
+            font-size: 48px;
             font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
-    
+        
+        .subtitle {
+            font-size: 18px;
+            color: #a5a5a5;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 10px 0;
+        }
+        
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .controls {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 80%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .controls h2 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
         .control-item {
             display: flex;
             justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ffffffcc;
-            font-size: 18px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a5a5a5;
+        }
+        
+        .control-key {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-weight: 500;
         }
-    
-        .control-key {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-weight: 600;
-            min-width: 60px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-    
+        
         .hidden {
             display: none;
         }
-    
+        
         .game-over {
-            font-size: 80px;
-            font-weight: 800;
-            color: #ff453a;
-            margin-bottom: 24px;
-            text-shadow: 0 0 40px rgba(255, 69, 58, 0.8);
-            letter-spacing: -1px;
+            font-size: 48px;
+            color: #ff3b30;
+            margin-bottom: 30px;
         }
-    
+        
         .final-score {
-            font-size: 44px;
+            font-size: 28px;
             color: #ffffff;
-            margin-bottom: 48px;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            margin-bottom: 30px;
         }
-    
+        
         .health-bar {
-            width: 240px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            width: 200px;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 4px;
             overflow: hidden;
-            margin: 12px 0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-    
+        
         .health-fill {
             height: 100%;
-            background: linear-gradient(to right, #30d158, #32d74b);
-            transition: width 0.4s ease;
-            box-shadow: 0 0 20px rgba(48, 209, 88, 0.6);
+            background: linear-gradient(to right, #34c759, #30d158);
+            transition: width 0.3s ease;
         }
-    
+        
         .boss-health {
             position: absolute;
-            bottom: 32px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 480px;
-            height: 18px;
-            background: rgba(30, 30, 36, 0.7);
-            border-radius: 12px;
+            width: 400px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             z-index: 5;
-            backdrop-filter: blur(32px);
+            backdrop-filter: blur(10px);
         }
-    
+        
         .boss-health-fill {
             height: 100%;
-            background: linear-gradient(to right, #ff453a, #ff9f0a);
-            transition: width 0.4s ease;
-            box-shadow: 0 0 30px rgba(255, 69, 58, 0.8);
+            background: linear-gradient(to right, #ff3b30, #ff2d55);
+            transition: width 0.3s ease;
         }
-    
+        
         /* Mobile Controls */
         .mobile-controls {
-            position: absolute;
-            bottom: 24px;
-            left: 0;
-            right: 0;
             display: none;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 32px;
-            z-index: 30;
-            pointer-events: auto;
-            user-select: none;
-            touch-action: manipulation;
+            /* 其他样式不变 */
         }
-    
+
+        @media (max-width: 900px) {
+            .mobile-controls.show {
+                display: flex !important;
+            }
+        }
+        
         .mobile-btn {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            width: 80px;
-            height: 80px;
-            font-size: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px 25px;
+            font-size: 20px;
             font-weight: bold;
-            border-radius: 24px;
+            border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s ease;
             backdrop-filter: blur(20px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
-    
+        
         .mobile-btn:active,
         .mobile-btn.pressed {
             background: rgba(255, 255, 255, 0.3);
-            transform: scale(0.9);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
-    
+        
         .mobile-btn-group {
             display: flex;
-            gap: 20px;
+            gap: 10px;
         }
-    
-        /* Particle Effects - 更加炸裂 */
+        
+        /* 媒体查询 + 强制移动端优化 */
+        @media (max-width: 900px) and (orientation: portrait) {
+            .mobile-controls {
+                display: flex !important;
+            }
+            
+            .mobile-btn {
+                padding: 25px 30px;
+                font-size: 24px;
+                min-width: 65px;
+                min-height: 65px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                border-radius: 0;
+                height: 100vh;
+            }
+            
+            canvas {
+                height: calc(100vh - 120px); /* 为按钮留空间 */
+            }
+            
+            .mobile-controls {
+                display: flex !important;
+                bottom: 5px;
+            }
+        }
+        
+        /* 横屏优化 */
+        @media (max-height: 500px) {
+            .mobile-controls {
+                bottom: 2px;
+                padding: 0 10px;
+            }
+            
+            .mobile-btn {
+                padding: 15px 20px;
+                font-size: 18px;
+            }
+        }
+        
+        /* Particle Effects */
         .particle {
             position: absolute;
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 20px 4px currentColor;
         }
-    
+        
         @keyframes explode {
             0% {
-                transform: scale(0) rotate(0deg);
+                transform: scale(0.5);
                 opacity: 1;
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(3);
             }
             100% {
-                transform: scale(6) rotate(180deg);
+                transform: scale(3);
                 opacity: 0;
-                filter: brightness(1);
             }
         }
-    
+        
         @keyframes float {
             0% {
                 transform: translateY(0) scale(1);
                 opacity: 1;
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(2.5);
             }
             100% {
-                transform: translateY(-200px) scale(2);
+                transform: translateY(-100px) scale(1.5);
                 opacity: 0;
-            }
-        }
-    
-        /* Stats Panel */
-        .stats-panel {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            z-index: 10;
-            background: rgba(30, 30, 36, 0.65);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(32px);
-        }
-    
-        .stat-item {
-            margin: 12px 0;
-            color: #ffffffaa;
-            font-size: 17px;
-            font-weight: 500;
-        }
-    
-        .stat-value {
-            color: #ffffff;
-            font-weight: 600;
-            margin-left: 12px;
-        }
-    
-        /* Responsive */
-        @media (max-width: 960px) {
-            .mobile-controls.show-on-mobile {
-                display: flex !important;
-            }
-            .title {
-                font-size: 56px;
-            }
-            .hud {
-                padding: 14px 24px;
-                gap: 24px;
-            }
-            .boss-health {
-                width: 380px;
-                bottom: 24px;
-            }
-        }
-    
-        @media (max-width: 768px) {
-            .game-container {
-                border-radius: 0;
-            }
-            canvas {
-                border-radius: 0;
-            }
-            .title {
-                font-size: 48px;
-            }
-            .subtitle {
-                font-size: 18px;
-            }
-            .btn {
-                padding: 16px 48px;
-                font-size: 18px;
-            }
-            .mobile-controls {
-                padding: 0 20px;
-            }
-            .mobile-btn {
-                width: 70px;
-                height: 70px;
-                font-size: 28px;
             }
         }
     </style>
@@ -409,8 +329,8 @@
     <div class="game-container">
         <div id="startScreen" class="screen">
             <h1 class="title">Pepecoin Battle</h1>
-            <p class="subtitle">Developed by Meta/Meta开发</p>
-           
+            <p class="subtitle">Developed by Meta/游戏由Meta开发</p>
+            
             <div class="controls">
                 <h2>Controls/控制</h2>
                 <div class="control-item">
@@ -419,7 +339,7 @@
                     <span class="control-key">→</span>
                 </div>
                 <div class="control-item">
-                    <span>Jump/跳</span>
+                    <span>Jump/跳跃</span>
                     <span class="control-key">Space</span>
                 </div>
                 <div class="control-item">
@@ -434,17 +354,18 @@
                     <span>On Mobile: Use buttons below</span>
                 </div>
             </div>
-           
+            
             <button id="startBtn" class="btn">Start Game/开始游戏</button>
             <button id="tutorialBtn" class="btn">Tutorial/教学</button>
+            <p></p>
         </div>
-       
+        
         <div id="tutorialScreen" class="screen hidden">
-            <h2 class="title">How to Play</h2>
-           
+            <h2 class="title">Tutorial</h2>
+            
             <div class="controls">
                 <div class="control-item">
-                    <p>Use left/right arrows to move your character</p>
+                    <p>Use left/right arrows to move your Pepe</p>
                 </div>
                 <div class="control-item">
                     <p>Press space to jump and dodge attacks</p>
@@ -465,35 +386,34 @@
                     <p>Collect Pepecoin to boost your score</p>
                 </div>
                 <div class="control-item">
-                    <p>Levels increase difficulty, power-ups appear randomly</p>
+                    <p>New: Levels increase difficulty, power-ups appear randomly</p>
                 </div>
             </div>
-           
-            <button id="backBtn" class="btn">Back to Menu</button>
+            
+            <button id="backBtn" class="btn">Back/返回</button>
         </div>
-       
+        
         <div id="gameOverScreen" class="screen hidden">
             <h2 class="game-over">Game Over/游戏结束</h2>
             <p class="final-score">Final Score/最终得分: <span id="finalScore">0</span></p>
-            <p class="subtitle">Pepecoin Collected/硬币收集: <span id="finalCoins">0</span></p>
             <button id="restartBtn" class="btn">Play Again/重玩</button>
         </div>
-       
+        
         <div class="hud">
             <div class="hud-item">
-                <div class="hud-label">Score/得分</div>
+                <div class="hud-label">Score/分数</div>
                 <div id="score" class="hud-value">0</div>
             </div>
             <div class="hud-item">
                 <div class="hud-label">Health/生命值</div>
                 <div class="health-bar">
-                    <div id="healthBar" class="health-fill" style="width: 100%"></div>
+                    <div id="healthBar" class="health-fill"></div>
                 </div>
             </div>
             <div class="hud-item">
                 <div class="hud-label">Energy/能量</div>
                 <div class="health-bar">
-                    <div id="energyBar" class="health-fill" style="width: 100%; background: linear-gradient(to right, #0a84ff, #0061ff);"></div>
+                    <div id="energyBar" class="health-fill" style="background: linear-gradient(to right, #0a84ff, #0061ff);"></div>
                 </div>
             </div>
             <div class="hud-item">
@@ -506,18 +426,12 @@
             </div>
         </div>
         
-        <div class="stats-panel">
-            <div class="stat-item">Enemies Defeated/敌人击败: <span id="enemiesDefeated" class="stat-value">0</span></div>
-            <div class="stat-item">Bosses Defeated/大怪: <span id="bossesDefeated" class="stat-value">0</span></div>
-            <div class="stat-item">Power-ups Collected/收集的道具: <span id="powerupsCollected" class="stat-value">0</span></div>
-        </div>
-       
         <div id="bossHealth" class="boss-health hidden">
-            <div id="bossHealthBar" class="boss-health-fill" style="width: 100%"></div>
+            <div id="bossHealthBar" class="boss-health-fill"></div>
         </div>
-       
+        
         <canvas id="gameCanvas"></canvas>
-       
+        
         <div class="mobile-controls">
             <div class="mobile-btn-group">
                 <button id="leftBtn" class="mobile-btn">←</button>
@@ -530,7 +444,11 @@
             </div>
         </div>
     </div>
-   
+
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2024/10/15/audio_5d4f7d8c6c.mp3" type="audio/mpeg">
+    </audio>
+    
     <script>
         // Game Core
         const canvas = document.getElementById('gameCanvas');
@@ -544,26 +462,28 @@
         const restartBtn = document.getElementById('restartBtn');
         const scoreDisplay = document.getElementById('score');
         const finalScoreDisplay = document.getElementById('finalScore');
-        const finalCoinsDisplay = document.getElementById('finalCoins');
         const healthBar = document.getElementById('healthBar');
         const energyBar = document.getElementById('energyBar');
         const bitcoinCountDisplay = document.getElementById('bitcoinCount');
         const levelDisplay = document.getElementById('level');
         const bossHealthContainer = document.getElementById('bossHealth');
         const bossHealthBar = document.getElementById('bossHealthBar');
+        const bgMusic = document.getElementById('bgMusic');
         
-        // Stats displays
-        const enemiesDefeatedDisplay = document.getElementById('enemiesDefeated');
-        const bossesDefeatedDisplay = document.getElementById('bossesDefeated');
-        const powerupsCollectedDisplay = document.getElementById('powerupsCollected');
-
         // Mobile Buttons
         const leftBtn = document.getElementById('leftBtn');
         const rightBtn = document.getElementById('rightBtn');
         const jumpBtn = document.getElementById('jumpBtn');
         const attackBtn = document.getElementById('attackBtn');
         const specialBtn = document.getElementById('specialBtn');
-       
+        
+        // Sound Effects
+        const jumpSound = new Audio('https://cdn.pixabay.com/audio/2022/03/13/audio_9d47f2aebb.mp3'); // Example jump sound
+        const shootSound = new Audio('https://cdn.pixabay.com/audio/2022/01/18/audio_684deda8a2.mp3'); // Shooting
+        const explosionSound = new Audio('https://cdn.pixabay.com/audio/2022/03/10/audio_02d475ef94.mp3'); // Explosion
+        const defeatSound = new Audio('https://samplefocus.com/samples/retro-game-sfx-enemy-defeated'); // Enemy defeat
+        const collectSound = new Audio('https://cdn.pixabay.com/audio/2022/03/10/audio_7ef2e922e3.mp3'); // Collect bitcoin
+        
         // Game State
         let gameRunning = false;
         let score = 0;
@@ -572,7 +492,7 @@
         let energy = 100;
         let level = 1;
         let playerX = 100;
-        let playerY = canvas.height - 150;
+        let playerY = canvas.height - 150; // Adjust for ground
         let playerWidth = 120;
         let playerHeight = 120;
         let velocityY = 0;
@@ -590,53 +510,35 @@
         let particles = [];
         let keys = {};
         let touchControls = { left: false, right: false };
-        let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 960;
         
-        // Stats
-        let enemiesDefeated = 0;
-        let bossesDefeated = 0;
-        let powerupsCollected = 0;
-       
         // Player Image
         const playerImg = new Image();
         playerImg.src = "https://bitcoinfortheyoung.com/pep.jpg";
-       
+        
         // Resize Canvas
         function resizeCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-           
-            let targetWidth = Math.min(window.innerWidth, 900);
-            let targetHeight = Math.min(window.innerHeight, 800);
-           
-            if (targetWidth / targetHeight > 1.5) {
-                targetWidth = targetHeight * 1.333;
-            }
-           
-            canvas.width = targetWidth * dpr;
-            canvas.height = targetHeight * dpr;
-            canvas.style.width = targetWidth + 'px';
-            canvas.style.height = targetHeight + 'px';
-           
-            playerY = canvas.height / dpr - 150;
+            canvas.width = window.innerWidth > 900 ? 900 : window.innerWidth;
+            canvas.height = window.innerHeight > 600 ? 600 : window.innerHeight;
+            playerY = canvas.height - 150;
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
-       
+        
         // Event Listeners
         startBtn.addEventListener('click', startGame);
         tutorialBtn.addEventListener('click', showTutorial);
         backBtn.addEventListener('click', hideTutorial);
         restartBtn.addEventListener('click', restartGame);
-       
+        
         document.addEventListener('keydown', (e) => {
             keys[e.key] = true;
             handleInput(e.key);
         });
-       
+        
         document.addEventListener('keyup', (e) => {
             keys[e.key] = false;
         });
-       
+        
         // Mobile Touch Events
         leftBtn.addEventListener('touchstart', () => touchControls.left = true);
         leftBtn.addEventListener('touchend', () => touchControls.left = false);
@@ -645,13 +547,14 @@
         jumpBtn.addEventListener('touchstart', () => handleInput(' '));
         attackBtn.addEventListener('touchstart', () => handleInput('a'));
         specialBtn.addEventListener('touchstart', () => handleInput('s'));
-       
+        
         function handleInput(key) {
             if (key === ' ' && !isJumping) {
                 velocityY = -20;
                 isJumping = true;
+                jumpSound.play();
             }
-           
+            
             if (key === 'a' && attackCooldown <= 0) {
                 attackCooldown = 15;
                 projectiles.push({
@@ -661,8 +564,9 @@
                     height: 10,
                     speed: 12
                 });
+                shootSound.play();
             }
-           
+            
             if (key === 's' && energy >= 30 && specialCooldown <= 0) {
                 energy -= 30;
                 specialCooldown = 50;
@@ -677,50 +581,47 @@
                         isSpecial: true
                     });
                 }
+                shootSound.play();
             }
         }
-       
+        
         // Game Functions
         function startGame() {
             gameRunning = true;
             startScreen.classList.add('hidden');
             resetGame();
-           
-            if (isMobile || window.innerWidth <= 960) {
-                document.querySelector('.mobile-controls').classList.add('show-on-mobile');
-            }
-           
+            resizeCanvas();
+            bgMusic.play();
             gameLoop();
         }
-       
+        
         function showTutorial() {
             startScreen.classList.add('hidden');
             tutorialScreen.classList.remove('hidden');
         }
-       
+        
         function hideTutorial() {
             tutorialScreen.classList.add('hidden');
             startScreen.classList.remove('hidden');
         }
-       
+        
         function gameOver() {
             gameRunning = false;
-            // FIX: Update final score display
-            finalScoreDisplay.textContent = score;
-            finalCoinsDisplay.textContent = bitcoinCount;
             gameOverScreen.classList.remove('hidden');
-            document.querySelector('.mobile-controls').classList.remove('show-on-mobile');
+            finalScoreDisplay.textContent = score;
+            bgMusic.pause();
+
+            finalScoreDisplay.textContent = score;
+                finalCoinsDisplay.textContent = bitcoinCount;
         }
-       
+        
         function restartGame() {
             gameOverScreen.classList.add('hidden');
             startGame();
+            resizeCanvas();
         }
-       
+        
         function resetGame() {
-            if (!gameRunning) {
-                document.querySelector('.mobile-controls').classList.remove('show-on-mobile');
-            }
             score = 0;
             bitcoinCount = 0;
             health = 100;
@@ -745,33 +646,49 @@
             touchControls = { left: false, right: false };
             bossHealthContainer.classList.add('hidden');
             
-            // Reset stats
-            enemiesDefeated = 0;
-            bossesDefeated = 0;
-            powerupsCollected = 0;
-           
             updateHUD();
-            updateStats();
         }
-       
+        
+
+
+        function setupMobileControls() {
+            const buttons = {
+                left: leftBtn, right: rightBtn, jump: jumpBtn,
+                attack: attackBtn, special: specialBtn
+            };
+
+            for (const [action, btn] of Object.entries(buttons)) {
+                btn.addEventListener('touchstart', e => {
+                    e.preventDefault();
+                    if (action === 'left')   touchControls.left = true;
+                    if (action === 'right')  touchControls.right = true;
+                    if (action === 'jump')   handleInput(' ');
+                    if (action === 'attack') handleInput('a');
+                    if (action === 'special') handleInput('s');
+                });
+                
+                btn.addEventListener('touchend', e => {
+                    e.preventDefault();
+                    if (action === 'left')   touchControls.left = false;
+                    if (action === 'right')  touchControls.right = false;
+                });
+            }
+        }
+
+        setupMobileControls();
+
         function updateHUD() {
             scoreDisplay.textContent = score;
             bitcoinCountDisplay.textContent = bitcoinCount;
             levelDisplay.textContent = level;
             healthBar.style.width = `${health}%`;
             energyBar.style.width = `${energy}%`;
-           
+            
             if (boss) {
                 bossHealthBar.style.width = `${(boss.health / boss.maxHealth) * 100}%`;
             }
         }
         
-        function updateStats() {
-            enemiesDefeatedDisplay.textContent = enemiesDefeated;
-            bossesDefeatedDisplay.textContent = bossesDefeated;
-            powerupsCollectedDisplay.textContent = powerupsCollected;
-        }
-       
         function spawnEnemy() {
             const types = ['basic', 'fast', 'tank'];
             const type = types[Math.floor(Math.random() * types.length)];
@@ -783,7 +700,7 @@
                 speed: 3 + level * 0.5,
                 health: 20 + level * 5
             };
-           
+            
             if (type === 'fast') {
                 enemy.speed *= 1.5;
                 enemy.health *= 0.7;
@@ -793,10 +710,10 @@
                 enemy.width = 70;
                 enemy.height = 100;
             }
-           
+            
             enemies.push(enemy);
         }
-       
+        
         function spawnBoss() {
             boss = {
                 x: canvas.width - 150,
@@ -812,7 +729,7 @@
             bossSpawned = true;
             bossHealthContainer.classList.remove('hidden');
         }
-       
+        
         function spawnPowerUp(x, y) {
             const types = ['health', 'energy', 'score'];
             const type = types[Math.floor(Math.random() * types.length)];
@@ -824,7 +741,7 @@
                 alpha: 1
             });
         }
-       
+        
         function createExplosion(x, y, text) {
             explosions.push({
                 x,
@@ -834,7 +751,8 @@
                 alpha: 1,
                 life: 60
             });
-           
+            explosionSound.play();
+            
             // Particles
             for (let i = 0; i < 20; i++) {
                 particles.push({
@@ -849,7 +767,7 @@
                 });
             }
         }
-       
+        
         function createBitcoin(x, y) {
             bitcoins.push({
                 x,
@@ -860,50 +778,50 @@
                 collected: false
             });
         }
-       
+        
         function update() {
             if (!gameRunning) return;
-           
+            
             // Player Movement
             if (keys['ArrowLeft'] || touchControls.left) playerX = Math.max(0, playerX - 7 - level * 0.2);
             if (keys['ArrowRight'] || touchControls.right) playerX = Math.min(canvas.width - playerWidth, playerX + 7 + level * 0.2);
-           
+            
             // Gravity
             playerY += velocityY;
             velocityY += 0.8;
-           
+            
             // Ground Detection
             if (playerY > canvas.height - 150) {
                 playerY = canvas.height - 150;
                 velocityY = 0;
                 isJumping = false;
             }
-           
+            
             // Cooldowns
             attackCooldown = Math.max(0, attackCooldown - 1);
             specialCooldown = Math.max(0, specialCooldown - 1);
-           
+            
             // Regen
             if (energy < 100) energy += 0.3;
             if (health < 100) health += 0.1;
-           
+            
             // Spawn Enemies
             enemySpawnTimer++;
             if (enemySpawnTimer > 50 - level * 2) {
                 spawnEnemy();
                 enemySpawnTimer = 0;
             }
-           
+            
             // Spawn Boss
             if (!bossSpawned && score >= level * 1000) {
                 spawnBoss();
             }
-           
+            
             // Update Enemies
             for (let i = enemies.length - 1; i >= 0; i--) {
                 const enemy = enemies[i];
                 enemy.x -= enemy.speed;
-               
+                
                 // Collision with Player
                 if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy.x, enemy.y, enemy.width, enemy.height)) {
                     health -= 10 + level;
@@ -911,18 +829,18 @@
                     createExplosion(enemy.x, enemy.y, "Hit!");
                     continue;
                 }
-               
+                
                 // Offscreen
                 if (enemy.x + enemy.width < 0) {
                     enemies.splice(i, 1);
                 }
             }
-           
+            
             // Update Boss
             if (boss) {
                 boss.y += boss.speed;
                 if (boss.y > canvas.height - boss.height - 50 || boss.y < 50) boss.speed = -boss.speed;
-               
+                
                 boss.attackCooldown--;
                 if (boss.attackCooldown <= 0) {
                     projectiles.push({
@@ -935,11 +853,11 @@
                     });
                     boss.attackCooldown = 25 - level;
                 }
-               
+                
                 if (checkCollision(playerX, playerY, playerWidth, playerHeight, boss.x, boss.y, boss.width, boss.height)) {
                     health -= 5 + level;
                 }
-               
+                
                 if (boss.health <= 0) {
                     createExplosion(boss.x + boss.width / 2, boss.y + boss.height / 2, "Boss Defeated!");
                     createBitcoin(boss.x + boss.width / 2, boss.y + boss.height / 2);
@@ -953,17 +871,15 @@
                     level++;
                     spawnPowerUp(canvas.width / 2, canvas.height / 2);
                     bossSpawned = false;
-                    bossesDefeated++;
-                    updateStats();
                 }
             }
-           
+            
             // Update Projectiles
             for (let i = projectiles.length - 1; i >= 0; i--) {
                 const proj = projectiles[i];
                 proj.x += proj.speed;
-                if (proj.angle) proj.y += proj.angle * proj.speed;
-               
+                if (proj.angle) proj.y += proj.angle * proj.speed; // For special attacks
+                
                 if (proj.isEnemy) {
                     if (checkCollision(playerX, playerY, playerWidth, playerHeight, proj.x, proj.y, proj.width, proj.height)) {
                         health -= 15 + level;
@@ -978,38 +894,37 @@
                         if (checkCollision(proj.x, proj.y, proj.width, proj.height, enemy.x, enemy.y, enemy.width, enemy.height)) {
                             enemy.health -= proj.isSpecial ? 15 + level : 8 + level / 2;
                             if (enemy.health <= 0) {
-                                createExplosion(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2, "bitcoin for the young!");
+                                createExplosion(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2, "bitcoin for the young! 年轻人比特币");
                                 createBitcoin(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2);
                                 if (Math.random() < 0.1) spawnPowerUp(enemy.x, enemy.y);
                                 score += 50 + level * 10;
                                 bitcoinCount++;
+                                defeatSound.play();
                                 enemies.splice(j, 1);
-                                enemiesDefeated++;
-                                updateStats();
                             }
                             hit = true;
                             break;
                         }
                     }
-                   
+                    
                     if (boss && !hit) {
                         if (checkCollision(proj.x, proj.y, proj.width, proj.height, boss.x, boss.y, boss.width, boss.height)) {
                             boss.health -= proj.isSpecial ? 30 + level : 15 + level / 2;
                             hit = true;
                         }
                     }
-                   
+                    
                     if (hit) {
                         projectiles.splice(i, 1);
                         continue;
                     }
                 }
-               
+                
                 if (proj.x > canvas.width || proj.x + proj.width < 0) {
                     projectiles.splice(i, 1);
                 }
             }
-           
+            
             // Update Explosions
             for (let i = explosions.length - 1; i >= 0; i--) {
                 explosions[i].life--;
@@ -1017,7 +932,7 @@
                 explosions[i].alpha = explosions[i].life / 60;
                 if (explosions[i].life <= 0) explosions.splice(i, 1);
             }
-           
+            
             // Update Bitcoins
             for (let i = bitcoins.length - 1; i >= 0; i--) {
                 const bitcoin = bitcoins[i];
@@ -1025,14 +940,14 @@
                     bitcoin.collected = true;
                     score += bitcoin.value * 10;
                     bitcoinCount += bitcoin.value;
-                    bitcoins.splice(i, 1);
+                    collectSound.play();
                 }
-               
-                bitcoin.y -= 2;
+                
+                bitcoin.y -= 2; // Float up
                 bitcoin.alpha -= 0.01;
                 if (bitcoin.alpha <= 0) bitcoins.splice(i, 1);
             }
-           
+            
             // Update PowerUps
             for (let i = powerUps.length - 1; i >= 0; i--) {
                 const pu = powerUps[i];
@@ -1041,15 +956,14 @@
                     if (pu.type === 'energy') energy = Math.min(100, energy + 50);
                     if (pu.type === 'score') score += 200;
                     powerUps.splice(i, 1);
-                    powerupsCollected++;
-                    updateStats();
+                    collectSound.play();
                 }
-               
-                pu.y += Math.sin(Date.now() / 500) * 0.5;
+                
+                pu.y += Math.sin(Date.now() / 500) * 0.5; // Hover effect
                 pu.alpha -= 0.002;
                 if (pu.alpha <= 0) powerUps.splice(i, 1);
             }
-           
+            
             // Update Particles
             for (let i = particles.length - 1; i >= 0; i--) {
                 const p = particles[i];
@@ -1059,28 +973,28 @@
                 p.life--;
                 if (p.life <= 0) particles.splice(i, 1);
             }
-           
+            
             // Game Over Check
             if (health <= 0) {
                 gameOver();
             }
-           
+            
             updateHUD();
         }
-       
+        
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-           
+            
             // Background
             drawBackground();
-           
+            
             // Ground
             ctx.fillStyle = '#1a1a1a';
             ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
-           
+            
             // Player
             ctx.drawImage(playerImg, playerX, playerY, playerWidth, playerHeight);
-           
+            
             // Enemies
             for (const enemy of enemies) {
                 ctx.fillStyle = '#ff3b30';
@@ -1091,19 +1005,19 @@
                 ctx.fillStyle = '#34c759';
                 ctx.fillRect(enemy.x, enemy.y - 10, enemy.width * (enemy.health / (20 + level * 5)), 5);
             }
-           
+            
             // Boss
             if (boss) {
                 ctx.fillStyle = '#ff3b30';
                 ctx.fillRect(boss.x, boss.y, boss.width, boss.height);
             }
-           
+            
             // Projectiles
             for (const proj of projectiles) {
                 ctx.fillStyle = proj.isEnemy ? '#ff3b30' : (proj.isSpecial ? '#ffcc00' : '#0a84ff');
                 ctx.fillRect(proj.x, proj.y, proj.width, proj.height);
             }
-           
+            
             // Explosions
             for (const exp of explosions) {
                 ctx.font = `${exp.size}px system-ui`;
@@ -1111,14 +1025,14 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(exp.text, exp.x, exp.y);
             }
-           
+            
             // Bitcoins
             for (const bitcoin of bitcoins) {
                 ctx.font = `${bitcoin.size}px Arial`;
                 ctx.fillStyle = `rgba(255, 204, 0, ${bitcoin.alpha})`;
                 ctx.fillText('₿', bitcoin.x, bitcoin.y);
             }
-           
+            
             // PowerUps
             for (const pu of powerUps) {
                 ctx.fillStyle = pu.type === 'health' ? '#34c759' : (pu.type === 'energy' ? '#0a84ff' : '#ffcc00');
@@ -1126,7 +1040,7 @@
                 ctx.arc(pu.x, pu.y, pu.size / 2, 0, Math.PI * 2);
                 ctx.fill();
             }
-           
+            
             // Particles
             for (const p of particles) {
                 ctx.fillStyle = `rgba(255, 204, 0, ${p.alpha})`;
@@ -1135,7 +1049,7 @@
                 ctx.fill();
             }
         }
-       
+        
         function drawBackground() {
             // Parallax Stars
             ctx.fillStyle = '#ffffff';
@@ -1145,7 +1059,7 @@
                 const size = Math.random() * 2;
                 ctx.fillRect(x, y, size, size);
             }
-           
+            
             // City Silhouette
             ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
             for (let i = 0; i < 15; i++) {
@@ -1153,24 +1067,22 @@
                 ctx.fillRect((i * 80 + score / 5) % canvas.width, canvas.height - height - 100, 60, height);
             }
         }
-       
+        
         function checkCollision(x1, y1, w1, h1, x2, y2, w2, h2) {
             return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
         }
-       
+        
         function gameLoop() {
             if (!gameRunning) return;
-           
+            
             update();
             draw();
-           
+            
             requestAnimationFrame(gameLoop);
         }
-       
-        // Initialize
-        window.addEventListener('resize', resizeCanvas);
-        window.addEventListener('orientationchange', resizeCanvas);
-        resizeCanvas();
+        
+        // Preload
+        playerImg.onload = () => console.log("Player loaded");
     </script>
 </body>
 </html>
