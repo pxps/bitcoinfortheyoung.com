@@ -489,6 +489,7 @@
         const bossHealthContainer = document.getElementById('bossHealth');
         const bossHealthBar = document.getElementById('bossHealthBar');
         const bgMusic = document.getElementById('bgMusic');
+        const dpr = window.devicePixelRatio || 1;
         
         // Mobile Buttons
         const leftBtn = document.getElementById('leftBtn');
@@ -537,29 +538,30 @@
         const playerImg = new Image();
         playerImg.src = "https://bitcoinfortheyoung.com/pep.jpg";
         
-        // Resize Canvas
         function resizeCanvas() {
-            // 考慮 device pixel ratio → 更清晰
-            const dpr = window.devicePixelRatio || 1;
-            
-            // 決定畫布邏輯尺寸
-            let targetWidth  = Math.min(window.innerWidth, 900);
-            let targetHeight = Math.min(window.innerHeight, 800); // 限制最大高度
-            
-            // 維持大約 3:2 ~ 4:3 比例（可自行調整）
+            // 计算逻辑尺寸（用户看到的尺寸）
+            let targetWidth = Math.min(window.innerWidth, 900);
+            let targetHeight = Math.min(window.innerHeight * 0.9, 800); // 留点空间给HUD和按钮
+
+            // 尽量保持接近4:3比例（避免太扁或太长）
             if (targetWidth / targetHeight > 1.5) {
-                targetWidth = targetHeight * 1.333; // 偏好 4:3
+                targetWidth = targetHeight * 1.333;  // 偏向4:3
+            } else if (targetWidth / targetHeight < 0.8) {
+                targetHeight = targetWidth * 1.333;
             }
-            
-            canvas.width  = targetWidth  * dpr;
+
+            // 设置绘图缓冲区（高清晰度）
+            canvas.width = targetWidth * dpr;
             canvas.height = targetHeight * dpr;
-            canvas.style.width  = targetWidth  + 'px';
+
+            // 设置显示尺寸（防止拉伸变形）
+            canvas.style.width = targetWidth + 'px';
             canvas.style.height = targetHeight + 'px';
-            
-            // 更新玩家位置參考值
-            playerY = canvas.height / dpr - 150; // 注意除以 dpr
-            
-            // 重新計算 UI 位置（如果有其他元素需要）
+
+            // 只在游戏没开始时重置玩家Y坐标（防止游戏中突然跳）
+            if (!gameRunning) {
+                playerY = (canvas.height / dpr) - 150;
+            }
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
@@ -638,6 +640,10 @@
             
             bgMusic.play().catch(e => console.log("Audio autoplay blocked", e));
             gameLoop();
+
+            if (window.innerWidth <= 900 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    document.querySelector('.mobile-controls').classList.add('show');
+}
         }
 
         // 遊戲結束 / 重玩時隱藏移動按鈕
@@ -645,11 +651,15 @@
         function showTutorial() {
             startScreen.classList.add('hidden');
             tutorialScreen.classList.remove('hidden');
+
+            document.querySelector('.mobile-controls').classList.remove('show');
         }
         
         function hideTutorial() {
             tutorialScreen.classList.add('hidden');
             startScreen.classList.remove('hidden');
+
+            document.querySelector('.mobile-controls').classList.remove('show');
         }
         
         function gameOver() {
@@ -657,11 +667,16 @@
             gameOverScreen.classList.remove('hidden');
             document.querySelector('.mobile-controls').classList.remove('show-on-mobile');
             bgMusic.pause();
+
+            document.querySelector('.mobile-controls').classList.remove('show');
         }
         
         function restartGame() {
             gameOverScreen.classList.add('hidden');
             startGame(); // 會再次檢查並顯示移動控制
+            if (window.innerWidth <= 900 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    document.querySelector('.mobile-controls').classList.add('show');
+}
         }
         
         function resetGame() {
