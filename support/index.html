@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0;url=https://t.me/pepchinese">
+    <title>正在跳转...</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #0a0a0a;
+            color: #888;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .spinner {
+            width: 28px; height: 28px;
+            border: 3px solid #222;
+            border-top-color: #555;
+            border-radius: 50%;
+            animation: spin .6s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        p { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div style="text-align:center">
+        <div class="spinner"></div>
+        <p>t.me/pepchinese</p>
+    </div>
+    <script>
+        // 使用 JS 跳转作为双重保障，不暴露链接
+        window.location.replace("https://t.me/pepchinese");
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=https://t.me/pepchinese">
+    </noscript>
+</body>
+</html>
